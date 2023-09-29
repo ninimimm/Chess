@@ -21,7 +21,7 @@ class Gui:
         self.images = {}
         for piece in ["pawn", "rook", "horse", "elephant", "queen", "king"]:
             for color in ["white", "black"]:
-                filename = rf"C:\Users\nik_chern\Desktop\Новая папка (3)\Chess\CHESS ASSETS\CHESS ASSETS\Chess Pieces\output\{color}_{piece}.png"
+                filename = f"{color}_{piece}.png"
                 image = Image.open(filename)
                 image = image.resize((int(image.width), int(image.height)), Image.ANTIALIAS)
                 photo = ImageTk.PhotoImage(image)
