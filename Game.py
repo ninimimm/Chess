@@ -1,6 +1,11 @@
 import tkinter as tk
-from Figure import Figure
 from Cage import Cage
+from Pawn import Pawn
+from Rook import Rook
+from Horse import Horse
+from Elephant import Elephant
+from Queen import Queen
+from King import King
 from MovesFigures import MoveFigures
 
 class Game:
@@ -13,47 +18,47 @@ class Game:
         self.diffx = diffx
         self.canvas = canvas
         self.canvas.bind('<Button-1>', self.on_click)
+        self.move_figures = MoveFigures(self)
         self.dict_cages = {
-            (0, 1):  Cage("black", (0, 1), Figure("pawn", "white")),
-            (1, 1):  Cage("white", (1, 1), Figure("pawn", "white")),
-            (2, 1):  Cage("black", (2, 1), Figure("pawn", "white")),
-            (3, 1):  Cage("white", (3, 1), Figure("pawn", "white")),
-            (4, 1):  Cage("black", (4, 1), Figure("pawn", "white")),
-            (5, 1):  Cage("white", (5, 1), Figure("pawn", "white")),
-            (6, 1):  Cage("black", (6, 1), Figure("pawn", "white")),
-            (7, 1):  Cage("white", (7, 1), Figure("pawn", "white")),
+            (0, 1):  Cage("black", (0, 1), Pawn("white", self.move_figures, self)),
+            (1, 1):  Cage("white", (1, 1), Pawn("white", self.move_figures, self)),
+            (2, 1):  Cage("black", (2, 1), Pawn("white", self.move_figures, self)),
+            (3, 1):  Cage("white", (3, 1), Pawn("white", self.move_figures, self)),
+            (4, 1):  Cage("black", (4, 1), Pawn("white", self.move_figures, self)),
+            (5, 1):  Cage("white", (5, 1), Pawn("white", self.move_figures, self)),
+            (6, 1):  Cage("black", (6, 1), Pawn("white", self.move_figures, self)),
+            (7, 1):  Cage("white", (7, 1), Pawn("white", self.move_figures, self)),
 
-            (0, 0): Cage("white", (0, 0), Figure("rook", "white")),
-            (1, 0): Cage("black", (1, 0), Figure("horse", "white")),
-            (2, 0): Cage("white", (2, 0), Figure("elephant", "white")),
-            (3, 0): Cage("black", (3, 0), Figure("queen", "white")),
-            (4, 0): Cage("white", (4, 0), Figure("king", "white")),
-            (5, 0): Cage("black", (5, 0), Figure("elephant", "white")),
-            (6, 0): Cage("white", (6, 0), Figure("horse", "white")),
-            (7, 0): Cage("black", (7, 0), Figure("rook", "white")),
+            (0, 0): Cage("white", (0, 0), Rook("white", self.move_figures, self)),
+            (1, 0): Cage("black", (1, 0), Horse("white", self.move_figures, self)),
+            (2, 0): Cage("white", (2, 0), Elephant("white", self.move_figures, self)),
+            (3, 0): Cage("black", (3, 0), Queen("white", self.move_figures, self)),
+            (4, 0): Cage("white", (4, 0), King("white", self.move_figures, self)),
+            (5, 0): Cage("black", (5, 0), Elephant("white", self.move_figures, self)),
+            (6, 0): Cage("white", (6, 0), Horse("white", self.move_figures, self)),
+            (7, 0): Cage("black", (7, 0), Rook("white", self.move_figures, self)),
 
-            (0, 6): Cage("white", (0, 6), Figure("pawn", "black")),
-            (1, 6): Cage("black", (1, 6), Figure("pawn", "black")),
-            (2, 6): Cage("white", (2, 6), Figure("pawn", "black")),
-            (3, 6): Cage("black", (3, 6), Figure("pawn", "black")),
-            (4, 6): Cage("white", (4, 6), Figure("pawn", "black")),
-            (5, 6): Cage("black", (5, 6), Figure("pawn", "black")),
-            (6, 6): Cage("white", (6, 6), Figure("pawn", "black")),
-            (7, 6): Cage("black", (7, 6), Figure("pawn", "black")),
+            (0, 6): Cage("white", (0, 6), Pawn("black", self.move_figures, self)),
+            (1, 6): Cage("black", (1, 6), Pawn("black", self.move_figures, self)),
+            (2, 6): Cage("white", (2, 6), Pawn("black", self.move_figures, self)),
+            (3, 6): Cage("black", (3, 6), Pawn("black", self.move_figures, self)),
+            (4, 6): Cage("white", (4, 6), Pawn("black", self.move_figures, self)),
+            (5, 6): Cage("black", (5, 6), Pawn("black", self.move_figures, self)),
+            (6, 6): Cage("white", (6, 6), Pawn("black", self.move_figures, self)),
+            (7, 6): Cage("black", (7, 6), Pawn("black", self.move_figures, self)),
 
-            (0, 7): Cage("black", (0, 7), Figure("rook", "black")),
-            (1, 7): Cage("white", (1, 7), Figure("horse", "black")),
-            (2, 7): Cage("black", (2, 7), Figure("elephant", "black")),
-            (3, 7): Cage("white", (3, 7), Figure("queen", "black")),
-            (4, 7): Cage("black", (4, 7), Figure("king", "black")),
-            (5, 7): Cage("white", (5, 7), Figure("elephant", "black")),
-            (6, 7): Cage("black", (6, 7), Figure("horse", "black")),
-            (7, 7): Cage("white", (7, 7), Figure("rook", "black"))}
+            (0, 7): Cage("black", (0, 7), Rook("black", self.move_figures, self)),
+            (1, 7): Cage("white", (1, 7), Horse("black", self.move_figures, self)),
+            (2, 7): Cage("black", (2, 7), Elephant("black", self.move_figures, self)),
+            (3, 7): Cage("white", (3, 7), Queen("black", self.move_figures, self)),
+            (4, 7): Cage("black", (4, 7), King("black", self.move_figures, self)),
+            (5, 7): Cage("white", (5, 7), Elephant("black", self.move_figures, self)),
+            (6, 7): Cage("black", (6, 7), Horse("black", self.move_figures, self)),
+            (7, 7): Cage("white", (7, 7), Rook("black", self.move_figures, self))}
         for i in range(8):
             for j in range(8):
                 if (i, j) not in self.dict_cages:
                     self.dict_cages[(i, j)] = Cage(["white", "black"][(i + j) % 2], (i, j))
-        self.move_figures = MoveFigures(self.dict_cages)
         self.draw_chessboard(self.dict_cages)
 
     def on_click(self, event):
@@ -76,7 +81,7 @@ class Game:
         elif cage.color != "green" and cage.figure is not None:
             self.full()
             self.current = (coordinate, cage)
-            self.move_figures.dict_figures_moves[cage.figure.name](coordinate, cage)
+            cage.figure.moves(coordinate, cage)
 
         self.draw_chessboard(self.dict_cages)
 
