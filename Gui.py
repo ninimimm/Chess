@@ -1,6 +1,6 @@
 import tkinter as tk
 from Game import Game
-from PIL import Image, ImageTk  # Импортируем Image и ImageTk из библиотеки Pillow
+from PIL import Image, ImageTk
 
 class Gui:
     def __init__(self):
