@@ -96,7 +96,7 @@ class Game:
                         if figure.name == source_cage.figure.name and figure.coordinate == source_cage.figure.coordinate:
                             figure.coordinate = coordinate
                             break
-
+                self.fill()
                 source_cage.figure.coordinate = coordinate
                 self.dict_cages[coordinate].figure = source_cage.figure
                 self.dict_cages[source_coordinate].figure = None
@@ -109,6 +109,7 @@ class Game:
 
             elif cage.color != "green" and cage.figure is not None and cage.figure.color == ["white", "black"][self.current_player]:
                 self.current = (coordinate, cage)
+                self.fill()
                 cage.figure.moves(coordinate, cage)
         string_cages = ""
         string_figures = ""
@@ -121,6 +122,12 @@ class Game:
                     string_figures += f" {self.dict_cages[(j, i)].figure.color}_{self.dict_cages[(j, i)].figure.name}"
         print(f"{string_cages},{string_figures}хуй")
         return f"{string_cages},{string_figures}"
+
+    def fill(self):
+        for i in range(8):
+            for j in range(8):
+                color = ["white", "black"][(i + j) % 2]
+                self.dict_cages[(i, j)].color = color
 
 
 

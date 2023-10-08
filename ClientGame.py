@@ -18,6 +18,7 @@ class ClientGame:
         self.root = root
         self.canvas = canvas
         self.images = images
+        self.dict_images = {}
         self.square_size = square_size
         self.diffy = diffy
         self.diffx = diffx
@@ -35,65 +36,67 @@ class ClientGame:
                 if j < 2:
                     if j == 1:
                         self.string_images[i][j] = "white_pawn"
-                        self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                        self.dict_images["white_pawn"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                  j * self.square_size + self.diffy - 20,
                                                  anchor=tk.NW, image=images["white_pawn"])
+
                     else:
                         if i == 0 or i == 7:
                             self.string_images[i][j] = "white_rook"
-                            self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.dict_images["white_rook"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["white_rook"])
+
                         elif i == 1 or i == 6:
                             self.string_images[i][j] = "white_horse"
-                            self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.dict_images["white_horse"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["white_horse"])
                         elif i == 2 or i == 5:
                             self.string_images[i][j] = "white_elephant"
-                            self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.dict_images["white_elephant"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["white_elephant"])
                         elif i == 3:
                             self.string_images[i][j] = "white_queen"
-                            self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.dict_images["white_queen"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["white_queen"])
                         else:
                             self.string_images[i][j] = "white_king"
-                            self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.dict_images["white_king"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["white_king"])
                 elif j > 5:
                     if j == 6:
                         self.string_images[i][j] = "black_pawn"
-                        self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                        self.dict_images["black_pawn"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                  j * self.square_size + self.diffy - 20,
                                                  anchor=tk.NW, image=images["black_pawn"])
                     else:
                         if i == 0 or i == 7:
                             self.string_images[i][j] = "black_rook"
-                            self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.dict_images["black_rook"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["black_rook"])
                         elif i == 1 or i == 6:
                             self.string_images[i][j] = "black_horse"
-                            self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.dict_images["black_horse"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["black_horse"])
                         elif i == 2 or i == 5:
                             self.string_images[i][j] = "black_elephant"
-                            self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.dict_images["black_elephant"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["black_elephant"])
                         elif i == 3:
                             self.string_images[i][j] = "black_queen"
-                            self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.dict_images["black_queen"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["black_queen"])
                         else:
                             self.string_images[i][j] = "black_king"
-                            self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.dict_images["black_king"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["black_king"])
 
@@ -107,4 +110,8 @@ class ClientGame:
             for j in range(8):
                 self.canvas.itemconfig(self.squares[i][j], fill=cages[i * 8 + j])
                 if figures[i * 8 + j] != "None":
-                    self.canvas.move(self.images[figures[i * 8 + j]], i * self.square_size + self.diffx - 2, j * self.square_size + self.diffy - 20)
+                    self.string_images[j][i] = figures[i * 8 + j]
+                else:
+                    self.string_images[j][i] = ""
+                self.canvas.move(self.dict_images[figures[i * 8 + j]], j * self.square_size + self.diffx - 2, i * self.square_size + self.diffy - 20)
+
