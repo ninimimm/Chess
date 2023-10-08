@@ -114,8 +114,12 @@ class Game:
         string_figures = ""
         for i in range(8):
             for j in range(8):
-                string_cages += f"{self.dict_cages[(i, j)].color} "
-                string_figures += f" {self.dict_cages[(i, j)].figure.color}_{self.dict_cages[(i, j)].figure.name}"
+                string_cages += f"{self.dict_cages[(j, i)].color} "
+                if self.dict_cages[(j, i)].figure is None:
+                    string_figures += f" None"
+                else:
+                    string_figures += f" {self.dict_cages[(j, i)].figure.color}_{self.dict_cages[(j, i)].figure.name}"
+        print(f"{string_cages},{string_figures}хуй")
         return f"{string_cages},{string_figures}"
 
 

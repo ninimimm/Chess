@@ -103,7 +103,8 @@ class ClientGame:
         Clientmain.connection(self.coordinate, self, self.client)
 
     def get_content(self, cages, figures):
-        for i in range(len(cages)):
-            for j in range(len(cages)):
-                self.canvas.itemconfig(self.squares[i][j], fill = cages[i][j])
-                self.canvas.move(self.images[figures[i][j]], i * self.square_size + self.diffx - 2 ,j * self.square_size + self.diffy - 20)
+        for i in range(8):
+            for j in range(8):
+                self.canvas.itemconfig(self.squares[i][j], fill=cages[i * 8 + j])
+                if figures[i * 8 + j] != "None":
+                    self.canvas.move(self.images[figures[i * 8 + j]], i * self.square_size + self.diffx - 2, j * self.square_size + self.diffy - 20)

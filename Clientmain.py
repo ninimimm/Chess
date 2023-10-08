@@ -14,12 +14,18 @@ def connection(coordinate, game, cl):
     message = f"{coordinate[0]} {coordinate[1]}"
     print("Отправляю сообщение на сервер")
     cl.send(message.encode('utf-8'))
+    print(message, "jnghfdbk [etne")
     print("Отправил сообщение на сервер")
 
     print("Пытаюсь получить данные с сервера")
     data = cl.recv(1024).decode('utf-8')
     print("Получил данные с сервера")
-    parse = data.split(",")
-    game.cages = [x for x in parse[0].split()]
-    game.figures = [x for x in parse[1].split()]
+    parse = data.split(" ,")
+    print(data)
+    cages = [x for x in parse[0].split()]
+    print(cages)
+    figures = [x for x in parse[1].split()]
+    print(figures)
+    game.get_content(cages, figures)
+
 
