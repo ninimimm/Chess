@@ -10,9 +10,12 @@ from Cage import Cage
 class MoveFigures:
     def __init__(self, game):
         self.game = game
+        self.our_figures = []
+        self.enemy_figures = []
 
     def draw(self, possible_moves):
         for move in possible_moves:
+            self.game.canvas.itemconfig(self.game.squares[move[1]][move[0]], fill = "green")
             self.game.dict_cages[move].color = "green"
 
     def copy_cage(self, cage):
@@ -34,48 +37,47 @@ class MoveFigures:
             case "king":
                 return King(figure.color, figure.move_figures, figure.game, figure.coordinate)
 
-    def is_check(self, color):
-        our_figures, enemy_figures, king = [], [], None
-        if color == "white":
-            our_figures = self.game.white_player.figures
-            enemy_figures = self.game.black_player.figures
-        else:
-            our_figures = self.game.black_player.figures
-            enemy_figures = self.game.white_player.figures
-
-        for our_figure in our_figures:
-            if our_figure.name == "king":
-                king = our_figure
-                break
-
-        p = []
-        for enemy_figure in enemy_figures:
+    def is_check(self, enemy_to_king):
+        king = self.our_figures[0]
+        for enemy_figure in enemy_to_king:
             for cord in enemy_figure.get_moves(enemy_figure.coordinate, self.game.dict_cages[enemy_figure.coordinate]):
-                p.append(cord)
                 if cord == king.coordinate:
                     return True
         return False
 
     def get_possible_defense_moves(self, color):
         possible_defense_moves = set()
-        pieces = (self.game.white_player.figures if color == "white" else self.game.black_player.figures)
+        enemy_to_king = []
+        if color == "white":
+            self.our_figures = self.game.white_player.figures
+            self.enemy_figures = self.game.black_player.figures
+        else:
+            self.our_figures = self.game.black_player.figures
+            self.enemy_figures = self.game.white_player.figures
+        print(self.enemy_figures)
+        if self.game.current[1].figure.name == "king":
+            enemy_to_king = self.enemy_figures
+        else:
+            for figure in self.enemy_figures:
+                if self.our_figures[0].coordinate in figure.get_moves(figure.coordinate, self.game.dict_cages[figure.coordinate]):
+                    enemy_to_king.append(figure)
+            print(enemy_to_king, "enemy_to_king")
 
-        for piece in pieces:
-            if self.game.current[1].figure.name == "king" and piece.name != "king":
-               continue
-            for move in piece.get_moves(piece.coordinate, self.game.dict_cages[piece.coordinate]):
-                self.print_dict_copy(self.game.dict_cages)
-                start_cord = piece.coordinate
-                finish_figure = self.game.dict_cages[move].figure
-                piece.coordinate = move
-                self.game.dict_cages[move].figure = piece
-                self.game.dict_cages[start_cord].figure = None
-                self.print_dict_copy(self.game.dict_cages)
-                if not self.is_check(color):
-                    possible_defense_moves.add(move)
-                piece.coordinate = start_cord
-                self.game.dict_cages[start_cord].figure = piece
-                self.game.dict_cages[move].figure = finish_figure
+        piece = self.game.dict_cages[self.game.current[1].figure.coordinate].figure
+        for move in piece.get_moves(piece.coordinate, self.game.dict_cages[piece.coordinate]):
+            start_cord = piece.coordinate
+            finish_figure = self.game.dict_cages[move].figure
+            piece.coordinate = move
+            self.game.dict_cages[move].figure = piece
+            self.game.dict_cages[start_cord].figure = None
+            print(self.is_check(enemy_to_king))
+            if not self.is_check(enemy_to_king):
+                possible_defense_moves.add(move)
+
+            piece.coordinate = start_cord
+            self.game.dict_cages[start_cord].figure = piece
+            self.game.dict_cages[move].figure = finish_figure
+        print(possible_defense_moves)
         return possible_defense_moves
 
     def print_dict_copy(self, dict_copy):
