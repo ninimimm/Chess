@@ -14,6 +14,14 @@ import Clientmain
 
 class ClientGame:
     def __init__(self, root, images, canvas, square_size, diffy, diffx):
+        self.index_white_pawn = 0
+        self.index_black_pawn = 0
+        self.index_white_rook = 0
+        self.index_black_rook = 0
+        self.index_white_horse = 0
+        self.index_black_horse = 0
+        self.index_white_elephant = 0
+        self.index_black_elephant = 0
         self.client = None
         self.root = root
         self.canvas = canvas
@@ -35,28 +43,31 @@ class ClientGame:
             for j in range(len(self.string_images)):
                 if j < 2:
                     if j == 1:
-                        self.string_images[i][j] = "white_pawn"
-                        self.dict_images["white_pawn"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                        self.string_images[i][j] = f"white_pawn{self.index_white_pawn}"
+                        self.dict_images[f"white_pawn{self.index_white_pawn}"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                  j * self.square_size + self.diffy - 20,
                                                  anchor=tk.NW, image=images["white_pawn"])
-
+                        self.index_white_pawn += 1
                     else:
                         if i == 0 or i == 7:
-                            self.string_images[i][j] = "white_rook"
-                            self.dict_images["white_rook"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.string_images[i][j] = f"white_rook{self.index_white_rook}"
+                            self.dict_images[f"white_rook{self.index_white_rook}"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["white_rook"])
+                            self.index_white_rook += 1
 
                         elif i == 1 or i == 6:
-                            self.string_images[i][j] = "white_horse"
-                            self.dict_images["white_horse"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.string_images[i][j] = f"white_horse{self.index_white_horse}"
+                            self.dict_images[f"white_horse{self.index_white_horse}"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["white_horse"])
+                            self.index_white_horse += 1
                         elif i == 2 or i == 5:
-                            self.string_images[i][j] = "white_elephant"
-                            self.dict_images["white_elephant"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.string_images[i][j] = f"white_elephant{self.index_white_elephant}"
+                            self.dict_images[f"white_elephant{self.index_white_elephant}"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["white_elephant"])
+                            self.index_white_elephant += 1
                         elif i == 3:
                             self.string_images[i][j] = "white_queen"
                             self.dict_images["white_queen"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
@@ -69,26 +80,30 @@ class ClientGame:
                                                      anchor=tk.NW, image=images["white_king"])
                 elif j > 5:
                     if j == 6:
-                        self.string_images[i][j] = "black_pawn"
-                        self.dict_images["black_pawn"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                        self.string_images[i][j] = f"black_pawn{self.index_black_pawn}"
+                        self.dict_images[f"black_pawn{self.index_black_pawn}"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                  j * self.square_size + self.diffy - 20,
                                                  anchor=tk.NW, image=images["black_pawn"])
+                        self.index_black_pawn += 1
                     else:
                         if i == 0 or i == 7:
-                            self.string_images[i][j] = "black_rook"
-                            self.dict_images["black_rook"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.string_images[i][j] = f"black_rook{self.index_black_rook}"
+                            self.dict_images[f"black_rook{self.index_black_rook}"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["black_rook"])
+                            self.index_black_rook += 1
                         elif i == 1 or i == 6:
-                            self.string_images[i][j] = "black_horse"
-                            self.dict_images["black_horse"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.string_images[i][j] = f"black_horse{self.index_black_horse}"
+                            self.dict_images[f"black_horse{self.index_black_horse}"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["black_horse"])
+                            self.index_black_horse += 1
                         elif i == 2 or i == 5:
-                            self.string_images[i][j] = "black_elephant"
-                            self.dict_images["black_elephant"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.string_images[i][j] = f"black_elephant{self.index_black_elephant}"
+                            self.dict_images[f"black_elephant{self.index_black_elephant}"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["black_elephant"])
+                            self.index_black_elephant += 1
                         elif i == 3:
                             self.string_images[i][j] = "black_queen"
                             self.dict_images["black_queen"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
