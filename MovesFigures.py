@@ -15,7 +15,6 @@ class MoveFigures:
 
     def draw(self, possible_moves):
         for move in possible_moves:
-            self.game.canvas.itemconfig(self.game.squares[move[1]][move[0]], fill = "green")
             self.game.dict_cages[move].color = "green"
 
     def copy_cage(self, cage):
@@ -23,19 +22,18 @@ class MoveFigures:
 
     def copy_figure(self, figure):
         if figure is None: return None
-        match figure.name:
-            case "pawn":
-                return Pawn(figure.color, figure.move_figures, figure.game, figure.coordinate)
-            case "rook":
-                return Rook(figure.color, figure.move_figures, figure.game, figure.coordinate)
-            case "horse":
-                return Horse(figure.color, figure.move_figures, figure.game, figure.coordinate)
-            case "elephant":
-                return Elephant(figure.color, figure.move_figures, figure.game, figure.coordinate)
-            case "queen":
-                return Queen(figure.color, figure.move_figures, figure.game, figure.coordinate)
-            case "king":
-                return King(figure.color, figure.move_figures, figure.game, figure.coordinate)
+        if figure.name == "pawn":
+            return Pawn(figure.color, figure.move_figures, figure.game, figure.coordinate)
+        elif figure.name == "rook":
+            return Rook(figure.color, figure.move_figures, figure.game, figure.coordinate)
+        elif figure.name == "horse":
+            return Horse(figure.color, figure.move_figures, figure.game, figure.coordinate)
+        elif figure.name == "elephant":
+            return Elephant(figure.color, figure.move_figures, figure.game, figure.coordinate)
+        elif figure.name == "queen":
+            return Queen(figure.color, figure.move_figures, figure.game, figure.coordinate)
+        elif figure.name == "king":
+            return King(figure.color, figure.move_figures, figure.game, figure.coordinate)
 
     def is_check(self, enemy_to_king):
         king = self.our_figures[0]

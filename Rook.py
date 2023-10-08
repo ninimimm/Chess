@@ -1,11 +1,10 @@
 class Rook:
-    def __init__(self, color, move_figures, game, coordinate, image):
+    def __init__(self, color, move_figures, game, coordinate):
         self.move_figures = move_figures
         self.game = game
         self.name = "rook"
         self.color = color
         self.coordinate = coordinate
-        self.image = image
 
     def __str__(self):
         return f"{self.name[0]},{self.color[0]},{self.coordinate}"

@@ -1,11 +1,10 @@
 class Elephant:
-    def __init__(self, color, move_figures, game, coordinate, image):
+    def __init__(self, color, move_figures, game, coordinate):
         self.coordinate = coordinate
         self.move_figures = move_figures
         self.game = game
         self.name = "elephant"
         self.color = color
-        self.image = image
 
     def __str__(self):
         return f"{self.name[0]},{self.color[0]},{self.coordinate}"

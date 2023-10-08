@@ -1,9 +1,9 @@
 import tkinter as tk
-from Game import Game
+from ClientGame import ClientGame
 from PIL import Image, ImageTk
 from screeninfo import get_monitors
 
-class Gui:
+class ClientGui:
     def __init__(self):
         self.root = tk.Tk()
         self.root.title("Шахматная доска")
@@ -28,7 +28,7 @@ class Gui:
         self.diffx = 140
 
         self.load_images()
-        self.game = Game(self.root, self.images, self.canvas, self.square_size, self.diffy, self.diffx)
+        self.game = ClientGame(self.root, self.images, self.canvas, self.square_size, self.diffy, self.diffx)
 
     def load_images(self):
         self.images = {}
