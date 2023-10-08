@@ -69,13 +69,13 @@ class ClientGame:
                                                      anchor=tk.NW, image=images["white_elephant"])
                             self.index_white_elephant += 1
                         elif i == 3:
-                            self.string_images[i][j] = "white_queen"
-                            self.dict_images["white_queen"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.string_images[i][j] = "white_queen0"
+                            self.dict_images["white_queen0"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["white_queen"])
                         else:
-                            self.string_images[i][j] = "white_king"
-                            self.dict_images["white_king"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.string_images[i][j] = "white_king0"
+                            self.dict_images["white_king0"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["white_king"])
                 elif j > 5:
@@ -105,13 +105,13 @@ class ClientGame:
                                                      anchor=tk.NW, image=images["black_elephant"])
                             self.index_black_elephant += 1
                         elif i == 3:
-                            self.string_images[i][j] = "black_queen"
-                            self.dict_images["black_queen"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.string_images[i][j] = "black_queen0"
+                            self.dict_images["black_queen0"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["black_queen"])
                         else:
-                            self.string_images[i][j] = "black_king"
-                            self.dict_images["black_king"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                            self.string_images[i][j] = "black_king0"
+                            self.dict_images["black_king0"] = self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["black_king"])
 
@@ -126,7 +126,9 @@ class ClientGame:
                 self.canvas.itemconfig(self.squares[i][j], fill=cages[i * 8 + j])
                 if figures[i * 8 + j] != "None":
                     self.string_images[j][i] = figures[i * 8 + j]
+                    self.canvas.move(self.dict_images[figures[i * 8 + j]], j * self.square_size + self.diffx - 2,
+                                     i * self.square_size + self.diffy - 20)
                 else:
                     self.string_images[j][i] = ""
-                self.canvas.move(self.dict_images[figures[i * 8 + j]], j * self.square_size + self.diffx - 2, i * self.square_size + self.diffy - 20)
+
 

@@ -1,5 +1,6 @@
 class Queen:
-    def __init__(self, color, move_figures, game, coordinate):
+    def __init__(self, color, move_figures, game, coordinate, index):
+        self.index = index
         self.coordinate = coordinate
         self.move_figures = move_figures
         self.game = game
