@@ -24,7 +24,7 @@ if __name__ == '__main__':
     diffx = 140
     game = Game(square_size, diffy, diffx)
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.bind(('127.0.0.1', 8080))
+    server.bind(('0.0.0.0', 8080))
     server.listen()
     print("Сервер запущен и ждет подключений.")
 

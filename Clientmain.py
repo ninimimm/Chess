@@ -8,7 +8,7 @@ def connection(coordinate, game, cl):
     if cl is None:
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         cl = client
-        client.connect(('127.0.0.1', 8080))
+        client.connect(('178.154.244.233', 8080))
     if coordinate[0] < 0 or coordinate[1] < 0 or coordinate[0] > 7 or coordinate[1] > 7:
         return
     message = f"{coordinate[0]} {coordinate[1]}"
