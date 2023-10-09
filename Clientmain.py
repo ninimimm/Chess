@@ -8,12 +8,12 @@ def connection(coordinate, game, cl):
     if cl is None:
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         cl = client
-        host = '127.0.0.1'
-        port = 8080
-        client.connect((host, port))
+        client.connect(('127.0.0.1', 8080))
+    if coordinate[0] < 0 or coordinate[1] < 0 or coordinate[0] > 7 or coordinate[1] > 7:
+        return
     message = f"{coordinate[0]} {coordinate[1]}"
     print("Отправляю сообщение на сервер")
-    cl.send(message.encode('utf-8'))
+    cl.sendall(message.encode('utf-8'))
     print(message, "jnghfdbk [etne")
     print("Отправил сообщение на сервер")
 
@@ -26,6 +26,5 @@ def connection(coordinate, game, cl):
     print(cages)
     figures = [x for x in parse[1].split()]
     print(figures)
-    game.get_content(cages, figures)
-
-
+    print(parse[2], "color")
+    game.get_content(cages, figures, parse[2])

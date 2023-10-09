@@ -36,6 +36,6 @@ class ClientGui:
             for color in ["white", "black"]:
                 filename = rf"output\{color}_{piece}.png"
                 image = Image.open(filename)
-                image = image.resize((int(image.width), int(image.height)), Image.ANTIALIAS)
+                image = image.resize((int(image.width), int(image.height)), Image.BILINEAR)
                 photo = ImageTk.PhotoImage(image)
                 self.images[f"{color}_{piece}"] = photo

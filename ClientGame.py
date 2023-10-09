@@ -14,6 +14,8 @@ import Clientmain
 
 class ClientGame:
     def __init__(self, root, images, canvas, square_size, diffy, diffx):
+        self.color = None
+        self.prev_cord = None
         self.index_white_pawn = 0
         self.index_black_pawn = 0
         self.index_white_rook = 0
@@ -117,18 +119,27 @@ class ClientGame:
 
 
     def on_click(self, event):
-        self.coordinate = ((event.x - self.diffx) // self.square_size, (event.y - self.diffy) // self.square_size)
-        Clientmain.connection(self.coordinate, self, self.client)
+        cord = ((event.x - self.diffx) // self.square_size, (event.y - self.diffy) // self.square_size)
+        if self.color is None or self.string_images[cord[0]][cord[1]].split('_')[0] == self.color:
+            self.prev_cord = cord
+        self.coordinate = cord
+        Clientmain.connection(cord, self, self.client)
 
-    def get_content(self, cages, figures):
+    def get_content(self, cages, figures, color):
+        self.color = color
+        print("вывожу неизменненный квадрат")
+        print([self.canvas.itemconfig(self.squares[i][j], "fill") for i in range(8) for j in range(8)])
+        print(self.canvas.itemconfig(self.squares[self.coordinate[0]][self.coordinate[1]], "fill"), "до я тут")
+        if self.canvas.itemconfig(self.squares[self.coordinate[1]][self.coordinate[0]], "fill")[4] == "green":
+            print("ya tut")
+            self.canvas.move(self.dict_images[figures[self.coordinate[1] * 8 + self.coordinate[0]]],
+                             (self.coordinate[0] - self.prev_cord[0]) * self.square_size,
+                             (self.coordinate[1] - self.prev_cord[1]) * self.square_size)
         for i in range(8):
             for j in range(8):
                 self.canvas.itemconfig(self.squares[i][j], fill=cages[i * 8 + j])
                 if figures[i * 8 + j] != "None":
                     self.string_images[j][i] = figures[i * 8 + j]
-                    self.canvas.move(self.dict_images[figures[i * 8 + j]], j * self.square_size + self.diffx - 2,
-                                     i * self.square_size + self.diffy - 20)
                 else:
                     self.string_images[j][i] = ""
-
 

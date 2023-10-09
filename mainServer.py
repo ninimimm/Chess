@@ -2,19 +2,16 @@ import socket
 import threading
 from Game import Game
 
-def handle_client(client, game):
+def handle_client(client, game, address):
     while True:
         try:
             data = client.recv(1024).decode('utf-8')
-            if not data:
-                break  # Клиент отключился, завершаем обработку
-            message = data.split()
-            print(message)
-            if len(message) > 0:
-                print("Пытаюсь отправить данные клиенту")
+            if len(data) > 0:
+                message = data.split()
                 print(message)
-                response = game.on_click((int(message[0]), int(message[1]))).encode('utf-8')
-                client.send(response)
+                print("Пытаюсь отправить данные клиенту")
+                response = game.on_click((int(message[0]), int(message[1])), address[0]).encode('utf-8')
+                client.sendall(response)
                 print("Отправил данные клиенту")
         except (ConnectionResetError, OSError):
             print("Клиент отключился")
@@ -28,11 +25,11 @@ if __name__ == '__main__':
     game = Game(square_size, diffy, diffx)
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind(('127.0.0.1', 8080))
-    server.listen(2)
+    server.listen()
     print("Сервер запущен и ждет подключений.")
 
     while True:
         client, address = server.accept()
         print(f"Подключен клиент {address}")
-        client_handler = threading.Thread(target=handle_client, args=(client, game))
+        client_handler = threading.Thread(target=handle_client, args=(client, game, address))
         client_handler.start()

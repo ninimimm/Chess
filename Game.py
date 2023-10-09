@@ -12,6 +12,7 @@ from PIL import Image, ImageTk
 
 class Game:
     def __init__(self, square_size, diffy, diffx):
+        self.players_ip = {}
         self.index_white_pawn = 0
         self.index_black_pawn = 0
         self.index_white_rook = 0
@@ -84,7 +85,11 @@ class Game:
                 if (i, j) not in self.dict_cages:
                     self.dict_cages[(i, j)] = Cage(["white", "black"][(i + j) % 2], (i, j))
 
-    def on_click(self, coordinate):
+    def on_click(self, coordinate, address):
+        if address not in self.players_ip:
+            self.players_ip[address] = ["black", True] if "white" in self.players_ip.values() else ["white", True]
+        print(address, self.players_ip)
+
         if self.ready == True:
             cage = self.dict_cages[coordinate]
             if cage.color == "green" and self.current is not None:
@@ -119,9 +124,10 @@ class Game:
                     return
                 self.current = None
                 self.current_player = (self.current_player + 1) % 2
-
-            elif cage.color != "green" and cage.figure is not None and cage.figure.color == ["white", "black"][
-                self.current_player]:
+                for value in self.players_ip.values():
+                    value[1] = not(value[1])
+            elif cage.color != "green" and cage.figure is not None and self.players_ip[address][1] and cage.figure.color == self.players_ip[address][0]:
+                print("могу что-то сделать")
                 self.current = (coordinate, cage)
                 self.fill()
                 cage.figure.moves(coordinate, cage)
@@ -135,7 +141,7 @@ class Game:
                 else:
                     string_figures += f" {self.dict_cages[(j, i)].figure.color}_{self.dict_cages[(j, i)].figure.name}{self.dict_cages[(j, i)].figure.index}"
         print(f"{string_cages},{string_figures}хуй")
-        return f"{string_cages},{string_figures}"
+        return f"{string_cages},{string_figures} ,{self.players_ip[address][0]}"
 
     def fill(self):
         for i in range(8):
