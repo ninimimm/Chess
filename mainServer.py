@@ -12,7 +12,7 @@ def handle_client(client, game, address):
                 print("Пытаюсь отправить данные клиенту")
                 response = game.on_click((int(message[0]), int(message[1])), address[0]).encode('utf-8')
                 for cl in clients:
-                    cl.sendall(response)
+                    cl.send(response)
                 print("Отправил данные клиенту")
         except (ConnectionResetError, OSError):
             print("Клиент отключился")
