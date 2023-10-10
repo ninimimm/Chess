@@ -1,3 +1,4 @@
+import time
 import tkinter as tk
 from Cage import Cage
 from Pawn import Pawn
@@ -10,6 +11,7 @@ from MovesFigures import MoveFigures
 from Player import Player
 from PIL import Image, ImageTk
 import Clientmain
+import threading
 
 
 class ClientGame:
@@ -118,9 +120,11 @@ class ClientGame:
                                                      anchor=tk.NW, image=images["black_king"]), (j, i)]
         self.schedule_connection()
 
-    def schedule_connection(self):
-        Clientmain.connection("give", self, self.client)
-        self.root.after(2000, self.schedule_connection)
+
+    async def schedule_connection(self):
+        while True:
+            await Clientmain.connection("give", self, self.client)
+            time.sleep(2)
 
     def on_click(self, event):
         cord = ((event.x - self.diffx) // self.square_size, (event.y - self.diffy) // self.square_size)
@@ -128,6 +132,7 @@ class ClientGame:
             self.prev_cord = cord
         self.coordinate = cord
         Clientmain.connection(cord, self, self.client)
+        self.schedule_connection()
 
     def get_content(self, cages, figures, color):
         self.color = color
