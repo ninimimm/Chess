@@ -86,6 +86,8 @@ class Game:
                     self.dict_cages[(i, j)] = Cage(["white", "black"][(i + j) % 2], (i, j))
 
     def give_cages(self, address):
+        if address not in self.players_ip:
+            self.players_ip[address] = ["black", True] if "white" in [x[0] for x in self.players_ip.values()] else ["white", True]
         string_cages = ""
         string_figures = ""
         for i in range(8):
