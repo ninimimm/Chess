@@ -28,8 +28,11 @@ if __name__ == '__main__':
     server.listen()
     print("Сервер запущен и ждет подключений.")
 
-    while True:
-        client, address = server.accept()
-        print(f"Подключен клиент {address}")
-        client_handler = threading.Thread(target=handle_client, args=(client, game, address))
-        client_handler.start()
+    try:
+        while True:
+            client, address = server.accept()
+            print(f"Подключен клиент {address}")
+            client_handler = threading.Thread(target=handle_client, args=(client, game, address))
+            client_handler.start()
+    finally:
+        server.close()
