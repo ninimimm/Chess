@@ -116,7 +116,11 @@ class ClientGame:
                             self.dict_images["black_king0"] = [self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["black_king"]), (j, i)]
+        self.schedule_connection()
 
+    def schedule_connection(self):
+        Clientmain.connection("give", self, self.client)
+        self.root.after(2000, self.schedule_connection)
 
     def on_click(self, event):
         cord = ((event.x - self.diffx) // self.square_size, (event.y - self.diffy) // self.square_size)
