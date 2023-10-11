@@ -7,7 +7,7 @@ def handle_client(client, game, address):
     while True:
         try:
             ready = select.select([client], [], [], 2)
-
+            data = None
             if ready[0]:
                 data = client.recv(1024).decode('utf-8')
             if len(data) < 0:
