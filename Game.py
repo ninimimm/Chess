@@ -85,6 +85,19 @@ class Game:
                 if (i, j) not in self.dict_cages:
                     self.dict_cages[(i, j)] = Cage(["white", "black"][(i + j) % 2], (i, j))
 
+    def get_cages(self):
+        string_cages = ""
+        string_figures = ""
+        for i in range(8):
+            for j in range(8):
+                string_cages += f"{self.dict_cages[(j, i)].color} "
+                if self.dict_cages[(j, i)].figure is None:
+                    string_figures += f" None"
+                else:
+                    string_figures += f" {self.dict_cages[(j, i)].figure.color}_{self.dict_cages[(j, i)].figure.name}{self.dict_cages[(j, i)].figure.index}"
+        print(f"{string_cages},{string_figures}хуй")
+        return f"{string_cages},{string_figures} ,{self.players_ip[self.players_ip[0]][0]}"
+
     def on_click(self, coordinate, address):
         if address not in self.players_ip:
             self.players_ip[address] = ["black", True] if "white" in [x[0] for x in self.players_ip.values()] else ["white", True]

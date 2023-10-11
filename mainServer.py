@@ -1,16 +1,23 @@
 import socket
+import select
 import threading
 from Game import Game
 
 def handle_client(client, game, address):
     while True:
         try:
-            data = client.recv(1024).decode('utf-8')
+            ready = select.select([client], [], [], 2)
+            data = "просто поле"
+            if ready[0]:
+                data = client.recv(1024).decode('utf-8')
             if len(data) > 0:
                 message = data.split()
                 print(message)
                 print("Пытаюсь отправить данные клиенту")
-                response = game.on_click((int(message[0]), int(message[1])), address[0]).encode('utf-8')
+                if data == "просто поле":
+                    response = game.get_cages()
+                else:
+                    response = game.on_click((int(message[0]), int(message[1])), address[0]).encode('utf-8')
                 for client in clients:
                     client.sendall(response)
                 print("Отправил данные клиенту")

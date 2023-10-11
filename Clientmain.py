@@ -22,16 +22,15 @@ if __name__ == "__main__":
         client.connect(('178.154.244.233', 8080))
         while True:
             print(shared_data.coordinate, shared_data.game)
-            if shared_data.coordinate is None:
-                continue
-            if shared_data.coordinate[0] < 0 or shared_data.coordinate[1] < 0 or shared_data.coordinate[0] > 7 or shared_data.coordinate[1] > 7:
-                print(shared_data.game)
-                continue
-            message = f"{shared_data.coordinate[0]} {shared_data.coordinate[1]}"
-            print("Отправляю сообщение на сервер")
-            client.sendall(message.encode('utf-8'))
-            print(message, "jnghfdbk [etne")
-            print("Отправил сообщение на сервер")
+            if shared_data.coordinate is not None:
+                if shared_data.coordinate[0] < 0 or shared_data.coordinate[1] < 0 or shared_data.coordinate[0] > 7 or shared_data.coordinate[1] > 7:
+                    print(shared_data.game)
+                    continue
+                message = f"{shared_data.coordinate[0]} {shared_data.coordinate[1]}"
+                print("Отправляю сообщение на сервер")
+                client.sendall(message.encode('utf-8'))
+                print(message, "jnghfdbk [etne")
+                print("Отправил сообщение на сервер")
 
             print("Пытаюсь получить данные с сервера")
             data = client.recv(1024).decode('utf-8')
