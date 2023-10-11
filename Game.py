@@ -95,7 +95,6 @@ class Game:
                     string_figures += f" None"
                 else:
                     string_figures += f" {self.dict_cages[(j, i)].figure.color}_{self.dict_cages[(j, i)].figure.name}{self.dict_cages[(j, i)].figure.index}"
-        print(f"{string_cages},{string_figures}хуй")
         return f"{string_cages},{string_figures} ,сообщение"
 
     def on_click(self, coordinate, address):

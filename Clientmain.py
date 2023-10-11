@@ -13,7 +13,6 @@ shared_data = SharedData()
 
 # В ваших потоках используйте shared_data.coordinate и shared_data.gam
 if __name__ == "__main__":
-    print(id(shared_data))
     def run_start():
         gui = ClientGui(shared_data)
         gui.root.mainloop()
@@ -21,31 +20,29 @@ if __name__ == "__main__":
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client.connect(('178.154.244.233', 8080))
         while True:
-            print(shared_data.coordinate, shared_data.game)
             is_send = False
             if shared_data.coordinate is not None:
                 if shared_data.coordinate[0] < 0 or shared_data.coordinate[1] < 0 or shared_data.coordinate[0] > 7 or shared_data.coordinate[1] > 7:
-                    print(shared_data.game)
                     continue
                 is_send = True
                 message = f"{shared_data.coordinate[0]} {shared_data.coordinate[1]}"
-                print("Отправляю сообщение на сервер")
+                # print("Отправляю сообщение на сервер")
                 client.sendall(message.encode('utf-8'))
-                print(message, "jnghfdbk [etne")
-                print("Отправил сообщение на сервер")
+                # print(message, "jnghfdbk [etne")
+                # print("Отправил сообщение на сервер")
 
             ready = select.select([client], [], [], 0.25)
             if ready[0]:
-                print("Пытаюсь получить данные с сервера")
+                #print("Пытаюсь получить данные с сервера")
                 data = client.recv(1024).decode('utf-8')
-                print("Получил данные с сервера")
+                #print("Получил данные с сервера")
                 parse = data.split(" ,")
-                print(data)
+                #print(data)
                 cages = [x for x in parse[0].split()]
-                print(cages)
+                #print(cages)
                 figures = [x for x in parse[1].split()]
-                print(figures)
-                print(parse[2], "color")
+                #print(figures)
+                #print(parse[2], "color")
                 shared_data.game.get_content(cages, figures, parse[2])
             if is_send:
                 shared_data.coordinate = None

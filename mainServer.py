@@ -13,15 +13,15 @@ def handle_client(client, game, address):
             if len(data) <= 0:
                 data = "просто поле"
             message = data.split()
-            print(message)
-            print("Пытаюсь отправить данные клиенту")
+            # print(message)
+            # print("Пытаюсь отправить данные клиенту")
             if data == "просто поле":
                 response = game.get_cages().encode('utf-8')
             else:
                 response = game.on_click((int(message[0]), int(message[1])), address[0]).encode('utf-8')
             for client in clients:
                 client.sendall(response)
-            print("Отправил данные клиенту")
+            # print("Отправил данные клиенту")
         except (ConnectionResetError, OSError):
             print("Клиент отключился")
             break
