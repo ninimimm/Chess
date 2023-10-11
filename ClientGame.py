@@ -1,4 +1,5 @@
 import tkinter as tk
+import threading
 from Cage import Cage
 from Pawn import Pawn
 from Rook import Rook
@@ -14,6 +15,8 @@ from PIL import Image, ImageTk
 class ClientGame:
     def __init__(self, root, images, canvas, square_size, diffy, diffx, shared_data):
         self.shared_data = shared_data
+        print(id(self.shared_data))
+        self.lock = threading.Lock()
         self.color = None
         self.prev_cord = None
         self.index_white_pawn = 0
@@ -122,7 +125,8 @@ class ClientGame:
         if self.color is None or self.string_images[cord[0]][cord[1]].split('_')[0] == self.color:
             self.prev_cord = cord
         self.coordinate = cord
-        self.shared_data.coordinate = self.coordinate
+        with self.lock:
+            self.shared_data.coordinate = self.coordinate
 
     def get_content(self, cages, figures, color):
         self.color = color
