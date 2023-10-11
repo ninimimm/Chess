@@ -1,5 +1,5 @@
 import socket
-import subprocess
+import select
 import threading
 from ClientGui import ClientGui
 
@@ -19,7 +19,7 @@ if __name__ == "__main__":
     def connection():
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client.connect(('178.154.244.233', 8080))
-        client.settimeout(5)
+        client.setblocking(False)
         while True:
             print(shared_data.coordinate, shared_data.game)
             if shared_data.coordinate is not None:
@@ -32,18 +32,20 @@ if __name__ == "__main__":
                 print(message, "jnghfdbk [etne")
                 print("Отправил сообщение на сервер")
 
-            print("Пытаюсь получить данные с сервера")
-            data = client.recv(1024).decode('utf-8')
-            print("Получил данные с сервера")
-            parse = data.split(" ,")
-            print(data)
-            cages = [x for x in parse[0].split()]
-            print(cages)
-            figures = [x for x in parse[1].split()]
-            print(figures)
-            print(parse[2], "color")
-            shared_data.game.get_content(cages, figures, parse[2])
-            shared_data.coordinate = None
+            ready = select.select([client], [], [], 2.0)
+            if ready[0]:
+                print("Пытаюсь получить данные с сервера")
+                data = client.recv(1024).decode('utf-8')
+                print("Получил данные с сервера")
+                parse = data.split(" ,")
+                print(data)
+                cages = [x for x in parse[0].split()]
+                print(cages)
+                figures = [x for x in parse[1].split()]
+                print(figures)
+                print(parse[2], "color")
+                shared_data.game.get_content(cages, figures, parse[2])
+                shared_data.coordinate = None
     thread1 = threading.Thread(target=run_start)
     thread2 = threading.Thread(target=connection)
     thread1.start()

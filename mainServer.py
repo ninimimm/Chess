@@ -1,13 +1,15 @@
 import socket
 import threading
 from Game import Game
-import datetime
+import select
 
 def handle_client(client, game, address):
     while True:
         try:
             data = ""
-            data = client.recv(1024).decode('utf-8')
+            ready = select.select([client], [], [], 2.0)
+            if ready[0]:
+                data = client.recv(1024).decode('utf-8')
             if len(data) <= 0:
                 data = "просто поле"
             message = data.split()
@@ -33,7 +35,7 @@ if __name__ == '__main__':
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind(('0.0.0.0', 8080))
     server.listen()
-    server.settimeout(5)
+    server.setblocking(False)
     print("Сервер запущен и ждет подключений.")
     clients = []
 
