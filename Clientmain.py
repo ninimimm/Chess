@@ -17,9 +17,9 @@ if __name__ == "__main__":
         gui = ClientGui(shared_data)
         gui.root.mainloop()
     def connection():
-        global shared_data
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client.connect(('178.154.244.233', 8080))
+        client.settimeout(2)
         while True:
             print(shared_data.coordinate, shared_data.game)
             if shared_data.coordinate is not None:

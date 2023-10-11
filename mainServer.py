@@ -4,13 +4,10 @@ from Game import Game
 import datetime
 
 def handle_client(client, game, address):
-    prev_time = datetime.datetime.now().microsecond
     while True:
         try:
             data = ""
-            if datetime.datetime.now().microsecond - prev_time > 2000:
-                data = client.recv(1024).decode('utf-8')
-                prev_time = datetime.datetime.now().microsecond
+            data = client.recv(1024).decode('utf-8')
             if len(data) <= 0:
                 data = "просто поле"
             message = data.split()
@@ -36,6 +33,7 @@ if __name__ == '__main__':
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind(('0.0.0.0', 8080))
     server.listen()
+    server.settimeout(2)
     print("Сервер запущен и ждет подключений.")
     clients = []
 
