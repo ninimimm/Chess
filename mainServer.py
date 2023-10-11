@@ -7,20 +7,21 @@ def handle_client(client, game, address):
     while True:
         try:
             ready = select.select([client], [], [], 2)
-            data = "просто поле"
+
             if ready[0]:
                 data = client.recv(1024).decode('utf-8')
-            if len(data) > 0:
-                message = data.split()
-                print(message)
-                print("Пытаюсь отправить данные клиенту")
-                if data == "просто поле":
-                    response = game.get_cages().encode('utf-8')
-                else:
-                    response = game.on_click((int(message[0]), int(message[1])), address[0]).encode('utf-8')
-                for client in clients:
-                    client.sendall(response)
-                print("Отправил данные клиенту")
+            if len(data) < 0:
+                data = "просто поле"
+            message = data.split()
+            print(message)
+            print("Пытаюсь отправить данные клиенту")
+            if data == "просто поле":
+                response = game.get_cages().encode('utf-8')
+            else:
+                response = game.on_click((int(message[0]), int(message[1])), address[0]).encode('utf-8')
+            for client in clients:
+                client.sendall(response)
+            print("Отправил данные клиенту")
         except (ConnectionResetError, OSError):
             print("Клиент отключился")
             break
