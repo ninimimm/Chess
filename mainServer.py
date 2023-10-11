@@ -15,7 +15,7 @@ def handle_client(client, game, address):
                 print(message)
                 print("Пытаюсь отправить данные клиенту")
                 if data == "просто поле":
-                    response = game.get_cages()
+                    response = game.get_cages().encode('utf-8')
                 else:
                     response = game.on_click((int(message[0]), int(message[1])), address[0]).encode('utf-8')
                 for client in clients:
