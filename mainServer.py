@@ -1,15 +1,16 @@
 import socket
-import select
 import threading
 from Game import Game
+import datetime
 
 def handle_client(client, game, address):
+    prev_time = datetime.datetime.now().microsecond
     while True:
         try:
-            ready = select.select([client], [], [], 2)
             data = ""
-            if ready[0]:
+            if datetime.datetime.now().microsecond - prev_time > 2000:
                 data = client.recv(1024).decode('utf-8')
+                prev_time = datetime.datetime.now().microsecond
             if len(data) <= 0:
                 data = "просто поле"
             message = data.split()
