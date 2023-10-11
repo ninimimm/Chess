@@ -33,7 +33,7 @@ if __name__ == '__main__':
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind(('0.0.0.0', 8080))
     server.listen()
-    server.settimeout(2)
+    server.settimeout(5)
     print("Сервер запущен и ждет подключений.")
     clients = []
 
