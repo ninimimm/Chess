@@ -11,7 +11,8 @@ def handle_client(client, game, address):
                 print(message)
                 print("Пытаюсь отправить данные клиенту")
                 response = game.on_click((int(message[0]), int(message[1])), address[0]).encode('utf-8')
-                client.sendall(response)
+                for client in clients:
+                    client.sendall(response)
                 print("Отправил данные клиенту")
         except (ConnectionResetError, OSError):
             print("Клиент отключился")
@@ -27,9 +28,11 @@ if __name__ == '__main__':
     server.bind(('0.0.0.0', 8080))
     server.listen()
     print("Сервер запущен и ждет подключений.")
+    clients = []
 
     while True:
         client, address = server.accept()
+        clients.append(client)
         print(f"Подключен клиент {address}")
         client_handler = threading.Thread(target=handle_client, args=(client, game, address))
         client_handler.start()
