@@ -9,11 +9,11 @@ from King import King
 from MovesFigures import MoveFigures
 from Player import Player
 from PIL import Image, ImageTk
-import Clientmain
 
 
 class ClientGame:
-    def __init__(self, root, images, canvas, square_size, diffy, diffx):
+    def __init__(self, root, images, canvas, square_size, diffy, diffx, shared_data):
+        self.shared_data = shared_data
         self.color = None
         self.prev_cord = None
         self.index_white_pawn = 0
@@ -116,15 +116,13 @@ class ClientGame:
                             self.dict_images["black_king0"] = [self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["black_king"]), (j, i)]
-        Clientmain.coordinate = self.coordinate
-        Clientmain.game = self
-
+        self.shared_data.game = self
     def on_click(self, event):
         cord = ((event.x - self.diffx) // self.square_size, (event.y - self.diffy) // self.square_size)
         if self.color is None or self.string_images[cord[0]][cord[1]].split('_')[0] == self.color:
             self.prev_cord = cord
         self.coordinate = cord
-        Clientmain.coordinate = self.coordinate
+        self.shared_data.coordinate = self.coordinate
 
     def get_content(self, cages, figures, color):
         self.color = color

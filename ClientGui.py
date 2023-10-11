@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 from screeninfo import get_monitors
 
 class ClientGui:
-    def __init__(self):
+    def __init__(self, shared_data):
         self.root = tk.Tk()
         self.root.title("Шахматная доска")
         # Получаем информацию о всех мониторах
@@ -28,7 +28,7 @@ class ClientGui:
         self.diffx = 140
 
         self.load_images()
-        self.game = ClientGame(self.root, self.images, self.canvas, self.square_size, self.diffy, self.diffx)
+        self.game = ClientGame(self.root, self.images, self.canvas, self.square_size, self.diffy, self.diffx, shared_data)
 
     def load_images(self):
         self.images = {}

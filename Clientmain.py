@@ -1,21 +1,33 @@
 import socket
 import subprocess
 import threading
+from ClientGui import ClientGui
 
-coordinate = None
-game = None
+class SharedData:
+    def __init__(self):
+        self.coordinate = None
+        self.game = None
+
+# Создаем единственный экземпляр SharedData
+shared_data = SharedData()
+
+# В ваших потоках используйте shared_data.coordinate и shared_data.gam
 if __name__ == "__main__":
     def run_start():
-        subprocess.run(["python", "Clientstart.py"])
-    thread1 = threading.Thread(target=run_start())
-    thread1.start()
+        gui = ClientGui(shared_data)
+        gui.root.mainloop()
     def connection():
+        global shared_data
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client.connect(('178.154.244.233', 8080))
         while True:
-            if coordinate is None or coordinate[0] < 0 or coordinate[1] < 0 or coordinate[0] > 7 or coordinate[1] > 7:
-                return
-            message = f"{coordinate[0]} {coordinate[1]}"
+            print(shared_data.coordinate, shared_data.game)
+            if shared_data.coordinate is None:
+                continue
+            if shared_data.coordinate[0] < 0 or shared_data.coordinate[1] < 0 or shared_data.coordinate[0] > 7 or shared_data.coordinate[1] > 7:
+                print(shared_data.game)
+                continue
+            message = f"{shared_data.coordinate[0]} {shared_data.coordinate[1]}"
             print("Отправляю сообщение на сервер")
             client.sendall(message.encode('utf-8'))
             print(message, "jnghfdbk [etne")
@@ -31,7 +43,9 @@ if __name__ == "__main__":
             figures = [x for x in parse[1].split()]
             print(figures)
             print(parse[2], "color")
-            game.get_content(cages, figures, parse[2])
-            coordinate = None
-    thread2 = threading.Thread(target=connection())
+            shared_data.game.get_content(cages, figures, parse[2])
+            shared_data.coordinate = None
+    thread1 = threading.Thread(target=run_start)
+    thread2 = threading.Thread(target=connection)
+    thread1.start()
     thread2.start()
