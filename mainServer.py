@@ -6,12 +6,10 @@ import select
 def handle_client(client, game, address):
     while True:
         try:
-            data = ""
+            data = "просто поле"
             ready = select.select([client], [], [], 1)
             if ready[0]:
                 data = client.recv(1024).decode('utf-8')
-            if len(data) <= 0:
-                data = "просто поле"
             message = data.split()
             # print(message)
             # print("Пытаюсь отправить данные клиенту")
