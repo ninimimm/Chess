@@ -127,6 +127,9 @@ class ClientGame:
 
     def get_content(self, cages, figures, color):
         self.color = color
+        for image in self.string_images:
+            if image not in figures:
+                self.canvas.move(self.dict_images[image][0], 10000, 10000)
         for i in range(8):
             for j in range(8):
                 self.canvas.itemconfig(self.squares[i][j], fill=cages[i * 8 + j])
