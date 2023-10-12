@@ -128,8 +128,10 @@ class ClientGame:
             self.shared_data.coordinate = self.coordinate
 
     def get_content(self, cages, figures, color):
-        if color != "сообощение":
+        if color != "сообщение":
             self.color = color
+        print(self.squares)
+        print(cages, len(cages), "до ошибки")
         for i in range(8):
             for j in range(8):
                 self.canvas.itemconfig(self.squares[i][j], fill=cages[i * 8 + j])
