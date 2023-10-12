@@ -87,7 +87,7 @@ class Game:
 
     def on_click(self, coordinate, address):
         if address not in self.players_ip:
-            self.players_ip[address] = ["black", True] if "white" in [x[0] for x in self.players_ip.values()] else ["white", True]
+            self.players_ip[address] = ["black", False] if "white" in [x[0] for x in self.players_ip.values()] else ["white", True]
         print(address, self.players_ip)
 
         if self.ready == True:
