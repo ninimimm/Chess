@@ -15,7 +15,6 @@ from PIL import Image, ImageTk
 class ClientGame:
     def __init__(self, root, images, canvas, square_size, diffy, diffx, shared_data):
         self.shared_data = shared_data
-        print(id(self.shared_data))
         self.lock = threading.Lock()
         self.color = None
         self.prev_cord = None
@@ -129,7 +128,8 @@ class ClientGame:
             self.shared_data.coordinate = self.coordinate
 
     def get_content(self, cages, figures, color):
-        self.color = color
+        if color != "сообощение":
+            self.color = color
         for i in range(8):
             for j in range(8):
                 self.canvas.itemconfig(self.squares[i][j], fill=cages[i * 8 + j])

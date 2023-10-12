@@ -30,6 +30,10 @@ if __name__ == "__main__":
                 client.sendall(message.encode('utf-8'))
                 # print(message, "jnghfdbk [etne")
                 # print("Отправил сообщение на сервер")
+            else:
+                message = f"просто поле"
+                # print("Отправляю сообщение на сервер")
+                client.sendall(message.encode('utf-8'))
 
             ready = select.select([client], [], [], 0.25)
             if ready[0]:
@@ -42,7 +46,7 @@ if __name__ == "__main__":
                 #print(cages)
                 figures = [x for x in parse[1].split()]
                 #print(figures)
-                #print(parse[2], "color")
+                print(parse[2], "color")
                 shared_data.game.get_content(cages, figures, parse[2])
             if is_send:
                 shared_data.coordinate = None
