@@ -37,7 +37,7 @@ if __name__ == "__main__":
                 data = client.recv(1024).decode('utf-8')
                 #print("Получил данные с сервера")
                 parse = data.split(" ,")
-                #print(data)
+                print(data)
                 cages = [x for x in parse[0].split()]
                 #print(cages)
                 figures = [x for x in parse[1].split()]

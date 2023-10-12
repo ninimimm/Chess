@@ -6,8 +6,9 @@ import select
 def handle_client(client, game, address):
     while True:
         try:
+            print(clients)
             data = "просто поле"
-            ready = select.select([client], [], [], 1)
+            ready = select.select([client], [], [], 0.25)
             if ready[0]:
                 data = client.recv(1024).decode('utf-8')
             message = data.split()
