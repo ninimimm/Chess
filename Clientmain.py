@@ -31,6 +31,7 @@ if __name__ == "__main__":
             ready = select.select([client], [], [], 0.25)
             if ready[0]:
                 data = client.recv(1024).decode('utf-8')
+                print(data)
                 parse = data.split(" ,")
                 cages = [x for x in parse[0].split()]
                 figures = [x for x in parse[1].split()]
