@@ -4,7 +4,7 @@ import threading
 from ClientGui import ClientGui
 
 class SharedData:
-    def init(self):
+    def __init__(self):
         self.coordinate = None
         self.game = None
 
