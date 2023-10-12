@@ -9,7 +9,6 @@ from King import King
 from MovesFigures import MoveFigures
 from Player import Player
 from PIL import Image, ImageTk
-import Clientmain
 
 
 class ClientGame:
