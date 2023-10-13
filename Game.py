@@ -89,6 +89,7 @@ class Game:
         if address not in self.players_ip:
             self.players_ip[address] = ["black", False] if "white" in [x[0] for x in self.players_ip.values()] else ["white", True]
         print(address, self.players_ip)
+        flag = True
 
         if self.ready:
             cage = self.dict_cages[coordinate]
@@ -124,10 +125,9 @@ class Game:
                     return "choice"
                 self.current = None
                 self.current_player = (self.current_player + 1) % 2
-                print(self.players_ip, "проверка до")
+                if self.players_ip[address][1]: flag = True
                 for value in self.players_ip.values():
                     value[1] = not(value[1])
-                print(self.players_ip, "проверка после")
             elif cage.color != "green" and cage.figure is not None and self.players_ip[address][1] and cage.figure.color == self.players_ip[address][0]:
                 print("могу что-то сделать")
                 self.current = (coordinate, cage)
@@ -143,7 +143,7 @@ class Game:
                 else:
                     string_figures += f"{self.dict_cages[(j, i)].figure.color}_{self.dict_cages[(j, i)].figure.name}{self.dict_cages[(j, i)].figure.index} "
         print(f"{string_cages},{string_figures}хуй")
-        if self.players_ip[address][1]:
+        if flag:
             return f"{string_cages},{string_figures},{self.players_ip[address][0]}"
         else:
             return f"None ,{string_figures},{self.players_ip[address][0]}"
