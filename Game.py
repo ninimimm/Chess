@@ -124,8 +124,6 @@ class Game:
                     return "choice"
                 self.current = None
                 self.current_player = (self.current_player + 1) % 2
-                for value in self.players_ip.values():
-                    value[1] = not(value[1])
             elif cage.color != "green" and cage.figure is not None and self.players_ip[address][1] and cage.figure.color == self.players_ip[address][0]:
                 print("могу что-то сделать")
                 self.current = (coordinate, cage)

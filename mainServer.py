@@ -19,6 +19,8 @@ def handle_client(client, game, address):
                     if game.players_ip[address[0]][1]:
                         client.sendall(response)
                         if game.dict_cages[(int(message[0]), int(message[1]))].color == "green" and response != "choice":
+                            for value in game.players_ip.values():
+                                value[1] = not (value[1])
                             for cl in clients:
                                 if client != cl:
                                     cl.sendall(response)
