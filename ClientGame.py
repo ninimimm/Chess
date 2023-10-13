@@ -13,7 +13,6 @@ from PIL import Image, ImageTk
 
 class ClientGame:
     def __init__(self, root, images, canvas, square_size, diffy, diffx, shared_data):
-        self.ready = True
         self.shared_data = shared_data
         self.color = None
         self.prev_cord = None
@@ -146,7 +145,6 @@ class ClientGame:
                     self.string_images[j][i] = ""
 
     def choose_figure(self, color):
-        self.ready = False
         button_queen = tk.Button(command=lambda: self.choose_queen(color), image = self.images[f"{color}_queen"], width=85, height=85, bg = "#FFFF99")
         button_horse = tk.Button(command=lambda: self.choose_horse(color), image= self.images[f"{color}_horse"], width=85, height=85, bg = "#FFFF99")
         button_elephant = tk.Button(command=lambda: self.choose_elephant(color), image= self.images[f"{color}_elephant"], width=85, height=85, bg = "#FFFF99")
@@ -158,7 +156,6 @@ class ClientGame:
         button_queen.place(anchor="nw", x = self.coordinate[0] * self.square_size + 598, y = self.coordinate[1] * self.square_size - 190)
 
     def choose_queen(self, color):
-        self.ready = True
         self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
         self.delete_buttons(color)
         self.shared_data.answer_button = f"Queen,{self.coordinate[0]} {self.coordinate[1]}"
@@ -168,7 +165,6 @@ class ClientGame:
                                      anchor=tk.NW, image=self.images[f"{color}_queen"]), (self.coordinate[1], self.coordinate[0])]
 
     def choose_horse(self, color):
-        self.ready = True
         self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
         self.delete_buttons(color)
         self.shared_data.answer_button = f"Horse,{self.coordinate[0]} {self.coordinate[1]}"
@@ -179,7 +175,6 @@ class ClientGame:
             (self.coordinate[1], self.coordinate[0])]
 
     def choose_elephant(self, color):
-        self.ready = True
         self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
         self.delete_buttons(color)
         self.shared_data.answer_button = f"Elephant,{self.coordinate[0]} {self.coordinate[1]}"
@@ -190,7 +185,6 @@ class ClientGame:
             (self.coordinate[1], self.coordinate[0])]
 
     def choose_rook(self, color):
-        self.ready = True
         self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
         self.delete_buttons(color)
         self.shared_data.answer_button = f"Rook,{self.coordinate[0]} {self.coordinate[1]}"
