@@ -145,43 +145,38 @@ class ClientGame:
                 else:
                     self.string_images[j][i] = ""
 
-    def choose_figure(self):
+    def choose_figure(self, color):
         self.ready = False
-        color = ["white", "black"][self.current_player]
-        button_queen = tk.Button(command=self.choose_queen, image = self.images[f"{color}_queen"], width=85, height=85, bg = "#FFFF99")
-        button_horse = tk.Button(command=self.choose_horse, image= self.images[f"{color}_horse"], width=85, height=85, bg = "#FFFF99")
-        button_elephant = tk.Button(command=self.choose_elephant, image= self.images[f"{color}_elephant"], width=85, height=85, bg = "#FFFF99")
-        button_rook = tk.Button(command=self.choose_rook, image= self.images[f"{color}_rook"], width=85, height=85, bg = "#FFFF99")
+        button_queen = tk.Button(command=lambda: self.choose_queen(color), image = self.images[f"{color}_queen"], width=85, height=85, bg = "#FFFF99")
+        button_horse = tk.Button(command=lambda: self.choose_horse(color), image= self.images[f"{color}_horse"], width=85, height=85, bg = "#FFFF99")
+        button_elephant = tk.Button(command=lambda: self.choose_elephant(color), image= self.images[f"{color}_elephant"], width=85, height=85, bg = "#FFFF99")
+        button_rook = tk.Button(command=lambda: self.choose_rook(color), image= self.images[f"{color}_rook"], width=85, height=85, bg = "#FFFF99")
         self.figure_buttons = [button_queen, button_horse, button_elephant, button_rook]
         button_rook.place(anchor="nw", x = self.coordinate[0] * self.square_size + 598, y = self.coordinate[1] * self.square_size + 80)
         button_elephant.place(anchor="nw", x = self.coordinate[0] * self.square_size + 598, y = self.coordinate[1] * self.square_size - 10)
         button_horse.place(anchor="nw", x = self.coordinate[0] * self.square_size + 598, y = self.coordinate[1] * self.square_size - 100)
         button_queen.place(anchor="nw", x = self.coordinate[0] * self.square_size + 598, y = self.coordinate[1] * self.square_size - 190)
 
-    def choose_queen(self):
+    def choose_queen(self, color):
         self.ready = True
-        color = ["white", "black"][self.current_player]
         self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
         self.delete_buttons(color)
         return f"Queen,{self.coordinate[0]} {self.coordinate[1]}"
 
-    def choose_horse(self):
+    def choose_horse(self, color):
         self.ready = True
-        color = ["white", "black"][self.current_player]
         self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
         self.delete_buttons(color)
         return f"Horse,{self.coordinate[0]} {self.coordinate[1]}"
 
-    def choose_elephant(self):
+    def choose_elephant(self, color):
         self.ready = True
-        color = ["white", "black"][self.current_player]
         self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
         self.delete_buttons(color)
         return f"Elephant,{self.coordinate[0]} {self.coordinate[1]}"
 
-    def choose_rook(self):
+    def choose_rook(self, color):
         self.ready = True
-        color = ["white", "black"][self.current_player]
         self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
         self.delete_buttons(color)
         return f"Rook,{self.coordinate[0]} {self.coordinate[1]}"

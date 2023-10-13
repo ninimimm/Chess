@@ -121,7 +121,7 @@ class Game:
                 if self.dict_cages[coordinate].figure.name == "pawn" and (coordinate[1] == 7 or coordinate[1] == 0):
                     # self.choose_figure()
                     self.ready = False
-                    return "choice"
+                    return f"choice {self.players_ip[address][0]}"
                 self.current = None
                 self.current_player = (self.current_player + 1) % 2
             elif cage.color != "green" and cage.figure is not None and self.players_ip[address][1] and cage.figure.color == self.players_ip[address][0]:

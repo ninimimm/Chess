@@ -15,6 +15,7 @@ gui = None
 # В ваших потоках используйте shared_data.coordinate и shared_data.gam
 if __name__ == "__main__":
     def run_start():
+        global gui
         gui = ClientGui(shared_data)
         gui.root.mainloop()
     def connection():
@@ -32,8 +33,8 @@ if __name__ == "__main__":
             ready = select.select([client], [], [], 0.25)
             if ready[0]:
                 data = client.recv(1024).decode('utf-8')
-                if data == "choice":
-                    client.sendall(gui.game.choise_figure())
+                if data.split()[0] == "choice":
+                    client.sendall(gui.game.choose_figure(), data.split()[1])
                 else:
                     print(data)
                     parse = data.split(" ,")
