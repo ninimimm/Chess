@@ -150,7 +150,7 @@ class ClientGame:
                         self.dict_images[figures[i * 8 + j]] = [
                             self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
-                                                     anchor=tk.NW, image=self.images[figures[i * 8 + j]]), (j, i)]
+                                                     anchor=tk.NW, image=self.images[figures[i * 8 + j][:-1]]), (j, i)]
                     self.canvas.move(self.dict_images[figures[i * 8 + j]][0],
                                      (j - self.dict_images[figures[i * 8 + j]][1][1]) * self.square_size,
                                      (i - self.dict_images[figures[i * 8 + j]][1][0]) * self.square_size)
