@@ -24,6 +24,8 @@ class ClientGame:
         self.index_black_horse = 0
         self.index_white_elephant = 0
         self.index_black_elephant = 0
+        self.index_white_queen = 0
+        self.index_black_queen = 0
         self.client = None
         self.root = root
         self.canvas = canvas
@@ -75,6 +77,7 @@ class ClientGame:
                             self.dict_images["white_queen0"] = [self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["white_queen"]), (j, i)]
+                            self.index_white_queen += 1
                         else:
                             self.string_images[i][j] = "white_king0"
                             self.dict_images["white_king0"] = [self.canvas.create_image(i * self.square_size + self.diffx - 2,
@@ -111,6 +114,7 @@ class ClientGame:
                             self.dict_images["black_queen0"] = [self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["black_queen"]), (j, i)]
+                            self.index_black_queen += 1
                         else:
                             self.string_images[i][j] = "black_king0"
                             self.dict_images["black_king0"] = [self.canvas.create_image(i * self.square_size + self.diffx - 2,
@@ -141,6 +145,12 @@ class ClientGame:
                     self.canvas.itemconfig(self.squares[i][j], fill=cages[i * 8 + j])
                 if figures[i * 8 + j] != "None":
                     self.string_images[j][i] = figures[i * 8 + j]
+                    if figures[i * 8 + j] not in self.dict_images:
+                        self.string_images[i][j] = figures[i * 8 + j]
+                        self.dict_images[figures[i * 8 + j]] = [
+                            self.canvas.create_image(i * self.square_size + self.diffx - 2,
+                                                     j * self.square_size + self.diffy - 20,
+                                                     anchor=tk.NW, image=self.images[figures[i * 8 + j]]), (j, i)]
                     self.canvas.move(self.dict_images[figures[i * 8 + j]][0],
                                      (j - self.dict_images[figures[i * 8 + j]][1][1]) * self.square_size,
                                      (i - self.dict_images[figures[i * 8 + j]][1][0]) * self.square_size)
@@ -166,7 +176,7 @@ class ClientGame:
     def choose_queen(self, color):
         self.delete_buttons(color)
         self.shared_data.answer_button = f"Queen,{self.coordinate[0]} {self.coordinate[1]}"
-        self.dict_images[f"{color}_queen{self.index_white_elephant}"] = [
+        self.dict_images[f"{color}_queen{self.index_white_queen}"] = [
             self.canvas.create_image(self.coordinate[0] * self.square_size + self.diffx - 2,
                                      self.coordinate[1] * self.square_size + self.diffy - 20,
                                      anchor=tk.NW, image=self.images[f"{color}_queen"]), (self.coordinate[1], self.coordinate[0])]
@@ -174,7 +184,7 @@ class ClientGame:
     def choose_horse(self, color):
         self.delete_buttons(color)
         self.shared_data.answer_button = f"Horse,{self.coordinate[0]} {self.coordinate[1]}"
-        self.dict_images[f"{color}_horse{self.index_white_elephant}"] = [
+        self.dict_images[f"{color}_horse{self.index_white_horse}"] = [
             self.canvas.create_image(self.coordinate[0] * self.square_size + self.diffx - 2,
                                      self.coordinate[1] * self.square_size + self.diffy - 20,
                                      anchor=tk.NW, image=self.images[f"{color}_horse"]),
@@ -192,7 +202,7 @@ class ClientGame:
     def choose_rook(self, color):
         self.delete_buttons(color)
         self.shared_data.answer_button = f"Rook,{self.coordinate[0]} {self.coordinate[1]}"
-        self.dict_images[f"{color}_rook{self.index_white_elephant}"] = [
+        self.dict_images[f"{color}_rook{self.index_white_rook}"] = [
             self.canvas.create_image(self.coordinate[0] * self.square_size + self.diffx - 2,
                                      self.coordinate[1] * self.square_size + self.diffy - 20,
                                      anchor=tk.NW, image=self.images[f"{color}_rook"]),
