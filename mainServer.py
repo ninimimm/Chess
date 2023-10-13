@@ -6,12 +6,13 @@ def handle_client(client, game, address):
     while True:
         try:
             data = client.recv(1024).decode('utf-8')
-            if len(data) > 0 and "black" in data:
+            if len(data) > 0:
                 if any(x in data for x in ["Queen", "Horse", "Elephant", "Rook"]):
                     massage = data.split(",")
                     cord = massage[0].split()
                     game.create_figure(massage[0], (int(cord[0]), int(cord[1])))
                 else:
+                    print(data)
                     message = data.split()
                     print(message)
                     print("Пытаюсь отправить данные клиенту")
