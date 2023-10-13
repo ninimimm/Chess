@@ -9,7 +9,7 @@ def handle_client(client, game, address):
             if len(data) > 0:
                 if any(x in data for x in ["Queen", "Horse", "Elephant", "Rook"]):
                     massage = data.split(",")
-                    cord = massage[0].split()
+                    cord = massage[1].split()
                     game.create_figure(massage[0], (int(cord[0]), int(cord[1])))
                 else:
                     print(data)
