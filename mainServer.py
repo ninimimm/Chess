@@ -6,7 +6,7 @@ def handle_client(client, game, address):
     while True:
         try:
             data = client.recv(1024).decode('utf-8')
-            if len(data) > 0:
+            if len(data) > 0 and "black" in data:
                 if any(x in data for x in ["Queen", "Horse", "Elephant", "Rook"]):
                     massage = data.split(",")
                     cord = massage[0].split()
