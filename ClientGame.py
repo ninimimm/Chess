@@ -161,25 +161,25 @@ class ClientGame:
         self.ready = True
         self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
         self.delete_buttons(color)
-        return f"Queen,{self.coordinate[0]} {self.coordinate[1]}"
+        self.shared_data.answer_button = f"Queen,{self.coordinate[0]} {self.coordinate[1]}"
 
     def choose_horse(self, color):
         self.ready = True
         self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
         self.delete_buttons(color)
-        return f"Horse,{self.coordinate[0]} {self.coordinate[1]}"
+        self.shared_data.answer_button = f"Horse,{self.coordinate[0]} {self.coordinate[1]}"
 
     def choose_elephant(self, color):
         self.ready = True
         self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
         self.delete_buttons(color)
-        return f"Elephant,{self.coordinate[0]} {self.coordinate[1]}"
+        self.shared_data.answer_button = f"Elephant,{self.coordinate[0]} {self.coordinate[1]}"
 
     def choose_rook(self, color):
         self.ready = True
         self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
         self.delete_buttons(color)
-        return f"Rook,{self.coordinate[0]} {self.coordinate[1]}"
+        self.shared_data.answer_button = f"Rook,{self.coordinate[0]} {self.coordinate[1]}"
 
     def delete_buttons(self, color):
         for button in self.figure_buttons:

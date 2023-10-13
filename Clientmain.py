@@ -7,6 +7,7 @@ class SharedData:
     def __init__(self):
         self.coordinate = None
         self.game = None
+        self.answer_button = None
 
 # Создаем единственный экземпляр SharedData
 shared_data = SharedData()
@@ -35,7 +36,11 @@ if __name__ == "__main__":
                 data = client.recv(1024).decode('utf-8')
                 if len(data) > 0:
                     if data.split()[0] == "choice":
-                        client.sendall(gui.game.choose_figure(data.split()[1]))
+                        gui.game.choose_figure(data.split()[1]).encode('utf-8')
+                        while shared_data.answer_button is None:
+                            continue
+                        client.sendall(shared_data.answer_button)
+                        shared_data.answer_button = None
                     else:
                         print(data)
                         parse = data.split(" ,")
