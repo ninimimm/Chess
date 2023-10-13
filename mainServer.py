@@ -11,16 +11,17 @@ def handle_client(client, game, address):
                     massage = data.split(",")
                     cord = massage[0].split()
                     game.create_figure(massage[0], (int(cord[0]), int(cord[1])))
-                elif game.players_ip[address[0]][1]:
+                else:
                     message = data.split()
                     print(message)
                     print("Пытаюсь отправить данные клиенту")
                     response = game.on_click((int(message[0]), int(message[1])), address[0]).encode('utf-8')
-                    client.sendall(response)
-                    if game.dict_cages[(int(message[0]), int(message[1]))].color == "green" and response != "choice":
-                        for cl in clients:
-                            if client != cl:
-                                cl.sendall(response)
+                    if game.players_ip[address[0]][1]:
+                        client.sendall(response)
+                        if game.dict_cages[(int(message[0]), int(message[1]))].color == "green" and response != "choice":
+                            for cl in clients:
+                                if client != cl:
+                                    cl.sendall(response)
                     print("Отправил данные клиенту")
         except (ConnectionResetError, OSError):
             print("Клиент отключился")
