@@ -15,10 +15,11 @@ def handle_client(client, game, address):
                     message = data.split()
                     print(message)
                     print("Пытаюсь отправить данные клиенту")
+                    flag = game.dict_cages[(int(message[0]), int(message[1]))].color == "green"
                     response = game.on_click((int(message[0]), int(message[1])), address[0]).encode('utf-8')
                     if game.players_ip[address[0]][1]:
                         client.sendall(response)
-                        if game.dict_cages[(int(message[0]), int(message[1]))].color == "green" and response != "choice":
+                        if flag and response != "choice":
                             for value in game.players_ip.values():
                                 value[1] = not (value[1])
                             for cl in clients:
