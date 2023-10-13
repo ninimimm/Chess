@@ -11,7 +11,7 @@ def handle_client(client, game, address):
                     massage = data.split(",")
                     cord = massage[0].split()
                     game.create_figure(massage[0], (int(cord[0]), int(cord[1])), address)
-                else:
+                elif game.players_ip[address][1]:
                     message = data.split()
                     print(message)
                     print("Пытаюсь отправить данные клиенту")
