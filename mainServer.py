@@ -12,6 +12,10 @@ def handle_client(client, game, address):
                     massage = data.split(",")
                     cord = massage[1].split()
                     game.create_figure(massage[0], (int(cord[0]), int(cord[1])), address[0])
+                    for value in game.players_ip.values():
+                        value[1] = not (value[1])
+                    for cl in clients:
+                        cl.sendall(game.get_response(address[0]).encode('utf-8'))
                 else:
                     print(data)
                     message = data.split()

@@ -131,6 +131,9 @@ class Game:
                 self.current = (coordinate, cage)
                 self.fill()
                 cage.figure.moves(coordinate, cage)
+        return self.get_response(address)
+
+    def get_response(self, address):
         string_cages = ""
         string_figures = ""
         for i in range(8):
@@ -152,16 +155,20 @@ class Game:
     def create_figure(self, name, coordinate, address):
         if name == "Queen":
             self.dict_cages[coordinate] = Cage(self.dict_cages[coordinate].color, coordinate,
-                Queen(self.players_ip[address][1], self.move_figures, self, coordinate))
+                Queen(self.players_ip[address][1], self.move_figures, self, coordinate,
+                      self.index_black_queen if self.players_ip[address][0] == "black" else self.index_white_queen))
         if name == "Horse":
             self.dict_cages[coordinate] = Cage(self.dict_cages[coordinate].color, coordinate,
-                Horse(self.players_ip[address][1], self.move_figures, self, coordinate))
+                Horse(self.players_ip[address][1], self.move_figures, self, coordinate,
+                      self.index_black_horse if self.players_ip[address][0] == "black" else self.index_white_horse))
         if name == "Elephant":
             self.dict_cages[coordinate] = Cage(self.dict_cages[coordinate].color, coordinate,
-                Elephant(self.players_ip[address][1], self.move_figures, self, coordinate))
+                Elephant(self.players_ip[address][1], self.move_figures, self, coordinate,
+                         self.index_black_elephant if self.players_ip[address][0] == "black" else self.index_white_elephant))
         if name == "Rook":
             self.dict_cages[coordinate] = Cage(self.dict_cages[coordinate].color, coordinate,
-                Rook(self.players_ip[address][1], self.move_figures, self, coordinate))
+                Rook(self.players_ip[address][1], self.move_figures, self, coordinate,
+                     self.index_black_rook if self.players_ip[address][0] == "black" else self.index_white_rook))
 
         if self.players_ip[address][0] == "black":
             for i in range(len(self.black_player.figures)):
@@ -177,6 +184,7 @@ class Game:
             self.white_player.add_figure(self.dict_cages[coordinate].figure)
         self.current = None
         self.current_player = (self.current_player + 1) % 2
+        self.fill()
 
     # def choose_figure(self):
     #     self.ready = False
