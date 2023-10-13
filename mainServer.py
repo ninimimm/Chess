@@ -16,11 +16,11 @@ def handle_client(client, game, address):
                     print(message)
                     print("Пытаюсь отправить данные клиенту")
                     response = game.on_click((int(message[0]), int(message[1])), address[0]).encode('utf-8')
-                    client.sendall(response)
+                    client.sendall(response[0])
                     if game.dict_cages[(int(message[0]), int(message[1]))].color == "green" and response != "choice":
                         for cl in clients:
                             if client != cl:
-                                cl.sendall(response)
+                                cl.sendall(response[1])
                     print("Отправил данные клиенту")
         except (ConnectionResetError, OSError):
             print("Клиент отключился")
