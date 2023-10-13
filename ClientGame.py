@@ -120,13 +120,17 @@ class ClientGame:
 
     def on_click(self, event):
         cord = ((event.x - self.diffx) // self.square_size, (event.y - self.diffy) // self.square_size)
+        print(self.color)
+        print(self.string_images[cord[0]][cord[1]].split('_')[0])
         if self.color is None or self.string_images[cord[0]][cord[1]].split('_')[0] == self.color:
             self.prev_cord = cord
+        print(self.prev_cord)
         self.coordinate = cord
         self.shared_data.coordinate = self.coordinate
 
     def get_content(self, cages, figures, color):
-        self.color = color
+        if self.color is None:
+            self.color = color
         for i in range(8):
             for j in range(8):
                 if self.string_images[i][j] != '' and self.string_images[i][j] not in figures:
@@ -155,6 +159,8 @@ class ClientGame:
         button_horse.place(anchor="nw", x = self.coordinate[0] * self.square_size + 598, y = self.coordinate[1] * self.square_size - 100)
         button_queen.place(anchor="nw", x = self.coordinate[0] * self.square_size + 598, y = self.coordinate[1] * self.square_size - 190)
         self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
+        print(self.prev_cord)
+        print(self.string_images[self.prev_cord[0]][self.prev_cord[1]])
         self.canvas.move(self.dict_images[self.string_images[self.prev_cord[0]][self.prev_cord[1]]][0], 10000, 10000)
 
     def choose_queen(self, color):

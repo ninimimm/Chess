@@ -155,19 +155,19 @@ class Game:
     def create_figure(self, name, coordinate, address):
         if name == "Queen":
             self.dict_cages[coordinate] = Cage(self.dict_cages[coordinate].color, coordinate,
-                Queen(self.players_ip[address][1], self.move_figures, self, coordinate,
+                Queen(self.players_ip[address][0], self.move_figures, self, coordinate,
                       self.index_black_queen if self.players_ip[address][0] == "black" else self.index_white_queen))
         if name == "Horse":
             self.dict_cages[coordinate] = Cage(self.dict_cages[coordinate].color, coordinate,
-                Horse(self.players_ip[address][1], self.move_figures, self, coordinate,
+                Horse(self.players_ip[address][0], self.move_figures, self, coordinate,
                       self.index_black_horse if self.players_ip[address][0] == "black" else self.index_white_horse))
         if name == "Elephant":
             self.dict_cages[coordinate] = Cage(self.dict_cages[coordinate].color, coordinate,
-                Elephant(self.players_ip[address][1], self.move_figures, self, coordinate,
+                Elephant(self.players_ip[address][0], self.move_figures, self, coordinate,
                          self.index_black_elephant if self.players_ip[address][0] == "black" else self.index_white_elephant))
         if name == "Rook":
             self.dict_cages[coordinate] = Cage(self.dict_cages[coordinate].color, coordinate,
-                Rook(self.players_ip[address][1], self.move_figures, self, coordinate,
+                Rook(self.players_ip[address][0], self.move_figures, self, coordinate,
                      self.index_black_rook if self.players_ip[address][0] == "black" else self.index_white_rook))
 
         if self.players_ip[address][0] == "black":
