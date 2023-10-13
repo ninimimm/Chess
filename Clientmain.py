@@ -30,20 +30,21 @@ if __name__ == "__main__":
                 client.sendall(message.encode('utf-8'))
                 shared_data.coordinate = None
 
-            ready = select.select([client], [], [], 0.25)
+            ready = select.select([client], [], [], 0.05)
             if ready[0]:
                 data = client.recv(1024).decode('utf-8')
-                if data.split()[0] == "choice":
-                    client.sendall(gui.game.choose_figure(data.split()[1]))
-                else:
-                    print(data)
-                    parse = data.split(" ,")
-                    if parse[0] == "None":
-                        cages = "None"
+                if len(data) > 0:
+                    if data.split()[0] == "choice":
+                        client.sendall(gui.game.choose_figure(data.split()[1]))
                     else:
-                        cages = [x for x in parse[0].split()]
-                    figures = [x for x in parse[1].split()]
-                    shared_data.game.get_content(cages, figures, parse[2])
+                        print(data)
+                        parse = data.split(" ,")
+                        if parse[0] == "None":
+                            cages = "None"
+                        else:
+                            cages = [x for x in parse[0].split()]
+                        figures = [x for x in parse[1].split()]
+                        shared_data.game.get_content(cages, figures, parse[2])
 
     thread1 = threading.Thread(target=run_start)
     thread2 = threading.Thread(target=connection)

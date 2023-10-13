@@ -19,7 +19,7 @@ def handle_client(client, game, address):
                     response = game.on_click((int(message[0]), int(message[1])), address[0]).encode('utf-8')
                     if game.players_ip[address[0]][1]:
                         client.sendall(response)
-                        if flag and response != "choice":
+                        if flag and "choice" not in response:
                             for value in game.players_ip.values():
                                 value[1] = not (value[1])
                             for cl in clients:

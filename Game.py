@@ -161,6 +161,21 @@ class Game:
             self.dict_cages[coordinate] = Cage(self.dict_cages[coordinate].color, coordinate,
                 Rook(self.players_ip[address][1], self.move_figures, self, coordinate))
 
+        if self.players_ip[address][0] == "black":
+            for i in range(len(self.black_player.figures)):
+                if self.black_player.figures[i].coordinate == coordinate:
+                    self.black_player.figures.pop(i)
+                    break
+            self.black_player.add_figure(self.dict_cages[coordinate].figure)
+        else:
+            for i in range(len(self.white_player.figures)):
+                if self.white_player.figures[i].coordinate == coordinate:
+                    self.white_player.figures.pop(i)
+                    break
+            self.white_player.add_figure(self.dict_cages[coordinate].figure)
+        self.current = None
+        self.current_player = (self.current_player + 1) % 2
+
     # def choose_figure(self):
     #     self.ready = False
     #     color = ["white", "black"][self.current_player]

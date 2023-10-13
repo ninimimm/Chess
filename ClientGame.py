@@ -185,17 +185,3 @@ class ClientGame:
         for button in self.figure_buttons:
             button.destroy()
         self.figure_buttons = []
-        if color == "black":
-            for i in range(len(self.black_player.figures)):
-                if self.black_player.figures[i].coordinate == self.coordinate:
-                    self.black_player.figures.pop(i)
-                    break
-            self.black_player.add_figure(self.dict_cages[self.coordinate].figure)
-        else:
-            for i in range(len(self.white_player.figures)):
-                if self.white_player.figures[i].coordinate == self.coordinate:
-                    self.white_player.figures.pop(i)
-                    break
-            self.white_player.add_figure(self.dict_cages[self.coordinate].figure)
-        self.current = None
-        self.current_player = (self.current_player + 1) % 2
