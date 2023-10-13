@@ -13,6 +13,7 @@ from PIL import Image, ImageTk
 
 class ClientGame:
     def __init__(self, root, images, canvas, square_size, diffy, diffx, shared_data):
+        self.ready = True
         self.shared_data = shared_data
         self.color = None
         self.prev_cord = None
@@ -127,12 +128,14 @@ class ClientGame:
 
     def get_content(self, cages, figures, color):
         self.color = color
-        for image in self.string_images:
-            if image not in figures:
-                self.canvas.move(self.dict_images[image][0], 10000, 10000)
         for i in range(8):
             for j in range(8):
-                self.canvas.itemconfig(self.squares[i][j], fill=cages[i * 8 + j])
+                if self.string_images[i][j] != '' and self.string_images[i][j] not in figures:
+                    self.canvas.move(self.dict_images[self.string_images[i][j]][0], 10000, 10000)
+        for i in range(8):
+            for j in range(8):
+                if cages != "None":
+                    self.canvas.itemconfig(self.squares[i][j], fill=cages[i * 8 + j])
                 if figures[i * 8 + j] != "None":
                     self.string_images[j][i] = figures[i * 8 + j]
                     self.canvas.move(self.dict_images[figures[i * 8 + j]][0],
@@ -141,3 +144,63 @@ class ClientGame:
                     self.dict_images[figures[i * 8 + j]][1] = (i, j)
                 else:
                     self.string_images[j][i] = ""
+
+    def choose_figure(self):
+        self.ready = False
+        color = ["white", "black"][self.current_player]
+        button_queen = tk.Button(command=self.choose_queen, image = self.images[f"{color}_queen"], width=85, height=85, bg = "#FFFF99")
+        button_horse = tk.Button(command=self.choose_horse, image= self.images[f"{color}_horse"], width=85, height=85, bg = "#FFFF99")
+        button_elephant = tk.Button(command=self.choose_elephant, image= self.images[f"{color}_elephant"], width=85, height=85, bg = "#FFFF99")
+        button_rook = tk.Button(command=self.choose_rook, image= self.images[f"{color}_rook"], width=85, height=85, bg = "#FFFF99")
+        self.figure_buttons = [button_queen, button_horse, button_elephant, button_rook]
+        button_rook.place(anchor="nw", x = self.coordinate[0] * self.square_size + 598, y = self.coordinate[1] * self.square_size + 80)
+        button_elephant.place(anchor="nw", x = self.coordinate[0] * self.square_size + 598, y = self.coordinate[1] * self.square_size - 10)
+        button_horse.place(anchor="nw", x = self.coordinate[0] * self.square_size + 598, y = self.coordinate[1] * self.square_size - 100)
+        button_queen.place(anchor="nw", x = self.coordinate[0] * self.square_size + 598, y = self.coordinate[1] * self.square_size - 190)
+
+    def choose_queen(self):
+        self.ready = True
+        color = ["white", "black"][self.current_player]
+        self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
+        self.delete_buttons(color)
+        return f"Queen,{self.coordinate[0]} {self.coordinate[1]}"
+
+    def choose_horse(self):
+        self.ready = True
+        color = ["white", "black"][self.current_player]
+        self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
+        self.delete_buttons(color)
+        return f"Horse,{self.coordinate[0]} {self.coordinate[1]}"
+
+    def choose_elephant(self):
+        self.ready = True
+        color = ["white", "black"][self.current_player]
+        self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
+        self.delete_buttons(color)
+        return f"Elephant,{self.coordinate[0]} {self.coordinate[1]}"
+
+    def choose_rook(self):
+        self.ready = True
+        color = ["white", "black"][self.current_player]
+        self.canvas.move(self.dict_images[self.string_images[self.coordinate[0]][self.coordinate[1]]][0], 10000, 10000)
+        self.delete_buttons(color)
+        return f"Rook,{self.coordinate[0]} {self.coordinate[1]}"
+
+    def delete_buttons(self, color):
+        for button in self.figure_buttons:
+            button.destroy()
+        self.figure_buttons = []
+        if color == "black":
+            for i in range(len(self.black_player.figures)):
+                if self.black_player.figures[i].coordinate == self.coordinate:
+                    self.black_player.figures.pop(i)
+                    break
+            self.black_player.add_figure(self.dict_cages[self.coordinate].figure)
+        else:
+            for i in range(len(self.white_player.figures)):
+                if self.white_player.figures[i].coordinate == self.coordinate:
+                    self.white_player.figures.pop(i)
+                    break
+            self.white_player.add_figure(self.dict_cages[self.coordinate].figure)
+        self.current = None
+        self.current_player = (self.current_player + 1) % 2
