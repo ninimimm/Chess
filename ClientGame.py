@@ -71,7 +71,7 @@ class ClientGame:
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["white_elephant"]), (j, i)]
                             self.index_white_elephant += 1
-                        elif i == 3:
+                        elif i == 4:
                             self.string_images[i][j] = "white_queen0"
                             self.dict_images["white_queen0"] = [self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,
@@ -107,7 +107,7 @@ class ClientGame:
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["black_elephant"]), (j, i)]
                             self.index_black_elephant += 1
-                        elif i == 3:
+                        elif i == 4:
                             self.string_images[i][j] = "black_queen0"
                             self.dict_images["black_queen0"] = [self.canvas.create_image(i * self.square_size + self.diffx - 2,
                                                      j * self.square_size + self.diffy - 20,

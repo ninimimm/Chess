@@ -32,7 +32,7 @@ class Game:
         self.ready = True
         self.figure_buttons = []
         self.dict_cages = {
-            (4, 0): Cage("white", (4, 0), King("white", self.move_figures, self, (4, 0), 0)),
+            (3, 0): Cage("white", (3, 0), King("white", self.move_figures, self, (3, 0), 0)),
             (0, 1): Cage("black", (0, 1), Pawn("white", self.move_figures, self, (0, 1), self.index_white_pawn)),
             (1, 1): Cage("white", (1, 1), Pawn("white", self.move_figures, self, (1, 1), self.index_white_pawn)),
             (2, 1): Cage("black", (2, 1), Pawn("white", self.move_figures, self, (2, 1), self.index_white_pawn)),
@@ -46,14 +46,14 @@ class Game:
             (1, 0): Cage("black", (1, 0), Horse("white", self.move_figures, self, (1, 0), self.index_white_horse)),
             (2, 0): Cage("white", (2, 0),
                          Elephant("white", self.move_figures, self, (2, 0), self.index_white_elephant)),
-            (3, 0): Cage("black", (3, 0), Queen("white", self.move_figures, self, (3, 0), 0)),
+            (4, 0): Cage("black", (4, 0), Queen("white", self.move_figures, self, (4, 0), 0)),
 
             (5, 0): Cage("black", (5, 0),
                          Elephant("white", self.move_figures, self, (5, 0), self.index_white_elephant)),
             (6, 0): Cage("white", (6, 0), Horse("white", self.move_figures, self, (6, 0), self.index_white_horse)),
             (7, 0): Cage("black", (7, 0), Rook("white", self.move_figures, self, (7, 0), self.index_white_rook)),
 
-            (4, 7): Cage("black", (4, 7), King("black", self.move_figures, self, (4, 7), 0)),
+            (3, 7): Cage("black", (3, 7), King("black", self.move_figures, self, (3, 7), 0)),
             (0, 6): Cage("white", (0, 6), Pawn("black", self.move_figures, self, (0, 6), self.index_black_pawn)),
             (1, 6): Cage("black", (1, 6), Pawn("black", self.move_figures, self, (1, 6), self.index_black_pawn)),
             (2, 6): Cage("white", (2, 6), Pawn("black", self.move_figures, self, (2, 6), self.index_black_pawn)),
@@ -67,7 +67,7 @@ class Game:
             (1, 7): Cage("white", (1, 7), Horse("black", self.move_figures, self, (1, 7), self.index_black_horse)),
             (2, 7): Cage("black", (2, 7),
                          Elephant("black", self.move_figures, self, (2, 7), self.index_black_elephant)),
-            (3, 7): Cage("white", (3, 7), Queen("black", self.move_figures, self, (3, 7), 0)),
+            (4, 7): Cage("white", (4, 7), Queen("black", self.move_figures, self, (4, 7), 0)),
 
             (5, 7): Cage("white", (5, 7),
                          Elephant("black", self.move_figures, self, (5, 7), self.index_black_elephant)),
