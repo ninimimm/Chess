@@ -6,6 +6,10 @@ class Queen:
         self.game = game
         self.name = "queen"
         self.color = color
+        if color == "white":
+            self.game.index_white_queen += 1
+        else:
+            self.game.index_black_queen += 1
 
     def __str__(self):
         return f"{self.name[0]},{self.color[0]},{self.coordinate}"

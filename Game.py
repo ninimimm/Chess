@@ -21,6 +21,8 @@ class Game:
         self.index_black_horse = 0
         self.index_white_elephant = 0
         self.index_black_elephant = 0
+        self.index_black_queen = 0
+        self.index_white_queen = 0
         self.current = None
         self.square_size = square_size
         self.diffy = diffy
@@ -46,7 +48,7 @@ class Game:
             (1, 0): Cage("black", (1, 0), Horse("white", self.move_figures, self, (1, 0), self.index_white_horse)),
             (2, 0): Cage("white", (2, 0),
                          Elephant("white", self.move_figures, self, (2, 0), self.index_white_elephant)),
-            (4, 0): Cage("black", (4, 0), Queen("white", self.move_figures, self, (4, 0), 0)),
+            (4, 0): Cage("black", (4, 0), Queen("white", self.move_figures, self, (4, 0), self.index_white_queen)),
 
             (5, 0): Cage("black", (5, 0),
                          Elephant("white", self.move_figures, self, (5, 0), self.index_white_elephant)),
@@ -67,7 +69,7 @@ class Game:
             (1, 7): Cage("white", (1, 7), Horse("black", self.move_figures, self, (1, 7), self.index_black_horse)),
             (2, 7): Cage("black", (2, 7),
                          Elephant("black", self.move_figures, self, (2, 7), self.index_black_elephant)),
-            (4, 7): Cage("white", (4, 7), Queen("black", self.move_figures, self, (4, 7), 0)),
+            (4, 7): Cage("white", (4, 7), Queen("black", self.move_figures, self, (4, 7), self.index_black_queen)),
 
             (5, 7): Cage("white", (5, 7),
                          Elephant("black", self.move_figures, self, (5, 7), self.index_black_elephant)),
