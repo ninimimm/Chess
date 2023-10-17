@@ -13,7 +13,7 @@ def handle_client(client, game, address):
                     print(response)
                     send = "possible moves" + ",".join([f"{key[0]} {key[1]}:{'|'.join(value)}" for key, value in response.items()])
                     print(send)
-                    client.recv(send.encode('utf-8'))
+                    client.sendall(send.encode('utf-8'))
                 elif any(x in data for x in ["Queen", "Horse", "Elephant", "Rook"]):
                     game.ready = True
                     massage = data.split(",")
