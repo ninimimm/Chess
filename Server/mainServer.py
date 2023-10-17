@@ -10,6 +10,7 @@ def handle_client(client, game, address):
                 if "possible moves" in data:
                     split = data.split(",")
                     response = game.get_possible_moves(data.split(',')[1].split(), split[2])
+                    print(response)
                     client.recv("possible moves" + ",".join([f"{key}:{' '.join(value)}"for key, value in response]))
                 elif any(x in data for x in ["Queen", "Horse", "Elephant", "Rook"]):
                     game.ready = True
