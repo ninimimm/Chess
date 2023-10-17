@@ -23,8 +23,6 @@ if __name__ == "__main__":
         client.connect(('178.154.244.233', 8080))
         print("Отправил первичный запрос")
         client.sendall("0 7".encode('utf-8'))
-        client.recv(1024).decode('utf-8')
-        print("Получил ответ")
         while True:
             if shared_data.game.send_color is not None:
                print(shared_data.copy_field)

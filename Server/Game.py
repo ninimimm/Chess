@@ -186,7 +186,7 @@ class Game:
         self.fill()
 
     def get_figure(self, string, coordinate):
-        color, name = string.parse('_')
+        color, name = string.split('_')
         if name == "queen":
             return Queen(color, self.move_figures, self, coordinate,
                          self.index_white_queen if color == "white" else self.index_black_queen)
