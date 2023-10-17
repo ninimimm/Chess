@@ -71,6 +71,7 @@ class MoveFigures:
             piece.coordinate = start_cord
             dict_cages[start_cord].figure = piece
             dict_cages[move].figure = finish_figure
+        print(possible_defense_moves)
         return possible_defense_moves
 
     def print_dict_copy(self, dict_copy):
