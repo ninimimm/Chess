@@ -225,8 +225,9 @@ class Game:
         for coordinate, cage in new_dict_cages.items():
             if cage.figure is not None and cage.figure.color == color:
                 self.current = (coordinate, cage)
-                dict_name_possible_moves[coordinate] = \
-                    cage.figure.get_possible_moves(coordinate, cage, new_dict_cages)
+                pos = cage.figure.get_possible_moves(coordinate, cage, new_dict_cages)
+                if len(pos) > 0:
+                    dict_name_possible_moves[coordinate] = pos
                 self.current = None
         return dict_name_possible_moves
 
