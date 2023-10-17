@@ -21,12 +21,18 @@ if __name__ == "__main__":
     def connection():
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client.connect(('178.154.244.233', 8080))
+        print("Отправил первичный запрос")
+        client.sendall("0 7".encode('utf-8'))
+        client.recv(1024).decode('utf-8')
+        print("Получил ответ")
         while True:
             if shared_data.game.send_color is not None:
-               client.sendall(f"possible moves,{' '.join(shared_data.copy_field)},{shared_data.game.send_color}")
+               print(shared_data.copy_field)
+               client.sendall(f"possible moves,{' '.join([x[j] for j in range(8) for x in shared_data.copy_field])},{shared_data.game.send_color}".encode('utf-8'))
                shared_data.game.send_color = None
             ready = select.select([client], [], [], 0.05)
             if ready[0]:
+                print("Получил ответ от сервера")
                 data = client.recv(1024).decode('utf-8')
                 if len(data) > 0:
                     if "possible moves" in data:
@@ -39,6 +45,7 @@ if __name__ == "__main__":
                         gui.game.choose_figure(data.split()[1])
                         while shared_data.answer_button is None:
                             continue
+                        print("Отправил запрос на сервер")
                         client.sendall(shared_data.answer_button.encode('utf-8'))
                         shared_data.answer_button = None
                     else:
@@ -52,6 +59,9 @@ if __name__ == "__main__":
                         for i in range(8):
                             for j in range(8):
                                 shared_data.game.string_images[j][i] = figures[i * 8 + j]
+                        print(parse[2])
+                        shared_data.game.send_color = parse[2]
+                        print(shared_data.game.send_color)
 
     thread1 = threading.Thread(target=run_start)
     thread2 = threading.Thread(target=connection)

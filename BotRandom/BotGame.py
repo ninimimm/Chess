@@ -82,6 +82,7 @@ class BotGame:
         max_weight = -9999
         variants = []
         for key in dict:
+            print("мотивация!")
             for coordinate in dict[key]:
                 weight = 0
                 eval_coord = key if color == "white" else (key[1], key[0])
