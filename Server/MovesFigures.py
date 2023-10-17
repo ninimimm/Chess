@@ -55,7 +55,7 @@ class MoveFigures:
             enemy_to_king = self.enemy_figures
         else:
             for figure in self.enemy_figures:
-                if self.our_figures[0].coordinate in figure.get_moves(figure.coordinate, dict_cages[figure.coordinate]):
+                if self.our_figures[0].coordinate in figure.get_moves(figure.coordinate, dict_cages[figure.coordinate], dict_cages):
                     enemy_to_king.append(figure)
 
         piece = dict_cages[self.game.current[1].figure.coordinate].figure
