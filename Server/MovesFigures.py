@@ -1,10 +1,10 @@
-from Server.Figures.Pawn import Pawn
-from Server.Figures.Horse import Horse
-from Server.Figures.Rook import Rook
-from Server.Figures.Elephant import Elephant
-from Server.Figures.Queen import Queen
-from Server.Figures.King import King
-from Server.Cage import Cage
+from Figures.Pawn import Pawn
+from Figures.Horse import Horse
+from Figures.Rook import Rook
+from Figures.Elephant import Elephant
+from Figures.Queen import Queen
+from Figures.King import King
+from Cage import Cage
 
 class MoveFigures:
     def __init__(self, game):
