@@ -223,7 +223,7 @@ class Game:
         print(new_dict_cages)
         dict_name_possible_moves = {}
         for coordinate, cage in new_dict_cages.items():
-            if cage.figure.color == color:
+            if cage.figure is not None and cage.figure.color == color:
                 self.current = (coordinate, cage)
                 dict_name_possible_moves[coordinate] = \
                     cage.figure.get_possible_moves(coordinate, cage, new_dict_cages)
