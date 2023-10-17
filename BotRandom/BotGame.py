@@ -88,7 +88,7 @@ class BotGame:
                 eval_coord = key if color == "white" else (key[1], key[0])
                 if enemy_color in self.shared_data.copy_field[coordinate[0]][coordinate[1]]:
                     weight += self.values[self.shared_data.copy_field[coordinate[0]][coordinate[1]].split("_")[1][:-1]]
-                weight += self.evals[self.shared_data.copy_field[eval_coord[0]][eval_coord[1]].split("_")[1][:-1]]
+                weight += self.evals[self.shared_data.copy_field[coordinate[0]][coordinate[1]].split("_")[1][:-1]][coordinate[0]][coordinate[1]]
                 if weight > max_weight:
                     max_weight = weight
                     variants = [[key, coordinate]]
