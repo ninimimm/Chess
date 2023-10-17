@@ -59,7 +59,7 @@ class MoveFigures:
                     enemy_to_king.append(figure)
 
         piece = dict_cages[self.game.current[1].figure.coordinate].figure
-        for move in piece.get_moves(piece.coordinate, dict_cages[piece.coordinate]):
+        for move in piece.get_moves(piece.coordinate, dict_cages[piece.coordinate], dict_cages):
             start_cord = piece.coordinate
             finish_figure = dict_cages[move].figure
             piece.coordinate = move
