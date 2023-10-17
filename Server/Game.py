@@ -212,6 +212,10 @@ class Game:
             for j in range(8):
                 if figures[i * 8 + j] == "None": continue
                 new_dict_cages[(j, i)] = Cage(["white", "black"][(i + j) % 2], (j, i), self.get_figure(figures[i * 8 + j], (j, i)))
+        for i in range(8):
+            for j in range(8):
+                if (i, j) not in new_dict_cages:
+                    new_dict_cages[(i, j)] = Cage(["white", "black"][(i + j) % 2], (i, j))
         return new_dict_cages
 
     def get_possible_moves(self, figures, color):
