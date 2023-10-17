@@ -227,7 +227,7 @@ class Game:
                 self.current = (coordinate, cage)
                 pos = cage.figure.get_possible_moves(coordinate, cage, new_dict_cages)
                 if len(pos) > 0:
-                    dict_name_possible_moves[coordinate] = pos
+                    dict_name_possible_moves[coordinate] = [f"{x[0]} {x[1]}" for x in pos]
                 self.current = None
         return dict_name_possible_moves
 

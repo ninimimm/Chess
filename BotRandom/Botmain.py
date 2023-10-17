@@ -38,7 +38,13 @@ if __name__ == "__main__":
                         game_dict = {}
                         for item in parse:
                             item_parse = item.split(":")
-                            game_dict[item_parse[0]] = item_parse[1].split()
+                            key = [int(x) for x in item_parse[0].split()]
+                            game_dict[(key[0], key[1])] = [(int(x.split()[0]), int(x.split()[1])) for x in item_parse[1].split('|')]
+                        incoming, outcoming = shared_data.game.get_content(game_dict, shared_data.game.send_color)
+                        client.sendall(f"{incoming[0]} {incoming[1]}".encode('utf-8'))
+                        data = client.recv(1024).decode('utf-8')
+                        client.sendall(f"{outcoming[0]} {outcoming[1]}".encode('utf-8'))
+                        data = client.recv(1024).decode('utf-8')
                     elif data.split()[0] == "choice":
                         gui.game.choose_figure(data.split()[1])
                         while shared_data.answer_button is None:
