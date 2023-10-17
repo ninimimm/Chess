@@ -26,7 +26,7 @@ if __name__ == "__main__":
         while True:
             if shared_data.game.send_color is not None:
                print(shared_data.copy_field)
-               client.sendall(f"possible moves,{' '.join([x[j] for j in range(8) for x in shared_data.copy_field])},{shared_data.game.send_color}".encode('utf-8'))
+               client.sendall(f"possible moves,{' '.join([x[j] for j in range(8) for x in shared_data.copy_field])},{shared_data.game.color}".encode('utf-8'))
                shared_data.game.send_color = None
             ready = select.select([client], [], [], 0.05)
             if ready[0]:
@@ -65,6 +65,7 @@ if __name__ == "__main__":
                                 shared_data.game.string_images[j][i] = figures[i * 8 + j]
                         print(parse[2])
                         shared_data.game.send_color = parse[2]
+                        shared_data.game.color = "white" if parse[2] == "black" else "black"
                         print(shared_data.game.send_color)
 
     thread1 = threading.Thread(target=run_start)

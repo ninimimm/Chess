@@ -78,20 +78,24 @@ class BotGame:
     def get_content(self, dict, color):
         if self.color is None:
             self.color = color
-        enemy_color = "black" if color == "white" else "white"
+        print(self.send_color)
+        enemy_color = "black" if color == "black" else "white"
         max_weight = -9999
         variants = []
+        print(dict)
         for key in dict:
             print("мотивация!")
             for coordinate in dict[key]:
                 weight = 0
-                eval_coord = key if color == "white" else (key[1], key[0])
+                eval_coord = coordinate if color == "white" else (coordinate[1], coordinate[0])
                 if enemy_color in self.shared_data.copy_field[coordinate[0]][coordinate[1]]:
+                    print(self.shared_data.copy_field[coordinate[0]][coordinate[1]])
                     weight += self.values[self.shared_data.copy_field[coordinate[0]][coordinate[1]].split("_")[1][:-1]]
-                weight += self.evals[self.shared_data.copy_field[coordinate[0]][coordinate[1]].split("_")[1][:-1]][coordinate[0]][coordinate[1]]
+                weight += self.evals[self.shared_data.copy_field[key[0]][key[1]].split("_")[1][:-1]][eval_coord[0]][eval_coord[1]]
                 if weight > max_weight:
                     max_weight = weight
                     variants = [[key, coordinate]]
+                    print(variants)
                 elif weight == max_weight:
                     variants.append([key, coordinate])
         return variants[random.randint(0, len(variants) - 1)]

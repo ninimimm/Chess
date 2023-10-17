@@ -129,7 +129,7 @@ class Game:
                 print("могу что-то сделать")
                 self.current = (coordinate, cage)
                 self.fill()
-                cage.figure.moves(coordinate, cage)
+                cage.figure.moves(coordinate, cage, self.dict_cages)
         return self.get_response(address)
 
     def get_response(self, address):

@@ -14,8 +14,7 @@ class Horse:
     def __str__(self):
         return f"{self.name[0]},{self.color[0]},{self.coordinate}"
 
-    def moves(self, coordinate, cage, dict_cages=None):
-        if dict_cages is None: dict_cages = self.game.dict_cages
+    def moves(self, coordinate, cage, dict_cages):
         self.move_figures.draw(self.get_possible_moves(coordinate, cage, dict_cages))
 
     def get_possible_moves(self, coordinate, cage, dict_cages):
