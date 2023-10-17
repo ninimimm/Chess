@@ -36,7 +36,10 @@ class MoveFigures:
 
     def is_check(self, enemy_to_king, dict_cages):
         king = self.our_figures[0]
+
         for enemy_figure in enemy_to_king:
+            print("enemy", enemy_figure.name)
+            print(enemy_figure.get_moves(enemy_figure.coordinate, dict_cages[enemy_figure.coordinate], dict_cages))
             for cord in enemy_figure.get_moves(enemy_figure.coordinate, dict_cages[enemy_figure.coordinate], dict_cages):
                 if cord == king.coordinate:
                     return True
