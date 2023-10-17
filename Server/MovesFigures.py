@@ -54,12 +54,6 @@ class MoveFigures:
         else:
             self.our_figures = self.game.black_player.figures
             self.enemy_figures = self.game.white_player.figures
-        if self.game.current[1].figure.name == "king":
-            enemy_to_king = self.enemy_figures
-        else:
-            for figure in self.enemy_figures:
-                if self.our_figures[0].coordinate in figure.get_moves(figure.coordinate, dict_cages[figure.coordinate], dict_cages):
-                    enemy_to_king.append(figure)
         print("enemy_to_king", enemy_to_king)
         piece = dict_cages[self.game.current[1].figure.coordinate].figure
         for move in piece.get_moves(piece.coordinate, dict_cages[piece.coordinate], dict_cages):
@@ -68,6 +62,13 @@ class MoveFigures:
             piece.coordinate = move
             dict_cages[move].figure = piece
             dict_cages[start_cord].figure = None
+            if self.game.current[1].figure.name == "king":
+                enemy_to_king = self.enemy_figures
+            else:
+                for figure in self.enemy_figures:
+                    if self.our_figures[0].coordinate in figure.get_moves(figure.coordinate,
+                                                                          dict_cages[figure.coordinate], dict_cages):
+                        enemy_to_king.append(figure)
             if not self.is_check(enemy_to_king, dict_cages):
                 possible_defense_moves.add(move)
 
