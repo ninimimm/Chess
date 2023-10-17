@@ -215,6 +215,7 @@ class Game:
 
     def get_possible_moves(self, figures, color):
         new_dict_cages = self.get_new_dict(figures)
+        print(new_dict_cages)
         dict_name_possible_moves = {}
         for coordinate, cage in new_dict_cages.items():
             if cage.figure.color == color:
