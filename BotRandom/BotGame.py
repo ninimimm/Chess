@@ -32,6 +32,7 @@ class BotGame:
         self.figure_buttons = []
         self.coordinate = None
         self.string_images = [["" for _ in range(8)] for _ in range(8)]
+        self.is_running = False
         for i in range(len(self.string_images)):
             for j in range(len(self.string_images)):
                 if j < 2:
@@ -76,36 +77,8 @@ class BotGame:
         self.shared_data.game = self
         self.shared_data.copy_field = self.string_images.copy()
 
-    def trackcalls(func):
-        @functools.wraps(func)
-        def wrapper(*args, **kwargs):
-            if not hasattr(wrapper, "lock"):
-                wrapper.lock = threading.Lock()
-
-            with wrapper.lock:
-                if hasattr(wrapper, "is_running") and wrapper.is_running:
-                    return True
-                wrapper.is_running = True
-
-            try:
-                result = func(*args, **kwargs)
-            finally:
-                with wrapper.lock:
-                    wrapper.is_running = False
-
-            return result
-
-        def is_running():
-            with wrapper.lock:
-                return wrapper.is_running
-
-        wrapper.is_running = False
-        wrapper.is_running = is_running
-
-        return wrapper
-
-    @trackcalls
     def get_content(self, dict, color):
+        self.is_running = True
         if self.color is None:
             self.color = color
         print(self.send_color)
@@ -128,6 +101,7 @@ class BotGame:
                     print(variants)
                 elif weight == max_weight:
                     variants.append([key, coordinate])
+        self.is_running = False
         return variants[random.randint(0, len(variants) - 1)]
     def update_eval(self):
         self.evals["pawn"] = [

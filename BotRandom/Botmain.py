@@ -41,7 +41,7 @@ if __name__ == "__main__":
                             item_parse = item.split(":")
                             key = [int(x) for x in item_parse[0].split()]
                             game_dict[(key[0], key[1])] = [(int(x.split()[0]), int(x.split()[1])) for x in item_parse[1].split('|')]
-                        if not shared_data.game.get_content.is_running():
+                        if not shared_data.game.is_running:
                             with ThreadPoolExecutor() as executor:
                                 thread = executor.submit(shared_data.game.get_content, game_dict, shared_data.game.send_color)
                                 incoming, outcoming = thread.result()
@@ -79,3 +79,5 @@ if __name__ == "__main__":
     thread2 = threading.Thread(target=connection)
     thread1.start()
     thread2.start()
+    thread1.join()
+    thread2.join()
