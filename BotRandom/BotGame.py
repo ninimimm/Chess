@@ -1,6 +1,7 @@
 import tkinter as tk
 import random
-
+import functools
+import threading
 
 class BotGame:
     def __init__(self, shared_data):
@@ -75,6 +76,35 @@ class BotGame:
         self.shared_data.game = self
         self.shared_data.copy_field = self.string_images.copy()
 
+    def trackcalls(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            if not hasattr(wrapper, "lock"):
+                wrapper.lock = threading.Lock()
+
+            with wrapper.lock:
+                if hasattr(wrapper, "is_running") and wrapper.is_running:
+                    return True
+                wrapper.is_running = True
+
+            try:
+                result = func(*args, **kwargs)
+            finally:
+                with wrapper.lock:
+                    wrapper.is_running = False
+
+            return result
+
+        def is_running():
+            with wrapper.lock:
+                return wrapper.is_running
+
+        wrapper.is_running = False
+        wrapper.is_running = is_running
+
+        return wrapper
+
+    @trackcalls
     def get_content(self, dict, color):
         if self.color is None:
             self.color = color
