@@ -1,7 +1,5 @@
-import tkinter as tk
 import random
-import functools
-import threading
+import copy
 
 class BotGame:
     def __init__(self, shared_data):
@@ -81,27 +79,59 @@ class BotGame:
         self.is_running = True
         if self.color is None:
             self.color = color
-        print(self.send_color)
-        enemy_color = "black" if color == "black" else "white"
+        # print(self.send_color)
         max_weight = -9999
         variants = []
-        print(dict)
+        # print(dict)
+        copy_dict = copy.deepcopy(self.shared_data.copy_field)
         for key in dict:
-            print("мотивация!")
+            # print("мотивация!")
             for coordinate in dict[key]:
-                weight = 0
-                eval_coord = coordinate if color == "white" else (coordinate[1], coordinate[0])
+                enemy_color = "white"
+                first_weight = 0
+                eval_coord = (coordinate[1], coordinate[0])
                 if enemy_color in self.shared_data.copy_field[coordinate[0]][coordinate[1]]:
-                    print(self.shared_data.copy_field[coordinate[0]][coordinate[1]])
-                    weight += self.values[self.shared_data.copy_field[coordinate[0]][coordinate[1]].split("_")[1][:-1]]
-                weight += self.evals[self.shared_data.copy_field[key[0]][key[1]].split("_")[1][:-1]][eval_coord[0]][eval_coord[1]]
-                if weight > max_weight:
-                    max_weight = weight
+                    # print(self.shared_data.copy_field[coordinate[0]][coordinate[1]])
+                    first_weight += self.values[self.shared_data.copy_field[coordinate[0]][coordinate[1]].split("_")[1][:-1]]
+                # print(key)
+                # print(self.shared_data.copy_field[coordinate[0]][coordinate[1]])
+                first_weight += self.evals[self.shared_data.copy_field[key[0]][key[1]].
+                                           split("_")[1][:-1]][eval_coord[0]][eval_coord[1]]
+                self.shared_data.copy_field[coordinate[0]][coordinate[1]] = self.shared_data.copy_field[key[0]][key[1]]
+                self.shared_data.copy_field[key[0]][key[1]] = "None"
+                self.send_color = "white"
+                while not self.shared_data.can_use:
+                    continue
+                self.shared_data.can_use = False
+                max_second_weight = -9999
+                for enemy_key in self.shared_data.game_dict:
+                    # print("мотивация!")
+                    for enemy_coordinate in self.shared_data.game_dict[enemy_key]:
+                        enemy_color = "black"
+                        second_weight = 0
+                        eval_coord = enemy_coordinate
+                        # print(eval_coord)
+                        # print(enemy_key)
+                        # print(self.shared_data.copy_field)
+                        # print(self.shared_data.copy_field[enemy_key[0]][enemy_key[1]].split("_")[1])
+                        if enemy_color in self.shared_data.copy_field[enemy_coordinate[0]][enemy_coordinate[1]]:
+                            # print(self.shared_data.copy_field[enemy_coordinate[0]][enemy_coordinate[1]])
+                            second_weight += self.values[self.shared_data.copy_field[enemy_coordinate[0]]
+                                                         [enemy_coordinate[1]].split("_")[1][:-1]]
+                        second_weight += self.evals[self.shared_data.copy_field[enemy_key[0]][enemy_key[1]].
+                                                    split("_")[1][:-1]][eval_coord[0]][eval_coord[1]]
+                        max_second_weight = max(second_weight, max_second_weight)
+                if first_weight - max_second_weight > max_weight:
+                    max_weight = first_weight - max_second_weight
                     variants = [[key, coordinate]]
-                    print(variants)
-                elif weight == max_weight:
+                    # print(variants)
+                elif first_weight - max_second_weight == max_weight:
                     variants.append([key, coordinate])
+                print(max_weight, first_weight, max_second_weight)
+                self.shared_data.copy_field = copy.deepcopy(copy_dict)
+                # print(copy_dict)
         self.is_running = False
+        print(variants)
         return variants[random.randint(0, len(variants) - 1)]
     def update_eval(self):
         self.evals["pawn"] = [
