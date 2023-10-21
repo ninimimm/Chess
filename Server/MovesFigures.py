@@ -36,8 +36,8 @@ class MoveFigures:
 
     def is_check(self, enemy_to_king, dict_cages):
         for enemy_figure in enemy_to_king:
-            print("enemy", enemy_figure.name)
-            print(enemy_figure.get_moves(enemy_figure.coordinate, dict_cages[enemy_figure.coordinate], dict_cages))
+            #print("enemy", enemy_figure.name)
+            #print(enemy_figure.get_moves(enemy_figure.coordinate, dict_cages[enemy_figure.coordinate], dict_cages))
             for cord in enemy_figure.get_moves(enemy_figure.coordinate, dict_cages[enemy_figure.coordinate], dict_cages):
                 if cord == self.king.coordinate:
                     return True
@@ -66,7 +66,7 @@ class MoveFigures:
         #     for figure in self.enemy_figures:
         #         if self.our_figures[0].coordinate in figure.get_moves(figure.coordinate, dict_cages[figure.coordinate], dict_cages):
         #             enemy_to_king.append(figure)
-        print("enemy_to_king", enemy_to_king)
+        #print("enemy_to_king", enemy_to_king)
         piece = dict_cages[self.game.current[1].figure.coordinate].figure
         for move in piece.get_moves(piece.coordinate, dict_cages[piece.coordinate], dict_cages):
             start_cord = piece.coordinate
@@ -80,7 +80,7 @@ class MoveFigures:
             piece.coordinate = start_cord
             dict_cages[start_cord].figure = piece
             dict_cages[move].figure = finish_figure
-        print(possible_defense_moves)
+        #print(possible_defense_moves)
         return possible_defense_moves
 
     def print_dict_copy(self, dict_copy):
