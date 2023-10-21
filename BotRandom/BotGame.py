@@ -29,7 +29,7 @@ class BotGame:
         self.client = None
         self.figure_buttons = []
         self.coordinate = None
-        self.string_images = [["" for _ in range(8)] for _ in range(8)]
+        self.string_images = [["None" for _ in range(8)] for _ in range(8)]
         self.is_running = False
         for i in range(len(self.string_images)):
             for j in range(len(self.string_images)):
@@ -76,8 +76,8 @@ class BotGame:
         self.shared_data.copy_field = self.string_images.copy()
 
     def get_content(self, dict, color):
-        second_color = "white" if self.color == "black" else "black"
         self.is_running = True
+        second_color = "white" if self.color == "black" else "black"
         max_weight = -9999
         variants = {}
         find_variants = []
@@ -171,6 +171,7 @@ class BotGame:
                     self.shared_data.copy_field = copy.deepcopy(copy_dict_2)
             self.shared_data.copy_field = copy.deepcopy(copy_dict_1)
         self.is_running = False
+        print(find_variants, "find_variants")
         return find_variants[random.randint(0, len(find_variants) - 1)]
     def update_eval(self):
         self.evals["pawn"] = [

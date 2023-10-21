@@ -22,6 +22,7 @@ if __name__ == "__main__":
         shared_data.game = BotGame(shared_data)
 
     def wait_result(client):
+        print("вызвали!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         incoming, outcoming = shared_data.game.get_content(shared_data.game_dict, shared_data.game.send_color)
         client.sendall(f"{incoming[0]} {incoming[1]}".encode('utf-8'))
         client.recv(1024).decode('utf-8')
@@ -34,6 +35,7 @@ if __name__ == "__main__":
         client.sendall("0 7".encode('utf-8'))
         while True:
             if shared_data.game.send_color is not None:
+               print(shared_data.copy_field)
                client.sendall(f"possible moves,{' '.join([x[j] for j in range(8) for x in shared_data.copy_field])},{shared_data.game.send_color}".encode('utf-8'))
                shared_data.game.send_color = None
             ready = select.select([client], [], [], 0.05)
