@@ -95,8 +95,7 @@ class MoveFigures:
                 print(str)
                 str = ""
             count += 1
-            if len(f"{dict_copy[key]}") == 8: str += f"    {self.get_figure(dict_copy[key].figure)}    "
-            else: str += f"{dict_copy[key]}  "
+            if len(f"{dict_copy[key]}") == 8: str += f"    " + self.get_figure(dict_copy[key].figure) + "    "
         print(str)
 
     def get_figure(self, figure):
