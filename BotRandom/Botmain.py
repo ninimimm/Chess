@@ -41,7 +41,12 @@ if __name__ == "__main__":
                 data = client.recv(1024).decode('utf-8')
                 if len(data) > 0:
                     if "possible moves" in data:
-                        parse = data[14:].split(",")
+                        info = data
+                        if "<>" in data:
+                            info = data.split('<>')
+                            shared_data.game.color = info[1]
+                            info = info[0]
+                        parse = info[14:].split(",")
                         shared_data.game_dict = {}
                         for item in parse:
                             item_parse = item.split(":")
@@ -66,8 +71,7 @@ if __name__ == "__main__":
                             for j in range(8):
                                 shared_data.game.string_images[j][i] = figures[i * 8 + j]
                                 shared_data.copy_field[j][i] = figures[i * 8 + j]
-                        shared_data.game.color = "black"
-                        shared_data.game.send_color = "black"
+                        shared_data.game.send_color = shared_data.game.color
 
     thread1 = threading.Thread(target=run_start)
     thread2 = threading.Thread(target=connection)

@@ -41,7 +41,7 @@ if __name__ == "__main__":
                             continue
                         client.sendall(shared_data.answer_button.encode('utf-8'))
                         shared_data.answer_button = None
-                    else:
+                    elif "possible moves" not in data:
                         print(data)
                         parse = data.split(" ,")
                         if parse[0] == "None":

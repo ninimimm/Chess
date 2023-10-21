@@ -9,10 +9,11 @@ def handle_client(client, game, address):
             data = client.recv(1024).decode('utf-8')
             if len(data) > 0:
                 if "possible moves" in data:
-                    split = data.split(",")
-                    response = game.get_possible_moves(data.split(',')[1].split(), split[2])
-                    send = "possible moves" + ",".join([f"{key[0]} {key[1]}:{'|'.join(value)}" for key, value in response.items()])
-                    client.sendall(send.encode('utf-8'))
+                    if game.players_ip[address[0]][1]:
+                        split = data.split(",")
+                        response = game.get_possible_moves(data.split(',')[1].split(), split[2])
+                        send = "possible moves" + ",".join([f"{key[0]} {key[1]}:{'|'.join(value)}" for key, value in response.items()])
+                        client.sendall(send.encode('utf-8'))
                 elif any(x in data for x in ["Queen", "Horse", "Elephant", "Rook"]):
                     game.ready = True
                     massage = data.split(",")
@@ -58,8 +59,20 @@ if __name__ == '__main__':
     while True:
         client, address = server.accept()
         if len(clients) == 1:
-            game.players_ip[ip_save] = [colors[rand], True if rand == 0 else False]
-            game.players_ip[address[0]] = [colors[(rand + 1) % 2], True if rand == 1 else False]
+            game.players_ip[ip_save] = ["white", True]
+            game.players_ip[address[0]] = ["black", False]
+            data = ' '.join([f"{game.dict_cages[(i, j)].figure.color}_{game.dict_cages[(i, j)].figure.name}{game.dict_cages[(i, j)].figure.index}"
+                    if (i, j) in game.dict_cages else "None" for i in range(8) for j in range(8) if ()])
+
+            response = game.get_possible_moves(data, "white")
+            send = "possible moves" + ",".join(
+                [f"{key[0]} {key[1]}:{'|'.join(value)}" for key, value in response.items()]) + "<>white"
+            clients[0].sendall(send.encode('utf-8'))
+
+            response = game.get_possible_moves(data, "black")
+            send = "possible moves" + ",".join(
+                [f"{key[0]} {key[1]}:{'|'.join(value)}" for key, value in response.items()]) + "<>black"
+            client.sendall(send.encode('utf-8'))
         ip_save = address[0]
         clients.append(client)
         print(f"Подключен клиент {address}")

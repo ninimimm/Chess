@@ -76,16 +76,15 @@ class BotGame:
         self.shared_data.copy_field = self.string_images.copy()
 
     def get_content(self, dict, color):
+        second_color = "white" if self.color == "black" else "black"
         self.is_running = True
-        if self.color is None:
-            self.color = color
         max_weight = -9999
         variants = {}
         find_variants = []
         copy_dict_1 = copy.deepcopy(self.shared_data.copy_field)
         for key in dict:
             for coordinate in dict[key]:
-                enemy_color = "white"
+                enemy_color = second_color
                 first_weight = 0
                 eval_coord = (coordinate[1], coordinate[0])
                 if enemy_color in self.shared_data.copy_field[coordinate[0]][coordinate[1]]:
@@ -94,7 +93,7 @@ class BotGame:
                                            split("_")[1][:-1]][eval_coord[0]][eval_coord[1]]
                 self.shared_data.copy_field[coordinate[0]][coordinate[1]] = self.shared_data.copy_field[key[0]][key[1]]
                 self.shared_data.copy_field[key[0]][key[1]] = "None"
-                self.send_color = "white"
+                self.send_color = second_color
                 while not self.shared_data.can_use:
                     continue
                 self.shared_data.can_use = False
@@ -102,7 +101,7 @@ class BotGame:
                 keys = []
                 for enemy_key in self.shared_data.game_dict:
                     for enemy_coordinate in self.shared_data.game_dict[enemy_key]:
-                        enemy_color = "black"
+                        enemy_color = self.color
                         four_weight = 0
                         eval_coord = enemy_coordinate
                         if enemy_color in self.shared_data.copy_field[enemy_coordinate[0]][enemy_coordinate[1]]:
@@ -129,7 +128,7 @@ class BotGame:
             self.shared_data.copy_field[best_variants[1][i][0][0]][best_variants[1][i][0][1]] = "None"
             self.shared_data.copy_field[best_variants[1][i][3][0]][best_variants[1][i][3][1]] = self.shared_data.copy_field[best_variants[1][i][2][0]][best_variants[1][i][2][1]]
             self.shared_data.copy_field[best_variants[1][i][2][0]][best_variants[1][i][2][1]] = "None"
-            self.send_color = "black"
+            self.send_color = self.color
             while not self.shared_data.can_use:
                 continue
             self.shared_data.can_use = False
@@ -137,7 +136,7 @@ class BotGame:
             copy_dict_2 = copy.deepcopy(self.shared_data.copy_field)
             for key in use_dict:
                 for coordinate in use_dict[key]:
-                    enemy_color = "white"
+                    enemy_color = second_color
                     first_weight = 0
                     eval_coord = (coordinate[1], coordinate[0])
                     if enemy_color in self.shared_data.copy_field[coordinate[0]][coordinate[1]]:
@@ -148,14 +147,14 @@ class BotGame:
                     self.shared_data.copy_field[coordinate[0]][coordinate[1]] = self.shared_data.copy_field[key[0]][
                         key[1]]
                     self.shared_data.copy_field[key[0]][key[1]] = "None"
-                    self.send_color = "white"
+                    self.send_color = second_color
                     while not self.shared_data.can_use:
                         continue
                     self.shared_data.can_use = False
                     max_four_weight = -9999
                     for enemy_key in self.shared_data.game_dict:
                         for enemy_coordinate in self.shared_data.game_dict[enemy_key]:
-                            enemy_color = "black"
+                            enemy_color = self.color
                             four_weight = 0
                             eval_coord = enemy_coordinate
                             if enemy_color in self.shared_data.copy_field[enemy_coordinate[0]][enemy_coordinate[1]]:
