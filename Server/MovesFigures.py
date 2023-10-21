@@ -95,7 +95,7 @@ class MoveFigures:
                 print(str_)
                 str_ = ""
             count += 1
-            str_ += self.get_figure(dict_copy[key]) + " "
+            str_ += self.get_figure(dict_copy[key].figure) + " "
         print(str_)
 
     def get_figure(self, figure):
