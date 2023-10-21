@@ -90,7 +90,7 @@ class BotGame:
             for coordinate in dict[key]:
                 enemy_color = "white"
                 first_weight = 0
-                eval_coord = coordinate
+                eval_coord = (coordinate[0], coordinate[1])
                 if enemy_color in self.shared_data.copy_field[coordinate[0]][coordinate[1]]:
                     # print(self.shared_data.copy_field[coordinate[0]][coordinate[1]])
                     first_weight += self.values[self.shared_data.copy_field[coordinate[0]][coordinate[1]].split("_")[1][:-1]]
@@ -111,7 +111,7 @@ class BotGame:
                     for enemy_coordinate in self.shared_data.game_dict[enemy_key]:
                         enemy_color = "black"
                         four_weight = 0
-                        eval_coord = (enemy_coordinate[1], enemy_coordinate[0])
+                        eval_coord = enemy_coordinate
                         # print(eval_coord)
                         # print(enemy_key)
                         # print(self.shared_data.copy_field)
@@ -138,7 +138,7 @@ class BotGame:
         best_variants = []
         count = 10
         while sorted_variants or count > 0:
-            item = sorted_variants.pop()
+            item = sorted_variants.pop(0)
             if len(item[1]) >= count:
                 array = item[1]
                 random.shuffle(array)
@@ -149,7 +149,7 @@ class BotGame:
                 for move in item[1]:
                     best_variants.append((item[0], move))
                     count -= 1
-        print(variants)
+        print(best_variants)
         for i in range(10):
             print(f"рассматриваю {i} вариант")
             self.shared_data.copy_field = copy.deepcopy(copy_dict_1)
@@ -170,7 +170,7 @@ class BotGame:
                     print("коорд черный")
                     enemy_color = "white"
                     first_weight = 0
-                    eval_coord = coordinate
+                    eval_coord = (coordinate[1], coordinate[0])
                     if enemy_color in self.shared_data.copy_field[coordinate[0]][coordinate[1]]:
                         # print(self.shared_data.copy_field[coordinate[0]][coordinate[1]])
                         first_weight += self.values[
@@ -194,7 +194,7 @@ class BotGame:
                             print("коорд белый")
                             enemy_color = "black"
                             four_weight = 0
-                            eval_coord = (enemy_coordinate[1], enemy_coordinate[0])
+                            eval_coord = enemy_coordinate
                             # print(eval_coord)
                             # print(enemy_key)
                             # print(self.shared_data.copy_field)
