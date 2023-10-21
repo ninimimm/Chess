@@ -121,57 +121,62 @@ class BotGame:
                     num = random.randint(0, len(keys) - 1)
                     variants[first_weight - max_four_weight] = [[key, coordinate, keys[num][0], keys[num][1]]]
                 self.shared_data.copy_field = copy.deepcopy(copy_dict_1)
-        best_variants = sorted(variants.items(), reverse=True)[0]
-        for i in range(len(best_variants[1])):
-            self.shared_data.copy_field = copy.deepcopy(copy_dict_1)
-            self.shared_data.copy_field[best_variants[1][i][1][0]][best_variants[1][i][1][1]] = self.shared_data.copy_field[best_variants[1][i][0][0]][best_variants[1][i][0][1]]
-            self.shared_data.copy_field[best_variants[1][i][0][0]][best_variants[1][i][0][1]] = "None"
-            self.shared_data.copy_field[best_variants[1][i][3][0]][best_variants[1][i][3][1]] = self.shared_data.copy_field[best_variants[1][i][2][0]][best_variants[1][i][2][1]]
-            self.shared_data.copy_field[best_variants[1][i][2][0]][best_variants[1][i][2][1]] = "None"
-            self.send_color = self.color
-            while not self.shared_data.can_use:
-                continue
-            self.shared_data.can_use = False
-            use_dict = self.shared_data.game_dict
-            copy_dict_2 = copy.deepcopy(self.shared_data.copy_field)
-            for key in use_dict:
-                for coordinate in use_dict[key]:
-                    enemy_color = second_color
-                    first_weight = 0
-                    eval_coord = (coordinate[1], coordinate[0]) if self.color == "black" else (7 - coordinate[1], coordinate[0])
-                    if enemy_color in self.shared_data.copy_field[coordinate[0]][coordinate[1]]:
-                        first_weight += self.values[
-                            self.shared_data.copy_field[coordinate[0]][coordinate[1]].split("_")[1][:-1]]
-                    first_weight += self.evals[self.shared_data.copy_field[key[0]][key[1]].
-                                               split("_")[1][:-1]][eval_coord[0]][eval_coord[1]]
-                    self.shared_data.copy_field[coordinate[0]][coordinate[1]] = self.shared_data.copy_field[key[0]][
-                        key[1]]
-                    self.shared_data.copy_field[key[0]][key[1]] = "None"
-                    self.send_color = second_color
-                    while not self.shared_data.can_use:
-                        continue
-                    self.shared_data.can_use = False
-                    max_four_weight = -9999
-                    for enemy_key in self.shared_data.game_dict:
-                        for enemy_coordinate in self.shared_data.game_dict[enemy_key]:
-                            enemy_color = self.color
-                            four_weight = 0
-                            eval_coord = (7 - enemy_coordinate[1], enemy_coordinate[0]) if self.color == "black" else (enemy_coordinate[1], enemy_coordinate[0])
-                            if enemy_color in self.shared_data.copy_field[enemy_coordinate[0]][enemy_coordinate[1]]:
-                                four_weight += self.values[self.shared_data.copy_field[enemy_coordinate[0]]
-                                                           [enemy_coordinate[1]].split("_")[1][:-1]]
-                            four_weight += self.evals[self.shared_data.copy_field[enemy_key[0]][enemy_key[1]].
-                                                      split("_")[1][:-1]][eval_coord[0]][eval_coord[1]]
-                            max_four_weight = max(max_four_weight, four_weight)
-                    if best_variants[0] + first_weight - max_four_weight > max_weight:
-                        max_weight = best_variants[0] + first_weight - max_four_weight
-                        find_variants = [[best_variants[1][i][0], best_variants[1][i][1]]]
-                    elif best_variants[0] + first_weight - max_four_weight == max_weight:
-                        find_variants.append([best_variants[1][i][0], best_variants[1][i][1]])
-                    self.shared_data.copy_field = copy.deepcopy(copy_dict_2)
-            self.shared_data.copy_field = copy.deepcopy(copy_dict_1)
+        sort = sorted(variants.items(), reverse=True)
+        best_variants = []
+        best_variants.append(sort[0])
+        best_variants.append(sort[1])
+
+        for k in range(2):
+            for i in range(len(best_variants[k][1])):
+                self.shared_data.copy_field = copy.deepcopy(copy_dict_1)
+                self.shared_data.copy_field[best_variants[k][1][i][1][0]][best_variants[k][1][i][1][1]] = self.shared_data.copy_field[best_variants[k][1][i][0][0]][best_variants[k][1][i][0][1]]
+                self.shared_data.copy_field[best_variants[k][1][i][0][0]][best_variants[k][1][i][0][1]] = "None"
+                self.shared_data.copy_field[best_variants[k][1][i][3][0]][best_variants[k][1][i][3][1]] = self.shared_data.copy_field[best_variants[k][1][i][2][0]][best_variants[k][1][i][2][1]]
+                self.shared_data.copy_field[best_variants[k][1][i][2][0]][best_variants[k][1][i][2][1]] = "None"
+                self.send_color = self.color
+                while not self.shared_data.can_use:
+                    continue
+                self.shared_data.can_use = False
+                use_dict = self.shared_data.game_dict
+                copy_dict_2 = copy.deepcopy(self.shared_data.copy_field)
+                for key in use_dict:
+                    for coordinate in use_dict[key]:
+                        enemy_color = second_color
+                        first_weight = 0
+                        eval_coord = (coordinate[1], coordinate[0]) if self.color == "black" else (7 - coordinate[1], coordinate[0])
+                        if enemy_color in self.shared_data.copy_field[coordinate[0]][coordinate[1]]:
+                            first_weight += self.values[
+                                self.shared_data.copy_field[coordinate[0]][coordinate[1]].split("_")[1][:-1]]
+                        first_weight += self.evals[self.shared_data.copy_field[key[0]][key[1]].
+                                                   split("_")[1][:-1]][eval_coord[0]][eval_coord[1]]
+                        self.shared_data.copy_field[coordinate[0]][coordinate[1]] = self.shared_data.copy_field[key[0]][
+                            key[1]]
+                        self.shared_data.copy_field[key[0]][key[1]] = "None"
+                        self.send_color = second_color
+                        while not self.shared_data.can_use:
+                            continue
+                        self.shared_data.can_use = False
+                        max_four_weight = -9999
+                        for enemy_key in self.shared_data.game_dict:
+                            for enemy_coordinate in self.shared_data.game_dict[enemy_key]:
+                                enemy_color = self.color
+                                four_weight = 0
+                                eval_coord = (7 - enemy_coordinate[1], enemy_coordinate[0]) if self.color == "black" else (enemy_coordinate[1], enemy_coordinate[0])
+                                if enemy_color in self.shared_data.copy_field[enemy_coordinate[0]][enemy_coordinate[1]]:
+                                    four_weight += self.values[self.shared_data.copy_field[enemy_coordinate[0]]
+                                                               [enemy_coordinate[1]].split("_")[1][:-1]]
+                                four_weight += self.evals[self.shared_data.copy_field[enemy_key[0]][enemy_key[1]].
+                                                          split("_")[1][:-1]][eval_coord[0]][eval_coord[1]]
+                                max_four_weight = max(max_four_weight, four_weight)
+                        if best_variants[k][0] + first_weight - max_four_weight > max_weight:
+                            max_weight = best_variants[k][0] + first_weight - max_four_weight
+                            find_variants = [[best_variants[k][1][i][0], best_variants[k][1][i][1]]]
+                        elif best_variants[k][0] + first_weight - max_four_weight == max_weight:
+                            find_variants.append([best_variants[k][1][i][0], best_variants[k][1][i][1]])
+                        self.shared_data.copy_field = copy.deepcopy(copy_dict_2)
+                self.shared_data.copy_field = copy.deepcopy(copy_dict_1)
         self.is_running = False
-        print(find_variants, "find_variants")
+        print(find_variants[0], "find_variants")
         return find_variants[random.randint(0, len(find_variants) - 1)]
     def update_eval(self):
         self.evals["pawn"] = [
