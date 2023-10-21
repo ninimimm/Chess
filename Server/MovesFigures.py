@@ -89,14 +89,14 @@ class MoveFigures:
             keys.append(key)
         keys = sorted(keys, key=lambda x: x[1])
         count = 0
-        str = ""
+        str_ = ""
         for key in keys:
             if count % 8 == 0:
-                print(str)
-                str = ""
+                print(str_)
+                str_ = ""
             count += 1
-            if len(f"{dict_copy[key]}") == 8: str += f"    " + self.get_figure(dict_copy[key].figure) + "    "
-        print(str)
+            str_ += self.get_figure(dict_copy[key]) + " "
+        print(str_)
 
     def get_figure(self, figure):
         if figure is None: return " . "
