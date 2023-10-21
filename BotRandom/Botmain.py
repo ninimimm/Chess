@@ -22,29 +22,22 @@ if __name__ == "__main__":
         shared_data.game = BotGame(shared_data)
 
     def wait_result(client):
-        # print("я жду координату 1")
         incoming, outcoming = shared_data.game.get_content(shared_data.game_dict, shared_data.game.send_color)
         client.sendall(f"{incoming[0]} {incoming[1]}".encode('utf-8'))
-        # print("Получил 1, отправил")
         client.recv(1024).decode('utf-8')
         client.sendall(f"{outcoming[0]} {outcoming[1]}".encode('utf-8'))
-        # print("Получил 2, отправил")
         client.recv(1024).decode('utf-8')
 
     def connection():
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client.connect(('178.154.244.233', 8080))
-        # print("Отправил первичный запрос")
         client.sendall("0 7".encode('utf-8'))
         while True:
             if shared_data.game.send_color is not None:
-               # print(shared_data.copy_field)
-               # print(shared_data.game.send_color, "это сен кал в мейне")
                client.sendall(f"possible moves,{' '.join([x[j] for j in range(8) for x in shared_data.copy_field])},{shared_data.game.send_color}".encode('utf-8'))
                shared_data.game.send_color = None
             ready = select.select([client], [], [], 0.05)
             if ready[0]:
-                # print("Получил ответ от сервера")
                 data = client.recv(1024).decode('utf-8')
                 if len(data) > 0:
                     if "possible moves" in data:
@@ -64,21 +57,17 @@ if __name__ == "__main__":
                         gui.game.choose_figure(data.split()[1])
                         while shared_data.answer_button is None:
                             continue
-                        # print("Отправил запрос на сервер")
                         client.sendall(shared_data.answer_button.encode('utf-8'))
                         shared_data.answer_button = None
                     else:
-                        # print(data)
                         parse = data.split(" ,")
                         figures = [x for x in parse[1].split()]
                         for i in range(8):
                             for j in range(8):
                                 shared_data.game.string_images[j][i] = figures[i * 8 + j]
                                 shared_data.copy_field[j][i] = figures[i * 8 + j]
-                        # print(parse[2])
                         shared_data.game.color = "black"
                         shared_data.game.send_color = "black"
-                        # print(shared_data.game.send_color)
 
     thread1 = threading.Thread(target=run_start)
     thread2 = threading.Thread(target=connection)

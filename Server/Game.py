@@ -89,7 +89,6 @@ class Game:
     def on_click(self, coordinate, address):
         if address not in self.players_ip:
             self.players_ip[address] = ["black", False] if "white" in [x[0] for x in self.players_ip.values()] else ["white", True]
-        print(address, self.players_ip)
 
         if self.ready:
             cage = self.dict_cages[coordinate]
@@ -126,7 +125,6 @@ class Game:
                 self.current = None
                 self.current_player = (self.current_player + 1) % 2
             elif cage.color != "green" and cage.figure is not None and self.players_ip[address][1] and cage.figure.color == self.players_ip[address][0]:
-                print("могу что-то сделать")
                 self.current = (coordinate, cage)
                 self.fill()
                 cage.figure.moves(coordinate, cage, self.dict_cages)
@@ -142,7 +140,6 @@ class Game:
                     string_figures += f"None "
                 else:
                     string_figures += f"{self.dict_cages[(j, i)].figure.color}_{self.dict_cages[(j, i)].figure.name}{self.dict_cages[(j, i)].figure.index} "
-        print(f"{string_cages},{string_figures}хуй")
         return f"{string_cages},{string_figures},{self.players_ip[address][0]}"
 
     def fill(self):
@@ -220,7 +217,6 @@ class Game:
 
     def get_possible_moves(self, figures, color):
         new_dict_cages = self.get_new_dict(figures)
-        print(new_dict_cages)
         dict_name_possible_moves = {}
         for coordinate, cage in new_dict_cages.items():
             if cage.figure is not None and cage.figure.color == color:
