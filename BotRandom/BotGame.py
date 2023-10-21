@@ -85,12 +85,19 @@ class BotGame:
         find_variants = []
         # print(dict)
         copy_dict_1 = copy.deepcopy(self.shared_data.copy_field)
+        print(dict)
         for key in dict:
+            print(f"ходим этой {key}")
             # print("мотивация!")
             for coordinate in dict[key]:
+                print(f"ходим сюда {coordinate}")
                 enemy_color = "white"
                 first_weight = 0
-                eval_coord = (coordinate[0], coordinate[1])
+                eval_coord = (coordinate[1], coordinate[0])
+                print(self.evals[self.shared_data.copy_field[key[0]][key[1]].
+                                           split("_")[1][:-1]])
+                print(self.evals[self.shared_data.copy_field[key[0]][key[1]].
+                                           split("_")[1][:-1]][eval_coord[0]][eval_coord[1]])
                 if enemy_color in self.shared_data.copy_field[coordinate[0]][coordinate[1]]:
                     # print(self.shared_data.copy_field[coordinate[0]][coordinate[1]])
                     first_weight += self.values[self.shared_data.copy_field[coordinate[0]][coordinate[1]].split("_")[1][:-1]]
@@ -127,6 +134,7 @@ class BotGame:
                             keys = [(enemy_key, enemy_coordinate)]
                         elif four_weight == max_four_weight:
                             keys.append((enemy_key, enemy_coordinate))
+                print(first_weight - max_four_weight, first_weight, max_four_weight)
                 if first_weight - max_four_weight in variants:
                     num = random.randint(0, len(keys) - 1)
                     variants[first_weight - max_four_weight].append([key, coordinate, keys[num][0], keys[num][1]])
