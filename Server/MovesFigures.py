@@ -101,9 +101,9 @@ class MoveFigures:
 
     def get_figure(self, figure):
         if figure is None: return " . "
-        if figure.name == "p": return '\u2659'
-        if figure.name == "r": return '\u2656'
-        if figure.name == "h": return '\u2658'
-        if figure.name == "q": return '\u2655'
-        if figure.name == "k": return '\u2654'
-        if figure.name == "e": return '\u2657'
+        if figure.name == "pawn": return '\u2659'
+        if figure.name == "rook": return '\u2656'
+        if figure.name == "horse": return '\u2658'
+        if figure.name == "queen": return '\u2655'
+        if figure.name == "king": return '\u2654'
+        if figure.name == "elephant": return '\u2657'
