@@ -61,8 +61,8 @@ if __name__ == '__main__':
         if len(clients) == 1:
             game.players_ip[ip_save] = ["white", True]
             game.players_ip[address[0]] = ["black", False]
-            data = ' '.join([f"{game.dict_cages[(i, j)].figure.color}_{game.dict_cages[(i, j)].figure.name}{game.dict_cages[(i, j)].figure.index}"
-                    if (i, j) in game.dict_cages else "None" for i in range(8) for j in range(8) if ()])
+            data = [f"{game.dict_cages[(i, j)].figure.color}_{game.dict_cages[(i, j)].figure.name}{game.dict_cages[(i, j)].figure.index}"
+                    if (i, j) in game.dict_cages else "None" for i in range(8) for j in range(8) if ()]
 
             response = game.get_possible_moves(data, "white")
             send = "possible moves" + ",".join(
