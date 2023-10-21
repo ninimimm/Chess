@@ -86,7 +86,7 @@ class BotGame:
             for coordinate in dict[key]:
                 enemy_color = second_color
                 first_weight = 0
-                eval_coord = (coordinate[1], coordinate[0])
+                eval_coord = (coordinate[1], coordinate[0]) if self.color == "black" else (7 - coordinate[1], coordinate[0])
                 if enemy_color in self.shared_data.copy_field[coordinate[0]][coordinate[1]]:
                     first_weight += self.values[self.shared_data.copy_field[coordinate[0]][coordinate[1]].split("_")[1][:-1]]
                 first_weight += self.evals[self.shared_data.copy_field[key[0]][key[1]].
@@ -103,7 +103,7 @@ class BotGame:
                     for enemy_coordinate in self.shared_data.game_dict[enemy_key]:
                         enemy_color = self.color
                         four_weight = 0
-                        eval_coord = enemy_coordinate
+                        eval_coord = (7 - enemy_coordinate[1], enemy_coordinate[0]) if self.color == "black" else (enemy_coordinate[1], enemy_coordinate[0])
                         if enemy_color in self.shared_data.copy_field[enemy_coordinate[0]][enemy_coordinate[1]]:
                             four_weight += self.values[self.shared_data.copy_field[enemy_coordinate[0]]
                                                        [enemy_coordinate[1]].split("_")[1][:-1]]
@@ -138,7 +138,7 @@ class BotGame:
                 for coordinate in use_dict[key]:
                     enemy_color = second_color
                     first_weight = 0
-                    eval_coord = (coordinate[1], coordinate[0])
+                    eval_coord = (coordinate[1], coordinate[0]) if self.color == "black" else (7 - coordinate[1], coordinate[0])
                     if enemy_color in self.shared_data.copy_field[coordinate[0]][coordinate[1]]:
                         first_weight += self.values[
                             self.shared_data.copy_field[coordinate[0]][coordinate[1]].split("_")[1][:-1]]
@@ -156,7 +156,7 @@ class BotGame:
                         for enemy_coordinate in self.shared_data.game_dict[enemy_key]:
                             enemy_color = self.color
                             four_weight = 0
-                            eval_coord = enemy_coordinate
+                            eval_coord = (7 - enemy_coordinate[1], enemy_coordinate[0]) if self.color == "black" else (enemy_coordinate[1], enemy_coordinate[0])
                             if enemy_color in self.shared_data.copy_field[enemy_coordinate[0]][enemy_coordinate[1]]:
                                 four_weight += self.values[self.shared_data.copy_field[enemy_coordinate[0]]
                                                            [enemy_coordinate[1]].split("_")[1][:-1]]
