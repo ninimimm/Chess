@@ -87,6 +87,8 @@ class Game:
                     self.dict_cages[(i, j)] = Cage(["white", "black"][(i + j) % 2], (i, j))
 
     def on_click(self, coordinate, address):
+        if len(self.players_ip) < 2:
+            return
 
         if self.ready:
             cage = self.dict_cages[coordinate]
