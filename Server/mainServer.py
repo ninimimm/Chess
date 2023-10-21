@@ -73,6 +73,7 @@ if __name__ == '__main__':
             send = "possible moves" + ",".join(
                 [f"{key[0]} {key[1]}:{'|'.join(value)}" for key, value in response.items()]) + "<>black"
             client.sendall(send.encode('utf-8'))
+            print(game.players_ip)
         ip_save = address[0]
         clients.append(client)
         print(f"Подключен клиент {address}")
