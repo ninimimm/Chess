@@ -95,6 +95,14 @@ class MoveFigures:
                 print(str)
                 str = ""
             count += 1
-            if len(f"{dict_copy[key]}") == 8: str += f"    {dict_copy[key]}    "
+            if len(f"{dict_copy[key]}") == 8: str += f"    {self.get_figure(dict_copy[key].split(':')[1].split(',')[0])}    "
             else: str += f"{dict_copy[key]}  "
         print(str)
+
+    def get_figure(self, name):
+        if name == "p": return '\u2659'
+        if name == "r": return '\u2656'
+        if name == "h": return '\u2658'
+        if name == "q": return '\u2655'
+        if name == "k": return '\u2654'
+        if name == "e": return '\u2657'
