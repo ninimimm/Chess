@@ -67,12 +67,12 @@ if __name__ == '__main__':
 
             response = game.get_possible_moves(data, "white")
             send = "possible moves" + ",".join(
-                [f"{key[0]} {key[1]}:{'|'.join(value)}" for key, value in response.items()]) + "<>white"
+                [f"{key[0]} {key[1]}:{'|'.join(value)}" for key, value in response.items()]) + "<>white 0"
             clients[0].sendall(send.encode('utf-8'))
 
             response = game.get_possible_moves(data, "black")
             send = "possible moves" + ",".join(
-                [f"{key[0]} {key[1]}:{'|'.join(value)}" for key, value in response.items()]) + "<>black"
+                [f"{key[0]} {key[1]}:{'|'.join(value)}" for key, value in response.items()]) + "<>black 1"
             client.sendall(send.encode('utf-8'))
             print(game.players_ip)
         ip_save = address[0]

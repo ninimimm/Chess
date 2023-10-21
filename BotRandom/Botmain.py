@@ -42,10 +42,15 @@ if __name__ == "__main__":
                 if len(data) > 0:
                     if "possible moves" in data:
                         info = data
+                        ind = None
                         if "<>" in data:
                             info = data.split('<>')
-                            shared_data.game.color = info[1]
+                            col, ind = info[1].split()
+                            shared_data.game.color = col
+                            print(info[1])
                             info = info[0]
+                            print(info)
+                        print(info)
                         parse = info[14:].split(",")
                         shared_data.game_dict = {}
                         for item in parse:
@@ -53,7 +58,7 @@ if __name__ == "__main__":
                             key = [int(x) for x in item_parse[0].split()]
                             shared_data.game_dict[(key[0], key[1])] = [(int(x.split()[0]), int(x.split()[1])) for x in item_parse[1].split('|')]
                         shared_data.can_use = True
-                        if not shared_data.game.is_running:
+                        if not shared_data.game.is_running and ("<>" in data and ind == 0 or "<>" not in data):
                             shared_data.can_use = False
                             thread4 = threading.Thread(target=wait_result, args=(client,))
                             thread4.start()
