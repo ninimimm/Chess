@@ -1,4 +1,5 @@
 import socket
+import random
 import threading
 from Game import Game
 
@@ -50,10 +51,16 @@ if __name__ == '__main__':
     server.listen()
     print("Сервер запущен и ждет подключений.")
     clients = []
-
+    colors = ["white", "black"]
+    rand = random.randint(0, 1)
+    ip_save = None
 
     while True:
         client, address = server.accept()
+        if len(clients) == 1:
+            game.players_ip[ip_save] = [colors[rand], True if rand == 0 else False]
+            game.players_ip[address[0]] = [colors[(rand + 1) % 2], True if rand == 1 else False]
+        ip_save = address[0]
         clients.append(client)
         print(f"Подключен клиент {address}")
         client_handler = threading.Thread(target=handle_client, args=(client, game, address))
