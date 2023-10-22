@@ -102,7 +102,7 @@ class MoveFigures:
         print(str_)
 
     def get_figure(self, figure):
-        if figure is None: return ". "
+        if figure is None: return "."
 
         figures = {
             "pawn": '\u2659',
