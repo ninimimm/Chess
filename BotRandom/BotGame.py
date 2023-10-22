@@ -124,9 +124,12 @@ class BotGame:
         sort = sorted(variants.items(), reverse=True)
         best_variants = []
         best_variants.append(sort[0])
-        best_variants.append(sort[1])
+        try:
+            best_variants.append(sort[1])
+        except Exception:
+            pass
 
-        for k in range(2):
+        for k in range(len(best_variants)):
             for i in range(len(best_variants[k][1])):
                 self.shared_data.copy_field = copy.deepcopy(copy_dict_1)
                 self.shared_data.copy_field[best_variants[k][1][i][1][0]][best_variants[k][1][i][1][1]] = self.shared_data.copy_field[best_variants[k][1][i][0][0]][best_variants[k][1][i][0][1]]
@@ -177,7 +180,8 @@ class BotGame:
                 self.shared_data.copy_field = copy.deepcopy(copy_dict_1)
         self.is_running = False
         print(find_variants[0], "find_variants")
-        return find_variants[random.randint(0, len(find_variants) - 1)]
+        set_find_variants = list(set(find_variants))
+        return set_find_variants[random.randint(0, len(set_find_variants) - 1)]
     def update_eval(self):
         self.evals["pawn"] = [
             [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
