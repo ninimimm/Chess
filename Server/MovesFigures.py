@@ -105,12 +105,18 @@ class MoveFigures:
         if figure is None: return "."
 
         figures = {
-            "pawn": '\u2659',
-            "rook": '\u2656',
-            "horse": '\u2658',
-            "queen": '\u2655',
-            "king": '\u2654',
-            "elephant": '\u2657'
+            "pawn_black": '\u265F',
+            "rook_black": '\u265C',
+            "horse_black": '\u265E',
+            "queen_black": '\u265B',
+            "king_black": '\u265A',
+            "elephant_black": '\u265D',
+            "pawn_white": '\u2659',
+            "rook_white": '\u2656',
+            "horse_white": '\u2658',
+            "queen_white": '\u2655',
+            "king_white": '\u2654',
+            "elephant_white": '\u2657'
         }
-        return f"{Style.BRIGHT}{figures[figure.name]}{Style.RESET_ALL}"
+        return f"{Style.BRIGHT}{figures[f'{figure.name}_{figure.color}']}{Style.RESET_ALL}"
 
