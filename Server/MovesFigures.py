@@ -90,7 +90,7 @@ class MoveFigures:
         keys = []
         for key in dict_copy.keys():
             keys.append(key)
-        keys = sorted(keys)
+        keys = sorted(keys, key=lambda x: (x[1], x[0]))
         count = 0
         str_ = ""
         for key in keys:
