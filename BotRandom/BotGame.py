@@ -173,9 +173,9 @@ class BotGame:
                                 max_four_weight = max(max_four_weight, four_weight)
                         if best_variants[k][0] + first_weight - max_four_weight > max_weight:
                             max_weight = best_variants[k][0] + first_weight - max_four_weight
-                            find_variants = [[best_variants[k][1][i][0], best_variants[k][1][i][1]]]
+                            find_variants = [(best_variants[k][1][i][0], best_variants[k][1][i][1])]
                         elif best_variants[k][0] + first_weight - max_four_weight == max_weight:
-                            find_variants.append([best_variants[k][1][i][0], best_variants[k][1][i][1]])
+                            find_variants.append((best_variants[k][1][i][0], best_variants[k][1][i][1]))
                         self.shared_data.copy_field = copy.deepcopy(copy_dict_2)
                 self.shared_data.copy_field = copy.deepcopy(copy_dict_1)
         self.is_running = False

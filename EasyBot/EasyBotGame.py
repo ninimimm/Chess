@@ -112,9 +112,9 @@ class EasyBotGame:
                         max_second_weight = max(second_weight, max_second_weight)
                 if first_weight - max_second_weight > max_weight:
                     max_weight = first_weight - max_second_weight
-                    variants = [[key, coordinate]]
+                    variants = [(key, coordinate)]
                 elif first_weight - max_second_weight == max_weight:
-                    variants.append([key, coordinate])
+                    variants.append((key, coordinate))
                 print(max_weight, first_weight, max_second_weight)
                 self.shared_data.copy_field = copy.deepcopy(copy_dict)
         self.is_running = False
