@@ -65,10 +65,14 @@ class MoveFigures:
             dict_cages[move].figure = piece
             dict_cages[start_cord].figure = None
             with multiprocessing.Pool(multiprocessing.cpu_count() * 3) as p:
+                print("считаем")
                 results = p.map_async(self.is_figure_kill_king, [(x, dict_cages) for x in self.enemy_figures])
                 p.close()
                 p.join()
-            if not(True in results.get()):
+            print("получаем гет")
+            list_res = results.get()
+            print("получили гет", list_res)
+            if not(True in list_res):
                 possible_defense_moves.add(move)
 
             piece.coordinate = start_cord
