@@ -42,17 +42,21 @@ class MoveFigures:
         flag = False
         is_while = True
         def end(response):
+            print("получили ответ для всех процессов")
             global flag, is_while
             flag = True in response
             is_while = False
 
         with multiprocessing.Pool(multiprocessing.cpu_count() * 3) as p:
+            print("запускаем в параллельных процессах")
             p.map_async(self.is_figure_kill_king, [(x, dict_cages) for x in enemy_to_king], callback=end)
             p.close()
             p.join()
 
+        print("Ожидаем завершение работы процессов")
         while is_while:
             continue
+        print("Уже все хорошо")
         return flag
 
     def is_figure_kill_king(self, figure, dict_cages):
