@@ -52,7 +52,8 @@ class MoveFigures:
         return flag
 
 
-    def is_figure_kill_king(self, figure, dict_cages):
+    def is_figure_kill_king(self, args):
+        figure, dict_cages = args
         for cord in figure.get_moves(figure.coordinate, dict_cages[figure.coordinate], dict_cages):
             if cord == self.king.coordinate:
                 return True
