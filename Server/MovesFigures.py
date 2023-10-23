@@ -69,9 +69,7 @@ class MoveFigures:
                 results = p.map_async(self.is_figure_kill_king, [(x, dict_cages) for x in self.enemy_figures])
                 p.close()
                 p.join()
-            print("получаем гет")
             list_res = results.get()
-            print("получили гет", list_res)
             if not(True in list_res):
                 possible_defense_moves.add(move)
 
