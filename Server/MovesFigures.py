@@ -72,8 +72,7 @@ class MoveFigures:
             results = GLOBAL_POOL.map(self.is_figure_kill_king, [(x, dict_cages) for x in self.enemy_figures])
             # self.pool.close()
             # self.game.pool.join()
-            list_res = results.get()
-            if not(True in list_res):
+            if not(True in results):
                 possible_defense_moves.add(move)
 
             piece.coordinate = start_cord
