@@ -43,6 +43,7 @@ class MoveFigures:
         for cord in figure.get_moves(figure.coordinate, dict_cages[figure.coordinate], dict_cages):
             if cord == self.king.coordinate:
                 return True
+        return False
 
 
     def get_possible_defense_moves(self, color, dict_cages):
