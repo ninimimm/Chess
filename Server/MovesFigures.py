@@ -66,8 +66,8 @@ class MoveFigures:
             dict_cages[move].figure = piece
             dict_cages[start_cord].figure = None
             results = self.pool.map_async(self.is_figure_kill_king, [(x, dict_cages) for x in self.enemy_figures])
-            self.pool.close()
-            self.pool.join()
+            # self.pool.close()
+            # self.game.pool.join()
             list_res = results.get()
             if not(True in list_res):
                 possible_defense_moves.add(move)
