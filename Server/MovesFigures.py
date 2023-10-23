@@ -1,6 +1,7 @@
 from colorama import Fore, Style, init
 init(autoreset=True)  # Инициализация colorama
 import multiprocessing
+from concurrent.futures import ThreadPoolExecutor
 
 from Figures.Pawn import Pawn
 from Figures.Horse import Horse
@@ -64,18 +65,21 @@ class MoveFigures:
             piece.coordinate = move
             dict_cages[move].figure = piece
             dict_cages[start_cord].figure = None
-            with multiprocessing.Pool(multiprocessing.cpu_count() * 3) as p:
+
+            # Создаем ThreadPoolExecutor
+            with ThreadPoolExecutor(max_workers=3) as executor:
                 print("считаем")
-                results = p.map_async(self.is_figure_kill_king, [(x, dict_cages) for x in self.enemy_figures])
-                p.close()
-                p.join()
-            list_res = results.get()
-            if not(True in list_res):
+                # Используем executor.map для параллельного выполнения
+                results = list(executor.map(self.is_figure_kill_king, [(x, dict_cages) for x in self.enemy_figures]))
+
+            list_res = results
+            if not (True in list_res):
                 possible_defense_moves.add(move)
 
             piece.coordinate = start_cord
             dict_cages[start_cord].figure = piece
             dict_cages[move].figure = finish_figure
+
         print(possible_defense_moves)
         return possible_defense_moves
 
