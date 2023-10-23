@@ -66,10 +66,7 @@ class MoveFigures:
             dict_cages[move].figure = piece
             dict_cages[start_cord].figure = None
 
-            # Создаем ThreadPoolExecutor
-            with ThreadPoolExecutor(max_workers=3) as executor:
-                print("считаем")
-                # Используем executor.map для параллельного выполнения
+            with ThreadPoolExecutor(max_workers=5) as executor:
                 results = list(executor.map(self.is_figure_kill_king, [(x, dict_cages) for x in self.enemy_figures]))
 
             list_res = results
@@ -80,7 +77,6 @@ class MoveFigures:
             dict_cages[start_cord].figure = piece
             dict_cages[move].figure = finish_figure
 
-        print(possible_defense_moves)
         return possible_defense_moves
 
     def print_dict_copy(self, dict_copy):
