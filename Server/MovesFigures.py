@@ -68,7 +68,7 @@ class MoveFigures:
                 p.join()
             results.wait()
             print(results)
-            if not(True in results):
+            if not(True in results.get()):
                 possible_defense_moves.add(move)
 
             piece.coordinate = start_cord
