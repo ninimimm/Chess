@@ -19,7 +19,7 @@ class MoveFigures:
         self.enemy_figures = []
         global GLOBAL_POOL
         if GLOBAL_POOL is None:
-            GLOBAL_POOL = Pool(10)
+            GLOBAL_POOL = Pool(8)
 
     def draw(self, possible_moves):
         for move in possible_moves:
