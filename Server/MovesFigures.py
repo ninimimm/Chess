@@ -65,20 +65,11 @@ class MoveFigures:
             piece.coordinate = move
             dict_cages[move].figure = piece
             dict_cages[start_cord].figure = None
-<<<<<<< HEAD
-
-            with ThreadPoolExecutor(max_workers=7) as executor:
-                results = list(executor.map(self.is_figure_kill_king, [(x, dict_cages) for x in self.enemy_figures]))
-
-            list_res = results
-            if not (True in list_res):
-=======
             results = self.game.pool.map_async(self.is_figure_kill_king, [(x, dict_cages) for x in self.enemy_figures])
             self.game.pool.close()
             self.game.pool.join()
             list_res = results.get()
             if not(True in list_res):
->>>>>>> 8eaa5a6 (Pool(10))
                 possible_defense_moves.add(move)
 
             piece.coordinate = start_cord
