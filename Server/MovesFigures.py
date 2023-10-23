@@ -38,24 +38,11 @@ class MoveFigures:
         elif figure.name == "king":
             return King(figure.color, figure.move_figures, figure.game, figure.coordinate)
 
-    def is_check(self, enemy_to_king, dict_cages):
-        result = [False]
-        lock = multiprocessing.Lock()
-
-        with multiprocessing.Pool(multiprocessing.cpu_count() * 3) as p:
-            p.map_async(self.is_figure_kill_king, [(x, dict_cages, result, lock) for x in enemy_to_king])
-            p.close()
-            p.join()
-        return True in result
-
     def is_figure_kill_king(self, args):
-        figure, dict_cages, result, lock = args
-        if result == [True]: return True
+        figure, dict_cages = args
         for cord in figure.get_moves(figure.coordinate, dict_cages[figure.coordinate], dict_cages):
             if cord == self.king.coordinate:
-                lock.acquire()
-                result = [True]
-                lock.release()
+                return True
 
 
     def get_possible_defense_moves(self, color, dict_cages):
@@ -75,7 +62,12 @@ class MoveFigures:
             piece.coordinate = move
             dict_cages[move].figure = piece
             dict_cages[start_cord].figure = None
-            if not self.is_check(self.enemy_figures, dict_cages):
+            with multiprocessing.Pool(multiprocessing.cpu_count() * 3) as p:
+                results = p.map_async(self.is_figure_kill_king, [(x, dict_cages) for x in self.enemy_figures])
+                p.close()
+                p.join()
+            results.wait()
+            if not(True in results):
                 possible_defense_moves.add(move)
 
             piece.coordinate = start_cord
