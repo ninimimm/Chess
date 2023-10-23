@@ -54,7 +54,7 @@ if __name__ == "__main__":
                             #print(info)
                         #print(info)
                         parse = info[14:].split(",")
-                        if len(parse) > 0:
+                        if parse != ['']:
                             shared_data.game_dict = {}
                             for item in parse:
                                 item_parse = item.split(":")
@@ -65,6 +65,8 @@ if __name__ == "__main__":
                                 shared_data.can_use = False
                                 thread4 = threading.Thread(target=wait_result, args=(client,))
                                 thread4.start()
+                        else:
+                            shared_data.game_dict = {}
                         
                     elif data.split()[0] == "choice":
                         gui.game.choose_figure(data.split()[1])
