@@ -1,6 +1,7 @@
 from colorama import Fore, Style, init
 init(autoreset=True)  # Инициализация colorama
 import multiprocessing
+from functools import lru_cache
 
 from Figures.Pawn import Pawn
 from Figures.Horse import Horse
@@ -38,6 +39,7 @@ class MoveFigures:
         elif figure.name == "king":
             return King(figure.color, figure.move_figures, figure.game, figure.coordinate)
 
+    @lru_cache(maxsize=None)
     def is_figure_kill_king(self, args):
         figure, dict_cages = args
         if figure is None or dict_cages[figure.coordinate].figure is None: return False
@@ -78,7 +80,7 @@ class MoveFigures:
             piece.coordinate = start_cord
             dict_cages[start_cord].figure = piece
             dict_cages[move].figure = finish_figure
-        #print(possible_defense_moves)
+        print(possible_defense_moves)
         return possible_defense_moves
 
     def print_dict_copy(self, dict_copy):
