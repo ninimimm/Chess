@@ -39,31 +39,25 @@ class MoveFigures:
             return King(figure.color, figure.move_figures, figure.game, figure.coordinate)
 
     def is_check(self, enemy_to_king, dict_cages):
-        flag = False
-        is_while = True
-        def end(response):
-            print("получили ответ для всех процессов")
-            nonlocal flag, is_while
-            flag = True in response
-            is_while = False
+        result = [False]
+        lock = multiprocessing.Lock()
 
         with multiprocessing.Pool(multiprocessing.cpu_count() * 3) as p:
             print("запускаем в параллельных процессах")
-            p.map_async(self.is_figure_kill_king, [(x, dict_cages) for x in enemy_to_king], callback=end)
+            p.map_async(self.is_figure_kill_king, [(x, dict_cages, result, lock) for x in enemy_to_king])
             p.close()
             p.join()
 
-        print("Ожидаем завершение работы процессов")
-        while is_while:
-            continue
-        print("Уже все хорошо")
-        return flag
+        return True in result
 
     def is_figure_kill_king(self, args):
-        figure, dict_cages = args
+        figure, dict_cages, result, lock = args
+        if result == [True]: return True
         for cord in figure.get_moves(figure.coordinate, dict_cages[figure.coordinate], dict_cages):
             if cord == self.king.coordinate:
-                return True
+                lock.acquire()
+                result = [True]
+                lock.release()
 
 
     def get_possible_defense_moves(self, color, dict_cages):
