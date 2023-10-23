@@ -42,13 +42,11 @@ class MoveFigures:
         results = []
 
         with multiprocessing.Pool(multiprocessing.cpu_count() * 3) as p:
-            print("запускаем в параллельных процессах")
             for result in p.imap(self.is_figure_kill_king, [(x, dict_cages) for x in enemy_to_king]):
                 results.append(result)
 
         # Обработка результатов
         flag = any(results)
-        print("Уже все хорошо")
         return flag
 
 
