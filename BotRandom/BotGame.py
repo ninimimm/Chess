@@ -179,7 +179,7 @@ class BotGame:
                         self.shared_data.copy_field = copy.deepcopy(copy_dict_2)
                 self.shared_data.copy_field = copy.deepcopy(copy_dict_1)
         self.is_running = False
-        print(find_variants[0], "find_variants")
+        #print(find_variants[0], "find_variants")
         set_find_variants = list(set(find_variants))
         return set_find_variants[random.randint(0, len(set_find_variants) - 1)]
     def update_eval(self):

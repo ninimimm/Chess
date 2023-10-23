@@ -115,11 +115,11 @@ class EasyBotGame:
                     variants = [(key, coordinate)]
                 elif first_weight - max_second_weight == max_weight:
                     variants.append((key, coordinate))
-                print(max_weight, first_weight, max_second_weight)
+                #print(max_weight, first_weight, max_second_weight)
                 self.shared_data.copy_field = copy.deepcopy(copy_dict)
         self.is_running = False
         set_variants = list(set(variants))
-        print(set_variants)
+        #print(set_variants)
         return set_variants[random.randint(0, len(set_variants) - 1)]
 
     def update_eval(self):

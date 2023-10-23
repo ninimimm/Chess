@@ -66,7 +66,7 @@ class MoveFigures:
             dict_cages[move].figure = piece
             dict_cages[start_cord].figure = None
 
-            with ThreadPoolExecutor(max_workers=5) as executor:
+            with ThreadPoolExecutor(max_workers=15) as executor:
                 results = list(executor.map(self.is_figure_kill_king, [(x, dict_cages) for x in self.enemy_figures]))
 
             list_res = results

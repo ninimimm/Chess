@@ -52,9 +52,9 @@ if __name__ == "__main__":
                             #print(info[1])
                             info = info[0]
                             #print(info)
-                        print(info)
+                        #print(info)
                         parse = info[14:].split(",")
-                        print(parse)
+                        #print(parse)
                         if parse != ['']:
                             shared_data.game_dict = {}
                             for item in parse:
