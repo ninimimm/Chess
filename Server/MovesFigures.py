@@ -68,7 +68,6 @@ class MoveFigures:
                 p.close()
                 p.join()
             results.wait()
-            print(results.get())
             if not(True in results.get()):
                 possible_defense_moves.add(move)
 
