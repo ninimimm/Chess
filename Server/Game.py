@@ -7,11 +7,9 @@ from Figures.Queen import Queen
 from Figures.King import King
 from MovesFigures import MoveFigures
 from Player import Player
-from multiprocessing import Pool
 
 class Game:
     def __init__(self, square_size, diffy, diffx):
-        self.pool = Pool(10)
         self.players_ip = {}
         self.index_white_pawn = 0
         self.index_black_pawn = 0
