@@ -43,7 +43,7 @@ class MoveFigures:
         is_while = True
         def end(response):
             print("получили ответ для всех процессов")
-            global flag, is_while
+            nonlocal flag, is_while
             flag = True in response
             is_while = False
 
