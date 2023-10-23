@@ -10,12 +10,16 @@ from Figures.Queen import Queen
 from Figures.King import King
 from Cage import Cage
 
+
+GLOBAL_POOL = None
 class MoveFigures:
     def __init__(self, game):
         self.game = game
         self.king = None
         self.enemy_figures = []
-        self.pool = Pool(10)
+        global GLOBAL_POOL
+        if GLOBAL_POOL is None:
+            GLOBAL_POOL = Pool(10)
 
     def draw(self, possible_moves):
         for move in possible_moves:
@@ -65,7 +69,7 @@ class MoveFigures:
             piece.coordinate = move
             dict_cages[move].figure = piece
             dict_cages[start_cord].figure = None
-            results = self.pool.map_async(self.is_figure_kill_king, [(x, dict_cages) for x in self.enemy_figures])
+            results = GLOBAL_POOL.map(self.is_figure_kill_king, [(x, dict_cages) for x in self.enemy_figures])
             # self.pool.close()
             # self.game.pool.join()
             list_res = results.get()
