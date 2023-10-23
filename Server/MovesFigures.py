@@ -39,16 +39,21 @@ class MoveFigures:
             return King(figure.color, figure.move_figures, figure.game, figure.coordinate)
 
     def is_check(self, enemy_to_king, dict_cages):
-        results = []
+        flag = False
+        is_while = True
+        def end(response):
+            global flag, is_while
+            flag = True in response
+            is_while = False
 
         with multiprocessing.Pool(multiprocessing.cpu_count() * 3) as p:
-            for result in p.imap(self.is_figure_kill_king, [(x, dict_cages) for x in enemy_to_king]):
-                results.append(result)
+            p.map_async(self.is_figure_kill_king, [(x, dict_cages) for x in enemy_to_king], callback=end)
+            p.close()
+            p.join()
 
-        # Обработка результатов
-        flag = any(results)
+        while is_while:
+            continue
         return flag
-
 
     def is_figure_kill_king(self, args):
         figure, dict_cages = args
