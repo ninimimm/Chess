@@ -47,7 +47,7 @@ class MoveFigures:
             p.map_async(self.is_figure_kill_king, [(x, dict_cages, result, lock) for x in enemy_to_king])
             p.close()
             p.join()
-
+        print("выводим результат", result)
         return True in result
 
     def is_figure_kill_king(self, args):
