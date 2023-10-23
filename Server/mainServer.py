@@ -61,6 +61,7 @@ if __name__ == '__main__':
         if len(clients) == 1:
             game.players_ip[ip_save] = ["white", True]
             game.players_ip[address[0]] = ["black", False]
+            print(ip_save, address[0])
             data = [f"{game.dict_cages[(j, i)].figure.color}_{game.dict_cages[(j, i)].figure.name}{game.dict_cages[(j, i)].figure.index}"
                     if game.dict_cages[(j, i)].figure is not None else "None" for i in range(8) for j in range(8)]
             print(data)
