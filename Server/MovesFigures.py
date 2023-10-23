@@ -40,7 +40,7 @@ class MoveFigures:
 
     def is_figure_kill_king(self, args):
         figure, dict_cages = args
-        if figure is None: return False
+        if figure is None or dict_cages[figure.coordinate].figure is None: return False
         for cord in figure.get_moves(figure.coordinate, dict_cages[figure.coordinate], dict_cages):
             if cord == self.king.coordinate:
                 return True
