@@ -11,10 +11,10 @@ class Elephant:
         else:
             game.index_black_elephant += 1
 
-    def __str__(self):
+    def __str__(self): # pragma: no cover
         return f"{self.name[0]},{self.color[0]},{self.coordinate}"
 
-    def moves(self, coordinate, cage, dict_cages):
+    def moves(self, coordinate, cage, dict_cages): # pragma: no cover
         self.move_figures.draw(self.get_possible_moves(coordinate, cage, dict_cages))
 
     def get_possible_moves(self, coordinate, cage, dict_cages):

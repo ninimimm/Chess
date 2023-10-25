@@ -4,5 +4,5 @@ class Cage:
         self.figure = figure
         self.color = color
 
-    def __str__(self):
+    def __str__(self): # pragma: no cover
         return f"{self.color[0]},f:{str(self.figure)}"

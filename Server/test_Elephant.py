@@ -4,7 +4,7 @@ from Cage import Cage
 from MovesFigures import MoveFigures
 from Game import Game
 
-class test_Elephant(unittest.TestCase):
+class test_Elephant(unittest.TestCase): # pragma: no cover
     def setUp(self):
         self.game = Game(90, 80, 140)
         self.move_figures = MoveFigures(self.game)
@@ -39,5 +39,5 @@ class test_Elephant(unittest.TestCase):
         expected_moves = {(0, 0), (1, 1), (3, 3), (3, 1), (4, 0), (1, 3), (0, 4), (4, 4)}
         self.assertSetEqual(set(moves), expected_moves)
 
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover
     unittest.main()

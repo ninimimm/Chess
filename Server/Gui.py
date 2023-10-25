@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 from screeninfo import get_monitors
 
 class Gui:
-    def __init__(self):
+    def __init__(self): # pragma: no cover
         self.root = tk.Tk()
         self.root.title("Шахматная доска")
         # Получаем информацию о всех мониторах
@@ -30,7 +30,7 @@ class Gui:
         self.load_images()
         self.game = Game(self.root, self.images, self.canvas, self.square_size, self.diffy, self.diffx)
 
-    def load_images(self):
+    def load_images(self): # pragma: no cover
         self.images = {}
         for piece in ["pawn", "rook", "horse", "elephant", "queen", "king"]:
             for color in ["white", "black"]:

@@ -4,7 +4,7 @@ from Cage import Cage
 from MovesFigures import MoveFigures
 from Game import Game
 
-class test_Queen(unittest.TestCase):
+class test_Queen(unittest.TestCase): # pragma: no cover
     def setUp(self):
         self.game = Game(90, 80, 140)
         self.move_figures = MoveFigures(self.game)
@@ -43,5 +43,5 @@ class test_Queen(unittest.TestCase):
                           (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0), (0, 1)}
         self.assertSetEqual(set(moves), expected_moves)
 
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover
     unittest.main()

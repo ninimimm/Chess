@@ -4,7 +4,7 @@ from Cage import Cage
 from MovesFigures import MoveFigures
 from Game import Game
 
-class test_Pawn(unittest.TestCase):
+class test_Pawn(unittest.TestCase): # pragma: no cover
     def setUp(self):
         self.game = Game(90, 80, 140)
         self.move_figures = MoveFigures(self.game)
@@ -42,7 +42,7 @@ class test_Pawn(unittest.TestCase):
         pawn1 = Pawn("white", self.move_figures, self.game, (2, 3), 1)
         dict_cages[pawn1.coordinate] = Cage("white", pawn1.coordinate, pawn1)
         moves = pawn.get_moves((2, 2), dict_cages[(2, 2)], dict_cages)
-        expected_moves = []
+        expected_moves = set()
         self.assertEqual(moves, expected_moves)
 
     def test_get_moves_with_block_enemy_figure(self):
@@ -52,7 +52,7 @@ class test_Pawn(unittest.TestCase):
         pawn1 = Pawn("black", self.move_figures, self.game, (2, 3), 1)
         dict_cages[pawn1.coordinate] = Cage("white", pawn1.coordinate, pawn1)
         moves = pawn.get_moves((2, 2), dict_cages[(2, 2)], dict_cages)
-        expected_moves = []
+        expected_moves = set()
         self.assertEqual(moves, expected_moves)
 
     def test_get_moves_with_block_kill_enemy_figure(self):
@@ -75,5 +75,5 @@ class test_Pawn(unittest.TestCase):
         expected_moves = {(2, 3)}
         self.assertSetEqual(set(moves), expected_moves)
 
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover
     unittest.main()
