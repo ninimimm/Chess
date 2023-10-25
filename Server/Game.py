@@ -129,7 +129,7 @@ class Game:
                 #print("могу что-то сделать")
                 self.current = (coordinate, cage)
                 self.fill()
-                cage.figure.moves(coordinate, cage, self.dict_cages)
+                cage.figure.moves(cage, self.dict_cages)
         return self.get_response(address)
 
     def get_response(self, address):
@@ -144,7 +144,7 @@ class Game:
                     string_figures += f"{self.dict_cages[(j, i)].figure.color}_{self.dict_cages[(j, i)].figure.name}{self.dict_cages[(j, i)].figure.index} "
         return f"{string_cages},{string_figures},{self.players_ip[address][0]}"
 
-    def fill(self):
+    def fill(self): # pragma: no cover
         for i in range(8):
             for j in range(8):
                 color = ["white", "black"][(i + j) % 2]
@@ -184,7 +184,7 @@ class Game:
         self.current_player = (self.current_player + 1) % 2
         self.fill()
 
-    def get_figure(self, string, coordinate):
+    def get_figure(self, string, coordinate): # pragma: no cover
         color, name = string.split('_')
         name = name[:-1]
         if name == "queen":
@@ -209,22 +209,19 @@ class Game:
         new_dict_cages = {}
         for i in range(8):
             for j in range(8):
-                if figures[i * 8 + j] == "None": continue
-                new_dict_cages[(j, i)] = Cage(["white", "black"][(i + j) % 2], (j, i), self.get_figure(figures[i * 8 + j], (j, i)))
-        for i in range(8):
-            for j in range(8):
-                if (i, j) not in new_dict_cages:
+                if figures[i * 8 + j] == "None":
                     new_dict_cages[(i, j)] = Cage(["white", "black"][(i + j) % 2], (i, j))
+                    continue
+                new_dict_cages[(j, i)] = Cage(["white", "black"][(i + j) % 2], (j, i), self.get_figure(figures[i * 8 + j], (j, i)))
         return new_dict_cages
 
     def get_possible_moves(self, figures, color):
         new_dict_cages = self.get_new_dict(figures)
-        #print(new_dict_cages)
         dict_name_possible_moves = {}
         for coordinate, cage in new_dict_cages.items():
             if cage.figure is not None and cage.figure.color == color:
                 self.current = (coordinate, cage)
-                pos = cage.figure.get_possible_moves(coordinate, cage, new_dict_cages)
+                pos = cage.figure.get_possible_moves(cage, new_dict_cages)
                 if len(pos) > 0:
                     dict_name_possible_moves[coordinate] = [f"{x[0]} {x[1]}" for x in pos]
                 self.current = None

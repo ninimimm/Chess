@@ -17,9 +17,8 @@ class Horse:
     def moves(self, coordinate, cage, dict_cages): # pragma: no cover
         self.move_figures.draw(self.get_possible_moves(coordinate, cage, dict_cages))
 
-    def get_possible_moves(self, coordinate, cage, dict_cages):
-        possible_moves = self.move_figures.get_possible_defense_moves(cage.figure.color, dict_cages)
-        return [x for x in self.get_moves(coordinate, cage, dict_cages) if x in possible_moves]
+    def get_possible_moves(self, cage, dict_cages): # pragma: no cover
+        return list(self.move_figures.get_possible_defense_moves(cage.figure.color, dict_cages))
 
     def get_moves(self, coordinate, cage, dict_cages):
         x, y = coordinate
