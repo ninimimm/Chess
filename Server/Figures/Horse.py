@@ -32,6 +32,7 @@ class Horse:
         possible = set()
         for move in possible_moves:
             if 0 <= move[0] < 8 and 0 <= move[1] < 8:
+                print(dict_cages)
                 target_cage = dict_cages[move]
                 if target_cage.figure is None or target_cage.figure.color != color:
                     possible.add(move)
