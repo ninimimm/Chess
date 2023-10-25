@@ -210,7 +210,7 @@ class Game:
         for i in range(8):
             for j in range(8):
                 if figures[i * 8 + j] == "None":
-                    new_dict_cages[(i, j)] = Cage(["white", "black"][(i + j) % 2], (i, j))
+                    new_dict_cages[(j, i)] = Cage(["white", "black"][(i + j) % 2], (i, j))
                     continue
                 new_dict_cages[(j, i)] = Cage(["white", "black"][(i + j) % 2], (j, i), self.get_figure(figures[i * 8 + j], (j, i)))
         return new_dict_cages
