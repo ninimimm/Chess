@@ -21,10 +21,10 @@ class King:
         x, y = coordinate
         color = cage.figure.color
         possible_moves = [(x + dx, y + dy) for dx in [-1, 0, 1] for dy in [-1, 0, 1] if dx != 0 or dy != 0]
-        possible = []
+        possible = set()
         for move in possible_moves:
             if 0 <= move[0] < 8 and 0 <= move[1] < 8:
                 target_cage = dict_cages[move]
                 if target_cage.figure is None or target_cage.figure.color != color:
-                    possible.append(move)
+                    possible.add(move)
         return possible

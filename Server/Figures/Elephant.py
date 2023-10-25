@@ -25,7 +25,7 @@ class Elephant:
         x, y = coordinate
         color = cage.figure.color
         directions = [(1, 1), (-1, 1), (1, -1), (-1, -1)]
-        possible_moves = []
+        possible_moves = set()
 
         for dx, dy in directions:
             for i in range(1, 8):
@@ -33,9 +33,9 @@ class Elephant:
                 if 0 <= new_x < 8 and 0 <= new_y < 8:
                     target_cage = dict_cages[(new_x, new_y)]
                     if target_cage.figure is None:
-                        possible_moves.append((new_x, new_y))
+                        possible_moves.add((new_x, new_y))
                     elif target_cage.figure.color != color:
-                        possible_moves.append((new_x, new_y))
+                        possible_moves.add((new_x, new_y))
                         break
                     else:
                         break

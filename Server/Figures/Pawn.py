@@ -25,20 +25,20 @@ class Pawn:
         x, y = coordinate
         color = cage.figure.color
         direction = 1 if color == "white" else -1  # Направление движения для белых и черных пешек
-        possible_moves = []
+        possible_moves = set()
         # Проверяем, можно ли ходить на клетку спереди
         if 0 <= y + direction < 8 and dict_cages[(x, y + direction)].figure is None:
-            possible_moves.append((x, y + direction))
+            possible_moves.add((x, y + direction))
 
             # Если это первый ход пешки, проверяем, можно ли сходить на 2 клетки
             if ((color == "white" and y == 1) or (color == "black" and y == 6)) and dict_cages[
                 (x, y + 2 * direction)].figure is None:
-                possible_moves.append((x, y + 2 * direction))
+                possible_moves.add((x, y + 2 * direction))
 
         # Проверяем, можно ли съесть фигуры по диагоналям
         for dx in [-1, 1]:
             if 0 <= x + dx < 8 and 0 <= y + direction < 8:
                 target_cage = dict_cages[(x + dx, y + direction)]
                 if target_cage.figure is not None and target_cage.figure.color != color:
-                    possible_moves.append((x + dx, y + direction))
+                    possible_moves.add((x + dx, y + direction))
         return possible_moves

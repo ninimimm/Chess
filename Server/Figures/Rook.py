@@ -24,7 +24,7 @@ class Rook:
     def get_moves(self, coordinate, cage, dict_cages):
         x, y = coordinate
         color = cage.figure.color
-        possible_moves = []
+        possible_moves = set()
 
         # Проверяем возможные ходы вверх
         for dy in range(1, 8):
@@ -32,10 +32,10 @@ class Rook:
                 break
             target_cage = dict_cages[(x, y - dy)]
             if target_cage.figure is None:
-                possible_moves.append((x, y - dy))
+                possible_moves.add((x, y - dy))
             else:
                 if target_cage.figure.color != color:
-                    possible_moves.append((x, y - dy))
+                    possible_moves.add((x, y - dy))
                 break
 
         # Проверяем возможные ходы вниз
@@ -45,10 +45,10 @@ class Rook:
             target_cage = dict_cages[(x, y + dy)]
             if target_cage.figure is None:
 
-                possible_moves.append((x, y + dy))
+                possible_moves.add((x, y + dy))
             else:
                 if target_cage.figure.color != color:
-                    possible_moves.append((x, y + dy))
+                    possible_moves.add((x, y + dy))
                 break
 
         # Проверяем возможные ходы влево
@@ -57,10 +57,10 @@ class Rook:
                 break
             target_cage = dict_cages[(x - dx, y)]
             if target_cage.figure is None:
-                possible_moves.append((x - dx, y))
+                possible_moves.add((x - dx, y))
             else:
                 if target_cage.figure.color != color:
-                    possible_moves.append((x - dx, y))
+                    possible_moves.add((x - dx, y))
                 break
 
         # Проверяем возможные ходы вправо
@@ -69,10 +69,10 @@ class Rook:
                 break
             target_cage = dict_cages[(x + dx, y)]
             if target_cage.figure is None:
-                possible_moves.append((x + dx, y))
+                possible_moves.add((x + dx, y))
             else:
                 if target_cage.figure.color != color:
-                    possible_moves.append((x + dx, y))
+                    possible_moves.add((x + dx, y))
                 break
 
         return possible_moves

@@ -30,11 +30,11 @@ class Horse:
             (x + 1, y + 2), (x + 1, y - 2),
             (x - 1, y + 2), (x - 1, y - 2)
         ]
-        possible = []
+        possible = set()
         for move in possible_moves:
             if 0 <= move[0] < 8 and 0 <= move[1] < 8:
                 target_cage = dict_cages[move]
                 if target_cage.figure is None or target_cage.figure.color != color:
-                    possible.append(move)
+                    possible.add(move)
 
         return possible

@@ -25,16 +25,16 @@ class Queen:
         x, y = coordinate
         color = cage.figure.color
         directions = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, 1), (1, -1), (-1, -1)]
-        possible = []
+        possible = set()
         for dx, dy in directions:
             for i in range(1, 8):
                 new_x, new_y = x + i * dx, y + i * dy
                 if 0 <= new_x < 8 and 0 <= new_y < 8:
                     target_cage = dict_cages[(new_x, new_y)]
                     if target_cage.figure is None:
-                        possible.append((new_x, new_y))
+                        possible.add((new_x, new_y))
                     elif target_cage.figure.color != color:
-                        possible.append((new_x, new_y))
+                        possible.add((new_x, new_y))
                         break
                     else:
                         break
