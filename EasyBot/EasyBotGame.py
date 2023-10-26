@@ -95,9 +95,10 @@ class EasyBotGame:
                 self.shared_data.copy_field[coordinate[0]][coordinate[1]] = self.shared_data.copy_field[key[0]][key[1]]
                 self.shared_data.copy_field[key[0]][key[1]] = "None"
                 self.send_color = "white"
+                self.shared_data.can_use = False
                 while not self.shared_data.can_use:
                     continue
-                self.shared_data.can_use = False
+                print("я тут")
                 max_second_weight = -9999
                 for enemy_key in self.shared_data.game_dict:
                     for enemy_coordinate in self.shared_data.game_dict[enemy_key]:
@@ -117,12 +118,12 @@ class EasyBotGame:
                     variants.append((key, coordinate))
                 print(max_weight, first_weight, max_second_weight)
                 self.shared_data.copy_field = copy.deepcopy(copy_dict)
-        self.is_running = False
         set_variants = list(set(variants))
         print(set_variants)
+        self.is_running = False
         return set_variants[random.randint(0, len(set_variants) - 1)]
 
-    def update_eval(self):
+    def update_eval(self):  # pragma: no cover
         self.evals["pawn"] = [
             [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0],

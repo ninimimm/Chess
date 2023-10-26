@@ -1,8 +1,8 @@
 import unittest
-from Figures.Elephant import Elephant
-from Cage import Cage
-from MovesFigures import MoveFigures
-from Game import Game
+from Server.Figures.Elephant import Elephant
+from Server.Cage import Cage
+from Server.MovesFigures import MoveFigures
+from Server.Game import Game
 
 class test_Elephant(unittest.TestCase): # pragma: no cover
     def setUp(self):

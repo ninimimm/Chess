@@ -1,10 +1,10 @@
 import unittest
-from Figures.Pawn import Pawn
-from Figures.Queen import Queen
-from Figures.King import King
-from Cage import Cage
-from MovesFigures import MoveFigures
-from Game import Game
+from Server.Figures.Pawn import Pawn
+from Server.Figures.Queen import Queen
+from Server.Figures.King import King
+from Server.Cage import Cage
+from Server.MovesFigures import MoveFigures
+from Server.Game import Game
 
 class test_MovesFigures(unittest.TestCase): # pragma: no cover
     def setUp(self):
