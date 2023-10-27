@@ -43,8 +43,7 @@ class Pawn:
                     possible_moves.add((x + dx, y + direction))
 
         if x == 3 or x == 4:
-            right_coordinate, left_coordinate = (x + 1 * direction, coordinate.y + 1), (
-            x + 1 * direction, coordinate.y - 1)
+            right_coordinate, left_coordinate = (x, coordinate.y + 1), (x, coordinate.y - 1)
             right_cage, left_cage = dict_cages[right_coordinate], dict_cages[left_coordinate]
             if right_cage.figure is not None and right_cage.figure.name == "pawn" and right_cage.figure.color != color\
                     and dict_cages[coordinate].figure.last_move == (x - 2 * direction, coordinate.y + 1):
