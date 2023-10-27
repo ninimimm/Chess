@@ -1,10 +1,10 @@
 from Cage import Cage
-from Server.Figures.Pawn import Pawn
-from Server.Figures.Rook import Rook
-from Server.Figures.Horse import Horse
-from Server.Figures.Elephant import Elephant
-from Server.Figures.Queen import Queen
-from Server.Figures.King import King
+from Figures.Pawn import Pawn
+from Figures.Rook import Rook
+from Figures.Horse import Horse
+from Figures.Elephant import Elephant
+from Figures.Queen import Queen
+from Figures.King import King
 from MovesFigures import MoveFigures
 from Player import Player
 
