@@ -1,7 +1,7 @@
 import socket
 import select
 import threading
-from BotGame import BotGame
+from HardBot.BotGame import BotGame
 class SharedData:
     def __init__(self):
         self.coordinate = None
@@ -16,7 +16,7 @@ shared_data = SharedData()
 gui = None
 
 # В ваших потоках используйте shared_data.coordinate и shared_data.gam
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     def run_start():
         global gui
         shared_data.game = BotGame(shared_data)

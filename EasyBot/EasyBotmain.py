@@ -16,7 +16,7 @@ shared_data = SharedData()
 gui = None
 
 # В ваших потоках используйте shared_data.coordinate и shared_data.gam
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     def run_start():
         global gui
         shared_data.game = EasyBotGame(shared_data)

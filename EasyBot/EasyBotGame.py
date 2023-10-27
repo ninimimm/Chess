@@ -98,7 +98,6 @@ class EasyBotGame:
                 self.shared_data.can_use = False
                 while not self.shared_data.can_use:
                     continue
-                print("я тут")
                 max_second_weight = -9999
                 for enemy_key in self.shared_data.game_dict:
                     for enemy_coordinate in self.shared_data.game_dict[enemy_key]:
@@ -116,10 +115,8 @@ class EasyBotGame:
                     variants = [(key, coordinate)]
                 elif first_weight - max_second_weight == max_weight:
                     variants.append((key, coordinate))
-                print(max_weight, first_weight, max_second_weight)
                 self.shared_data.copy_field = copy.deepcopy(copy_dict)
         set_variants = list(set(variants))
-        print(set_variants)
         self.is_running = False
         return set_variants[random.randint(0, len(set_variants) - 1)]
 

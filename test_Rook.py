@@ -34,10 +34,10 @@ class test_Queen(unittest.TestCase): # pragma: no cover
         rook = Rook("white", self.move_figures, self.game, (0, 0), 0)
         dict_cages = {(x, y): Cage("white", (x, y)) for x in range(8) for y in range(8)}
         dict_cages[rook.coordinate] = Cage("white", rook.coordinate, rook)
-        rook1 = Rook("black", self.move_figures, self.game, (0, 1), 1)
+        rook1 = Rook("black", self.move_figures, self.game, (1, 0), 1)
         dict_cages[rook1.coordinate] = Cage("white", rook1.coordinate, rook1)
         moves = rook.get_moves((0, 0), dict_cages[(0, 0)], dict_cages)
-        expected_moves = {(1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0), (0, 1)}
+        expected_moves = {(1, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7)}
         self.assertSetEqual(set(moves), expected_moves)
 
     def test_get_moves_with_blocking_enemy_figure_left(self):
