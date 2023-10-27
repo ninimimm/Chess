@@ -6,6 +6,7 @@ class Pawn:
         self.game = game
         self.name = "pawn"
         self.color = color
+        self.last_move = None
         if color == "white":
             self.game.index_white_pawn += 1
         else:
@@ -40,4 +41,15 @@ class Pawn:
                 target_cage = dict_cages[(x + dx, y + direction)]
                 if target_cage.figure is not None and target_cage.figure.color != color:
                     possible_moves.add((x + dx, y + direction))
+
+        if x == 3 or x == 4:
+            right_coordinate, left_coordinate = (x + 1 * direction, coordinate.y + 1), (
+            x + 1 * direction, coordinate.y - 1)
+            right_cage, left_cage = dict_cages[right_coordinate], dict_cages[left_coordinate]
+            if right_cage.figure is not None and right_cage.figure.name == "pawn" and right_cage.figure.color != color\
+                    and dict_cages[coordinate].figure.last_move == (x - 2 * direction, coordinate.y + 1):
+                possible_moves.add((x - 1 * direction, coordinate.y + 1))
+            if left_cage.figure is not None and left_cage.figure.name == "pawn" and left_cage.figure.color != color\
+                    and dict_cages[coordinate].figure.last_move == (x - 2 * direction, coordinate.y + 1):
+                possible_moves.add((x - 1 * direction, coordinate.y - 1))
         return possible_moves
