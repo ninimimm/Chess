@@ -122,8 +122,8 @@ class Game:
                     else:
                         self.black_player.figures.remove(figure)
                     self.dict_cages[(coordinate[0], source_coordinate[1])] = None
-                print(self.white_player)
-                print(self.black_player)
+                print(self.white_player.figures)
+                print(self.black_player.figures)
 
                 source_cage.figure.coordinate = coordinate
                 self.dict_cages[coordinate].figure = source_cage.figure
