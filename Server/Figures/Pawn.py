@@ -44,7 +44,7 @@ class Pawn:
 
         if x == 3 or x == 4:
             right_coordinate, left_coordinate = (x + 1, y), (x - 1, y)
-            if dict_cages[right_coordinate] is not None and dict_cages[right_coordinate].figure.name == "pawn":
+            if dict_cages[right_coordinate] is not None and dict_cages[right_coordinate].figure is not None and dict_cages[right_coordinate].figure.name == "pawn":
                 print(right_coordinate)
                 print(dict_cages[right_coordinate])
                 print(dict_cages[right_coordinate].figure.last_move)
