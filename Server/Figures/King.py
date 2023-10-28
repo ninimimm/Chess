@@ -23,13 +23,13 @@ class King:
         possible_moves = [(x + dx, y + dy) for dx in [-1, 0, 1] for dy in [-1, 0, 1] if dx != 0 or dy != 0]
         possible = set()
         if self.last_move is None and all(dict_cages[(x, y)].figure is None for x in range(x-1, 0, -1))\
-                and dict_cages[(0, 0)].figure is not None and dict_cages[(0, 0)].figure.name == "rook"\
-                and dict_cages[(0, 0)].figure.last_move is None:
-            possible.add((1, 0))
+                and dict_cages[(0, y)].figure is not None and dict_cages[(0, 0)].figure.name == "rook"\
+                and dict_cages[(0, y)].figure.last_move is None:
+            possible.add((1, y))
         if self.last_move is None and all(dict_cages[(x, y)].figure is None for x in range(x+1, 7)) \
-                and dict_cages[(7, 0)].figure is not None and dict_cages[(7, 0)].figure.name == "rook" \
-                and dict_cages[(7, 0)].figure.last_move is None:
-            possible.add((6, 0))
+                and dict_cages[(7, y)].figure is not None and dict_cages[(7, 0)].figure.name == "rook" \
+                and dict_cages[(7, y)].figure.last_move is None:
+            possible.add((6, y))
         for move in possible_moves:
             if 0 <= move[0] < 8 and 0 <= move[1] < 8:
                 target_cage = dict_cages[move]
