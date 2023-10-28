@@ -44,6 +44,7 @@ def handle_client(client, game, address):
                                     cl.sendall(response.encode('utf-8'))
                     print("Отправил данные клиенту")
         except (ConnectionResetError, OSError):
+            print(OSError)
             print("Клиент отключился")
             break
     client.close()
