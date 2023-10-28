@@ -115,15 +115,16 @@ class Game:
                             figure.coordinate = coordinate
                             break
                 self.fill()
+                print(self.white_player.figures)
+                print(self.black_player.figures)
                 if self.dict_cages[source_coordinate].figure.name == "pawn" and coordinate[1] != source_coordinate[1]:
                     figure = self.dict_cages[(coordinate[0], source_coordinate[1])]
+                    print(figure)
                     if figure.color == "white":
                         self.white_player.figures.remove(figure)
                     else:
                         self.black_player.figures.remove(figure)
                     self.dict_cages[(coordinate[0], source_coordinate[1])] = None
-                print(self.white_player.figures)
-                print(self.black_player.figures)
 
                 source_cage.figure.coordinate = coordinate
                 self.dict_cages[coordinate].figure = source_cage.figure
