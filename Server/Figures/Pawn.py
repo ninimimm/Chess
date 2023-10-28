@@ -46,7 +46,7 @@ class Pawn:
             if dict_cages[right_coordinate] is not None and dict_cages[right_coordinate].figure is not None and dict_cages[right_coordinate].figure.name == "pawn":
                 print(right_coordinate)
                 print(dict_cages[right_coordinate])
-                print(dict_cages[right_coordinate].figure.last_move)
+                print(self.game.last_move)
             right_cage, left_cage = dict_cages[right_coordinate], dict_cages[left_coordinate]
             if right_cage.figure is not None and right_cage.figure.name == "pawn" and right_cage.figure.color != color\
                     and self.game.last_move == (x + 1, y + 2 * direction):
