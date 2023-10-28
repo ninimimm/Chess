@@ -29,7 +29,7 @@ class King:
         if self.last_move is None and all(dict_cages[(x, y)].figure is None for x in range(x+1, 7)) \
                 and dict_cages[(7, y)].figure is not None and dict_cages[(7, 0)].figure.name == "rook" \
                 and dict_cages[(7, y)].figure.last_move is None:
-            possible.add((6, y))
+            possible.add((5, y))
         for move in possible_moves:
             if 0 <= move[0] < 8 and 0 <= move[1] < 8:
                 target_cage = dict_cages[move]

@@ -121,6 +121,16 @@ class Game:
                         self.dict_cages[source_coordinate].figure.name == "king":
                     self.dict_cages[source_coordinate].figure.last_move = source_coordinate
 
+                if self.dict_cages[source_coordinate].figure.name == "king":
+                    if source_coordinate[0] - coordinate[0] > 1:
+                        copy_figure = self.dict_cages[(0, source_coordinate[1])].figure.copy()
+                        self.dict_cages[(0, source_coordinate[1])].figure = None
+                        self.dict_cages[(2, source_coordinate[1])].figure = copy_figure
+                    else:
+                        copy_figure = self.dict_cages[(7, source_coordinate[1])].figure.copy()
+                        self.dict_cages[(7, source_coordinate[1])].figure = None
+                        self.dict_cages[(4, source_coordinate[1])].figure = copy_figure
+
                 if self.dict_cages[source_coordinate].figure.name == "pawn" and coordinate[0] != source_coordinate[0]:
                     figure = self.dict_cages[(coordinate[0], source_coordinate[1])].figure
                     if figure is not None:
