@@ -11,7 +11,10 @@ def handle_client(client, game, address):
             if len(data) > 0:
                 if data == "Легкий" or data == "Сложный":
                     if data == "Легкий":
-                        subprocess.call(["/usr/bin/python3", "/home/chesseditor/Chess/EasyBot/EasyBotmain.py"])
+                        def run():
+                            subprocess.call(["/usr/bin/python3", "/home/chesseditor/Chess/EasyBot/EasyBotmain.py"])
+                        script1_thread = threading.Thread(target=run, args=("script1.py",))
+                        script1_thread.start()
                     else:
                         subprocess.call(["/usr/bin/python3", "/home/chesseditor/Chess/HardBot/Botmain.py"])
                 elif "possible moves" in data:
