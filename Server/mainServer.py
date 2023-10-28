@@ -16,7 +16,10 @@ def handle_client(client, game, address):
                         script1_thread = threading.Thread(target=run)
                         script1_thread.start()
                     else:
-                        subprocess.call(["/usr/bin/python3", "/home/chesseditor/Chess/HardBot/Botmain.py"])
+                        def run():
+                            subprocess.call(["/usr/bin/python3", "/home/chesseditor/Chess/HardBot/Botmain.py"])
+                        script1_thread = threading.Thread(target=run)
+                        script1_thread.start()
                 elif "possible moves" in data:
                     if game.players_ip[address[0]][1]:
                         split = data.split(",")
