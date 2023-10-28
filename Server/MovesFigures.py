@@ -15,20 +15,13 @@ class MoveFigures:
     def is_check(self, args):
         enemy_to_king, dict_cages, tuple_coordinate = args
         for enemy_figure in enemy_to_king:
-            args = enemy_figure, dict_cages, tuple_coordinate
-            for cord in self.get_enemy_figure_moves(args):
+            for cord in self.get_enemy_figure_moves(enemy_figure, dict_cages):
                 if cord == self.king.coordinate:
                     return True
         return False
 
-    def get_enemy_figure_moves(self, args):
-        enemy_figure, dict_cages, tuple_coordinate = args
-        if enemy_figure.name not in self.dict_figure_moves or \
-            any(cord in self.dict_figure_moves[enemy_figure.name] for cord in tuple_coordinate):
-            self.dict_figure_moves[enemy_figure.name] = enemy_figure.get_moves(enemy_figure.coordinate,
-                                                        dict_cages[enemy_figure.coordinate], dict_cages)
-            return self.dict_figure_moves[enemy_figure.name]
-        return self.dict_figure_moves[enemy_figure.name]
+    def get_enemy_figure_moves(self, enemy_figure, dict_cages):
+        return enemy_figure.get_moves(enemy_figure.coordinate, dict_cages[enemy_figure.coordinate], dict_cages)
 
     def get_enemy_figures(self, dict_cages, color):
         enemy_figures = []
