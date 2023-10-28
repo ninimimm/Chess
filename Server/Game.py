@@ -118,7 +118,7 @@ class Game:
                 print(self.white_player.figures)
                 print(self.black_player.figures)
                 if self.dict_cages[source_coordinate].figure.name == "pawn" and coordinate[1] != source_coordinate[1]:
-                    figure = self.dict_cages[(coordinate[0], source_coordinate[1])]
+                    figure = self.dict_cages[(coordinate[0], source_coordinate[1])].figure
                     print(figure)
                     if figure.color == "white":
                         self.white_player.figures.remove(figure)
