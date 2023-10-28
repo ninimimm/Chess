@@ -50,7 +50,9 @@ def handle_client(client, game, address):
                                     cl.sendall(response.encode('utf-8'))
                     print("Отправил данные клиенту")
             else:
-                client.sendall("Вы получили мат".encode('utf-8'))
+                for cl in clients:
+                    if cl != client:
+                        cl.sendall("Вы получили мат".encode('utf-8'))
         except (ConnectionResetError, OSError) as Ex:
             print(Ex)
             print("Клиент отключился")
