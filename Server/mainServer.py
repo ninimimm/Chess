@@ -24,11 +24,8 @@ def handle_client(client, game, address):
                     if game.players_ip[address[0]][1]:
                         split = data.split(",")
                         response = game.get_possible_moves(data.split(',')[1].split(), split[2])
-                        if len(response) == 0:
-                            client.sendall("Вы получили мат".encode('utf-8'))
-                        else:
-                            send = "possible moves" + ",".join([f"{key[0]} {key[1]}:{'|'.join(value)}" for key, value in response.items()])
-                            client.sendall(send.encode('utf-8'))
+                        send = "possible moves" + ",".join([f"{key[0]} {key[1]}:{'|'.join(value)}" for key, value in response.items()])
+                        client.sendall(send.encode('utf-8'))
                 elif any(x in data for x in ["Queen", "Horse", "Elephant", "Rook"]):
                     game.ready = True
                     massage = data.split(",")
@@ -40,18 +37,21 @@ def handle_client(client, game, address):
                         cl.sendall(game.get_response(address[0]).encode('utf-8'))
                 else:
                     message = data.split()
-                    print("Пытаюсь отправить данные клиенту")
-                    flag = game.dict_cages[(int(message[0]), int(message[1]))].color == "green"
-                    response = game.on_click((int(message[0]), int(message[1])), address[0])
-                    if len(clients) > 1 and game.players_ip[address[0]][1]:
-                        client.sendall(response.encode('utf-8'))
-                        if flag and "choice" not in response:
-                            for value in game.players_ip.values():
-                                value[1] = not (value[1])
-                            for cl in clients:
-                                if client != cl:
-                                    cl.sendall(response.encode('utf-8'))
-                    print("Отправил данные клиенту")
+                    if len(message) == 0:
+                        client.sendall("Вы получили мат".encode('utf-8'))
+                    else:
+                        print("Пытаюсь отправить данные клиенту")
+                        flag = game.dict_cages[(int(message[0]), int(message[1]))].color == "green"
+                        response = game.on_click((int(message[0]), int(message[1])), address[0])
+                        if len(clients) > 1 and game.players_ip[address[0]][1]:
+                            client.sendall(response.encode('utf-8'))
+                            if flag and "choice" not in response:
+                                for value in game.players_ip.values():
+                                    value[1] = not (value[1])
+                                for cl in clients:
+                                    if client != cl:
+                                        cl.sendall(response.encode('utf-8'))
+                        print("Отправил данные клиенту")
         except (ConnectionResetError, OSError) as Ex:
             print(Ex)
             print("Клиент отключился")
