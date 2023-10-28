@@ -13,7 +13,7 @@ def handle_client(client, game, address):
                     if data == "Легкий":
                         def run():
                             subprocess.call(["/usr/bin/python3", "/home/chesseditor/Chess/EasyBot/EasyBotmain.py"])
-                        script1_thread = threading.Thread(target=run, args=("script1.py",))
+                        script1_thread = threading.Thread(target=run)
                         script1_thread.start()
                     else:
                         subprocess.call(["/usr/bin/python3", "/home/chesseditor/Chess/HardBot/Botmain.py"])
