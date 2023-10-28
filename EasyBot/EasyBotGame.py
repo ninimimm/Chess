@@ -78,6 +78,7 @@ class EasyBotGame:
     def get_content(self, dict, color):
         self.is_running = True
         second_color = "white" if self.color == "black" else "black"
+        index = -1 if color == "white" else 1
         if self.color is None:
             self.color = color
         max_weight = -9999
@@ -104,7 +105,10 @@ class EasyBotGame:
                         enemy_color = self.color
                         second_weight = 0
                         eval_coord = (7 - enemy_coordinate[1], enemy_coordinate[0]) if self.color == "black" else (enemy_coordinate[1], enemy_coordinate[0])
-                        if enemy_color in self.shared_data.copy_field[enemy_coordinate[0]][enemy_coordinate[1]]:
+                        if enemy_color in self.shared_data.copy_field[enemy_coordinate[0]][enemy_coordinate[1]] or \
+                            self.shared_data.copy_field[enemy_key[0]][enemy_key[1]].split('_')[0] == "pawn" and\
+                            self.shared_data.copy_field[enemy_coordinate[0]][enemy_coordinate[1]] == "None" and\
+                            self.shared_data.copy_field[enemy_coordinate[0] + index][enemy_coordinate[1]].split('_')[0] == "pawn":
                             second_weight += self.values[self.shared_data.copy_field[enemy_coordinate[0]]
                                                          [enemy_coordinate[1]].split("_")[1][:-1]]
                         second_weight += self.evals[self.shared_data.copy_field[enemy_key[0]][enemy_key[1]].
