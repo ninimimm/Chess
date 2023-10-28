@@ -1,7 +1,7 @@
 import socket
 import select
 import threading
-from BotGame import BotGame
+from HardBot.BotGame import BotGame
 class SharedData:
     def __init__(self):
         self.coordinate = None

@@ -136,7 +136,7 @@ class Game:
 
                 if self.dict_cages[source_coordinate].figure.name == "pawn" and coordinate[0] != source_coordinate[0]:
                     figure = self.dict_cages[(coordinate[0], source_coordinate[1])].figure
-                    if figure is not None:
+                    if figure is not None and figure.color !=  self.dict_cages[source_coordinate].figure.color:
                         if figure.color == "white":
                             self.white_player.figures.remove(figure)
                         else:
