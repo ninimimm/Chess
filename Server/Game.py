@@ -116,23 +116,22 @@ class Game:
                             figure.coordinate = coordinate
                             break
                 self.fill()
-                print(self.white_player.figures)
-                print(self.black_player.figures)
                 if self.dict_cages[source_coordinate].figure.name == "pawn" and coordinate[0] != source_coordinate[0]:
                     figure = self.dict_cages[(coordinate[0], source_coordinate[1])].figure
                     if figure is not None:
-                        print(figure)
                         if figure.color == "white":
                             self.white_player.figures.remove(figure)
                         else:
                             self.black_player.figures.remove(figure)
                         self.dict_cages[(coordinate[0], source_coordinate[1])].figure = None
 
+                if cage.figure.name == "rook" or cage.figure.name == "king":
+                    cage.figure.last_move = source_coordinate
+
                 source_cage.figure.coordinate = coordinate
                 self.dict_cages[coordinate].figure = source_cage.figure
                 self.dict_cages[source_coordinate].figure = None
                 if self.dict_cages[coordinate].figure.name == "pawn" and (coordinate[1] == 7 or coordinate[1] == 0):
-                    # self.choose_figure()
                     self.ready = False
                     return f"choice {self.players_ip[address][0]}"
                 self.current = None
@@ -140,7 +139,6 @@ class Game:
                 self.move_figures.print_dict_copy(self.dict_cages)
                 self.last_move = source_coordinate
             elif cage.color != "green" and cage.figure is not None and self.players_ip[address][1] and cage.figure.color == self.players_ip[address][0]:
-                #print("могу что-то сделать")
                 self.current = (coordinate, cage)
                 self.fill()
                 cage.figure.moves(cage, self.dict_cages)

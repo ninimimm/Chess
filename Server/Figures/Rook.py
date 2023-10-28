@@ -6,6 +6,7 @@ class Rook:
         self.name = "rook"
         self.color = color
         self.coordinate = coordinate
+        self.last_move = None
         if color == "white":
             self.game.index_white_rook += 1
         else:
