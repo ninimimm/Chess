@@ -28,7 +28,7 @@ class MoveFigures:
             enemy_figure_moves = enemy_figure.get_moves(enemy_figure.coordinate,
                                                         dict_cages[enemy_figure.coordinate], dict_cages)
             self.dict_figure_moves[enemy_figure.name] = enemy_figure_moves.copy()
-            return enemy_figure_moves
+            return self.dict_figure_moves[enemy_figure.name]
         return self.dict_figure_moves[enemy_figure.name]
 
     def get_enemy_figures(self, dict_cages, color):
