@@ -24,11 +24,9 @@ class MoveFigures:
     def get_enemy_figure_moves(self, args):
         enemy_figure, dict_cages, tuple_coordinate = args
         if enemy_figure.name not in self.dict_figure_moves or \
-            any(tuple_coordinate[0] in value for value in self.dict_figure_moves[enemy_figure.name]) or\
-                any(tuple_coordinate[1] in value for value in self.dict_figure_moves[enemy_figure.name]):
-            enemy_figure_moves = enemy_figure.get_moves(enemy_figure.coordinate,
+            any(cord in self.dict_figure_moves[enemy_figure.name] for cord in tuple_coordinate):
+            self.dict_figure_moves[enemy_figure.name] = enemy_figure.get_moves(enemy_figure.coordinate,
                                                         dict_cages[enemy_figure.coordinate], dict_cages)
-            self.dict_figure_moves[enemy_figure.name] = enemy_figure_moves.copy()
             return self.dict_figure_moves[enemy_figure.name]
         return self.dict_figure_moves[enemy_figure.name]
 
