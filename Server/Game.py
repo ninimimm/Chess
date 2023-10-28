@@ -1,3 +1,5 @@
+import copy
+
 from Cage import Cage
 from Figures.Pawn import Pawn
 from Figures.Rook import Rook
@@ -123,13 +125,13 @@ class Game:
 
                 if self.dict_cages[source_coordinate].figure.name == "king":
                     if source_coordinate[0] - coordinate[0] > 1:
-                        copy_figure = self.dict_cages[(0, source_coordinate[1])].figure.copy()
+                        self.dict_cages[(0, source_coordinate[1])].figure.coordinate = (2, source_coordinate[1])
+                        self.dict_cages[(2, source_coordinate[1])].figure = self.dict_cages[(0, source_coordinate[1])].figure
                         self.dict_cages[(0, source_coordinate[1])].figure = None
-                        self.dict_cages[(2, source_coordinate[1])].figure = copy_figure
                     else:
-                        copy_figure = self.dict_cages[(7, source_coordinate[1])].figure.copy()
+                        self.dict_cages[(7, source_coordinate[1])].figure.coordinate = (4, source_coordinate[1])
+                        self.dict_cages[(4, source_coordinate[1])].figure = self.dict_cages[(7, source_coordinate[1])].figure
                         self.dict_cages[(7, source_coordinate[1])].figure = None
-                        self.dict_cages[(4, source_coordinate[1])].figure = copy_figure
 
                 if self.dict_cages[source_coordinate].figure.name == "pawn" and coordinate[0] != source_coordinate[0]:
                     figure = self.dict_cages[(coordinate[0], source_coordinate[1])].figure
