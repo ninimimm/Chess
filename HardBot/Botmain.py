@@ -73,13 +73,14 @@ if __name__ == "__main__":  # pragma: no cover
                         client.sendall(shared_data.answer_button.encode('utf-8'))
                         shared_data.answer_button = None
                     else:
-                        parse = data.split(" ,")
-                        figures = [x for x in parse[1].split()]
-                        for i in range(8):
-                            for j in range(8):
-                                shared_data.game.string_images[j][i] = figures[i * 8 + j]
-                                shared_data.copy_field[j][i] = figures[i * 8 + j]
-                        shared_data.game.send_color = shared_data.game.color
+                        if len(parse) > 0:
+                            parse = data.split(" ,")
+                            figures = [x for x in parse[1].split()]
+                            for i in range(8):
+                                for j in range(8):
+                                    shared_data.game.string_images[j][i] = figures[i * 8 + j]
+                                    shared_data.copy_field[j][i] = figures[i * 8 + j]
+                            shared_data.game.send_color = shared_data.game.color
 
     thread1 = threading.Thread(target=run_start)
     thread2 = threading.Thread(target=connection)
