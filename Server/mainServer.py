@@ -1,6 +1,7 @@
 import socket
 import random
 import threading
+import subprocess
 from Game import Game
 
 def handle_client(client, game, address):
@@ -8,7 +9,12 @@ def handle_client(client, game, address):
         try:
             data = client.recv(1024).decode('utf-8')
             if len(data) > 0:
-                if "possible moves" in data:
+                if data == "Легкий" or data == "Сложный":
+                    if data == "Легкий":
+                        subprocess.call(["python", "EasyBot/EasyBotmain.py"])
+                    else:
+                        subprocess.call(["python", "HardBot/Botmain.py"])
+                elif "possible moves" in data:
                     if game.players_ip[address[0]][1]:
                         split = data.split(",")
                         response = game.get_possible_moves(data.split(',')[1].split(), split[2])

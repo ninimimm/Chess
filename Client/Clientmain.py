@@ -8,6 +8,7 @@ class SharedData:
         self.coordinate = None
         self.game = None
         self.answer_button = None
+        self.start_bot = ""
 
 # Создаем единственный экземпляр SharedData
 shared_data = SharedData()
@@ -23,6 +24,9 @@ if __name__ == "__main__":
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client.connect(('178.154.244.233', 8080))
         while True:
+            if len(shared_data.start_bot) > 0:
+                client.sendall(shared_data.start_bot.encode('utf-8'))
+                shared_data.start_bot = ""
             if shared_data.coordinate is not None:
                 if shared_data.coordinate[0] < 0 or shared_data.coordinate[1] < 0 or shared_data.coordinate[0] > 7 or shared_data.coordinate[1] > 7:
                     shared_data.coordinate = None

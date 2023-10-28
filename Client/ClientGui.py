@@ -55,6 +55,7 @@ class ClientGui:
         self.canvas = tk.Canvas(self.root, width=1000, height=1000)
         self.canvas.pack()
 
+        self.shared_data.start_bot = computer_difficulty
         # Создайте экземпляр игры и что-либо еще, что вам нужно для вашего приложения
         self.game = ClientGame(self.root, self.images, self.canvas, self.square_size, self.diffy, self.diffx,
                                self.shared_data)

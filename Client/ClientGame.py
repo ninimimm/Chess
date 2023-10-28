@@ -111,7 +111,8 @@ class ClientGame:
                                                      j * self.square_size + self.diffy - 20,
                                                      anchor=tk.NW, image=images["black_king"]), (j, i)]
         self.shared_data.game = self
-
+        self.our_text = self.canvas.create_text(910, 400, text=f"Вы:\n{self.color}", fill="black", font=("Helvetica", 16))
+        self.enemy_text = self.canvas.create_text(939, 450, text=f"Противник:\n{self.color}", fill="black", font=("Helvetica", 16))
     def on_click(self, event):
         cord = ((event.x - self.diffx) // self.square_size, (event.y - self.diffy) // self.square_size)
         print(self.color)
@@ -125,6 +126,8 @@ class ClientGame:
     def get_content(self, cages, figures, color):
         if self.color is None:
             self.color = color
+        self.canvas.itemconfig(self.our_text, text=f"Вы:\n{self.color}")
+        self.canvas.itemconfig(self.enemy_text, text=f"Противник:\n{'white' if self.color == 'black' else 'black'}")
         for i in range(8):
             for j in range(8):
                 if self.string_images[i][j] != '' and self.string_images[i][j] not in figures:
