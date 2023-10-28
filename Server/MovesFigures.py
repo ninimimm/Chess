@@ -23,13 +23,14 @@ class MoveFigures:
 
     def get_enemy_figure_moves(self, args):
         enemy_figure, dict_cages, tuple_coordinate = args
-        if enemy_figure.name not in self.dict_figure_moves or \
-            any(any(cord in value for value in self.dict_figure_moves[enemy_figure.name]) for cord in tuple_coordinate):
-            enemy_figure_moves = enemy_figure.get_moves(enemy_figure.coordinate,
-                                                        dict_cages[enemy_figure.coordinate], dict_cages)
-            self.dict_figure_moves[enemy_figure.name] = enemy_figure_moves.copy()
-            return self.dict_figure_moves[enemy_figure.name]
-        return self.dict_figure_moves[enemy_figure.name]
+        return enemy_figure.get_moves(enemy_figure.coordinate, dict_cages[enemy_figure.coordinate], dict_cages)
+        # if enemy_figure.name not in self.dict_figure_moves or \
+        #     any(any(cord in value for value in self.dict_figure_moves[enemy_figure.name]) for cord in tuple_coordinate):
+        #     enemy_figure_moves = enemy_figure.get_moves(enemy_figure.coordinate,
+        #                                                 dict_cages[enemy_figure.coordinate], dict_cages)
+        #     self.dict_figure_moves[enemy_figure.name] = enemy_figure_moves.copy()
+        #     return self.dict_figure_moves[enemy_figure.name]
+        # return self.dict_figure_moves[enemy_figure.name]
 
     def get_enemy_figures(self, dict_cages, color):
         enemy_figures = []
