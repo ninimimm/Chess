@@ -6,7 +6,6 @@ class MoveFigures:
         self.game = game
         self.king = None
         self.enemy_figures = []
-        self.dict_figure_moves = {}
 
     def draw(self, possible_moves): # pragma: no cover
         for move in possible_moves:
