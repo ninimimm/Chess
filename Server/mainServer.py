@@ -37,6 +37,7 @@ def handle_client(client, game, address):
                         cl.sendall(game.get_response(address[0]).encode('utf-8'))
                 else:
                     message = data.split()
+                    print(message, "massage")
                     if len(message) == 0:
                         client.sendall("Вы получили мат".encode('utf-8'))
                     else:
