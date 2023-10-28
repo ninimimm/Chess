@@ -73,6 +73,7 @@ if __name__ == "__main__":  # pragma: no cover
                         client.sendall(shared_data.answer_button.encode('utf-8'))
                         shared_data.answer_button = None
                     else:
+                        print()
                         print(data)
                         if len(data) > 0:
                             parse = data.split(" ,")
