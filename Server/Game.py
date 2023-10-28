@@ -11,6 +11,7 @@ from Player import Player
 
 class Game:
     def __init__(self, square_size, diffy, diffx):
+        self.last_move = None
         self.players_ip = {}
         self.index_white_pawn = 0
         self.index_black_pawn = 0
@@ -119,12 +120,13 @@ class Game:
                 print(self.black_player.figures)
                 if self.dict_cages[source_coordinate].figure.name == "pawn" and coordinate[0] != source_coordinate[0]:
                     figure = self.dict_cages[(coordinate[0], source_coordinate[1])].figure
-                    print(figure)
-                    if figure.color == "white":
-                        self.white_player.figures.remove(figure)
-                    else:
-                        self.black_player.figures.remove(figure)
-                    self.dict_cages[(coordinate[0], source_coordinate[1])].figure = None
+                    if figure is not None:
+                        print(figure)
+                        if figure.color == "white":
+                            self.white_player.figures.remove(figure)
+                        else:
+                            self.black_player.figures.remove(figure)
+                        self.dict_cages[(coordinate[0], source_coordinate[1])].figure = None
 
                 source_cage.figure.coordinate = coordinate
                 self.dict_cages[coordinate].figure = source_cage.figure
@@ -136,8 +138,7 @@ class Game:
                 self.current = None
                 self.current_player = (self.current_player + 1) % 2
                 self.move_figures.print_dict_copy(self.dict_cages)
-                if cage.figure.name == "pawn":
-                    cage.figure.last_move = source_coordinate
+                self.last_move = source_coordinate
             elif cage.color != "green" and cage.figure is not None and self.players_ip[address][1] and cage.figure.color == self.players_ip[address][0]:
                 #print("могу что-то сделать")
                 self.current = (coordinate, cage)
