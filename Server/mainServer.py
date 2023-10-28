@@ -24,8 +24,11 @@ def handle_client(client, game, address):
                     if game.players_ip[address[0]][1]:
                         split = data.split(",")
                         response = game.get_possible_moves(data.split(',')[1].split(), split[2])
-                        send = "possible moves" + ",".join([f"{key[0]} {key[1]}:{'|'.join(value)}" for key, value in response.items()])
-                        client.sendall(send.encode('utf-8'))
+                        if len(response) == 0:
+                            client.sendall("Вы получили мат".encode('utf-8'))
+                        else:
+                            send = "possible moves" + ",".join([f"{key[0]} {key[1]}:{'|'.join(value)}" for key, value in response.items()])
+                            client.sendall(send.encode('utf-8'))
                 elif any(x in data for x in ["Queen", "Horse", "Elephant", "Rook"]):
                     game.ready = True
                     massage = data.split(",")

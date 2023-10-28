@@ -46,6 +46,8 @@ if __name__ == "__main__":
                         client.sendall(shared_data.answer_button.encode('utf-8'))
                         shared_data.answer_button = None
                     elif "possible moves" not in data:
+                        if data == "Вы получили мат":
+                            print("Вы получили мат")
                         print(data)
                         parse = data.split(" ,")
                         if parse[0] == "None":
