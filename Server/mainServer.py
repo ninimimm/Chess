@@ -11,9 +11,9 @@ def handle_client(client, game, address):
             if len(data) > 0:
                 if data == "Легкий" or data == "Сложный":
                     if data == "Легкий":
-                        subprocess.call(["python", "EasyBot/EasyBotmain.py"])
+                        subprocess.call(["/usr/bin/python3", "EasyBot/EasyBotmain.py"])
                     else:
-                        subprocess.call(["python", "HardBot/Botmain.py"])
+                        subprocess.call(["/usr/bin/python3", "HardBot/Botmain.py"])
                 elif "possible moves" in data:
                     if game.players_ip[address[0]][1]:
                         split = data.split(",")
