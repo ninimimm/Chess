@@ -119,7 +119,7 @@ class Game:
 
                 if self.dict_cages[source_coordinate].figure.name == "rook" or\
                         self.dict_cages[source_coordinate].figure.name == "king":
-                    cage.figure.last_move = source_coordinate
+                    self.dict_cages[source_coordinate].figure.last_move = source_coordinate
 
                 if self.dict_cages[source_coordinate].figure.name == "pawn" and coordinate[0] != source_coordinate[0]:
                     figure = self.dict_cages[(coordinate[0], source_coordinate[1])].figure
