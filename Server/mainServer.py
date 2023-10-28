@@ -37,22 +37,20 @@ def handle_client(client, game, address):
                         cl.sendall(game.get_response(address[0]).encode('utf-8'))
                 else:
                     message = data.split()
-                    print(message, "massage")
-                    if len(message) == 0:
-                        client.sendall("Вы получили мат".encode('utf-8'))
-                    else:
-                        print("Пытаюсь отправить данные клиенту")
-                        flag = game.dict_cages[(int(message[0]), int(message[1]))].color == "green"
-                        response = game.on_click((int(message[0]), int(message[1])), address[0])
-                        if len(clients) > 1 and game.players_ip[address[0]][1]:
-                            client.sendall(response.encode('utf-8'))
-                            if flag and "choice" not in response:
-                                for value in game.players_ip.values():
-                                    value[1] = not (value[1])
-                                for cl in clients:
-                                    if client != cl:
-                                        cl.sendall(response.encode('utf-8'))
-                        print("Отправил данные клиенту")
+                    print("Пытаюсь отправить данные клиенту")
+                    flag = game.dict_cages[(int(message[0]), int(message[1]))].color == "green"
+                    response = game.on_click((int(message[0]), int(message[1])), address[0])
+                    if len(clients) > 1 and game.players_ip[address[0]][1]:
+                        client.sendall(response.encode('utf-8'))
+                        if flag and "choice" not in response:
+                            for value in game.players_ip.values():
+                                value[1] = not (value[1])
+                            for cl in clients:
+                                if client != cl:
+                                    cl.sendall(response.encode('utf-8'))
+                    print("Отправил данные клиенту")
+            else:
+                client.sendall("Вы получили мат".encode('utf-8'))
         except (ConnectionResetError, OSError) as Ex:
             print(Ex)
             print("Клиент отключился")
