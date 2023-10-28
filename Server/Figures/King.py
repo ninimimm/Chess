@@ -22,12 +22,11 @@ class King:
         color = cage.figure.color
         possible_moves = [(x + dx, y + dy) for dx in [-1, 0, 1] for dy in [-1, 0, 1] if dx != 0 or dy != 0]
         possible = set()
-        print([dict_cages[(x, y)].figure is None for x in range(x, 0, -1)])
-        if self.last_move is None and all(dict_cages[(x, y)].figure is None for x in range(x, 0, -1))\
+        if self.last_move is None and all(dict_cages[(x, y)].figure is None for x in range(x-1, 0, -1))\
                 and dict_cages[(0, 0)].figure is not None and dict_cages[(0, 0)].figure.name == "rook"\
                 and dict_cages[(0, 0)].figure.last_move is None:
             possible.add((1, 0))
-        if self.last_move is None and all(dict_cages[(x, y)].figure is None for x in range(x, 7)) \
+        if self.last_move is None and all(dict_cages[(x, y)].figure is None for x in range(x+1, 7)) \
                 and dict_cages[(7, 0)].figure is not None and dict_cages[(7, 0)].figure.name == "rook" \
                 and dict_cages[(7, 0)].figure.last_move is None:
             possible.add((6, 0))
