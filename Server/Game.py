@@ -169,7 +169,8 @@ class Game:
                     string_figures += f"None "
                 else:
                     string_figures += f"{self.dict_cages[(j, i)].figure.color}_{self.dict_cages[(j, i)].figure.name}{self.dict_cages[(j, i)].figure.index} "
-        if self.get_possible_moves(string_figures, ["white, black"][self.current_player]) != {}:
+        figures = string_figures.split()
+        if self.get_possible_moves(figures, ["white, black"][self.current_player]) != {}:
             return f"{string_cages},{string_figures},{self.players_ip[address][0]}"
         if self.move_figures.is_check((self.move_figures.get_enemy_figures(self.dict_cages, ["white, black"][self.current_player]), self.dict_cages, (0, 0))):
             return f"{string_cages},{string_figures},{self.players_ip[address][0]}победа"
