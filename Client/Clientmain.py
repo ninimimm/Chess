@@ -46,9 +46,18 @@ if __name__ == "__main__":
                         client.sendall(shared_data.answer_button.encode('utf-8'))
                         shared_data.answer_button = None
                     elif "possible moves" not in data:
-                        if data == "Вы получили мат":
-                            print("Вы получили мат")
-                        print(data)
+                        is_win = False
+                        is_lose = False
+                        is_draw = False
+                        if "победа" in data:
+                            is_win = True
+                            data = data[:-6]
+                        elif "поражение" in data:
+                            is_lose = True
+                            data = data[:-9]
+                        elif "пат" in data:
+                            is_draw = True
+                            data = data[:-3]
                         parse = data.split(" ,")
                         if parse[0] == "None":
                             cages = "None"
@@ -56,6 +65,12 @@ if __name__ == "__main__":
                             cages = [x for x in parse[0].split()]
                         figures = [x for x in parse[1].split()]
                         shared_data.game.get_content(cages, figures, parse[2])
+                        if is_win:
+                            print("Я победил")
+                        elif is_draw:
+                            print("Ничья")
+                        elif is_lose:
+                            print("Я проиграл")
 
     thread1 = threading.Thread(target=run_start)
     thread2 = threading.Thread(target=connection)
