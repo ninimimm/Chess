@@ -174,6 +174,7 @@ class Game:
         for ip in self.players_ip:
             if address != ip:
                 color = self.players_ip[ip][0]
+        print(color)
         if self.get_possible_moves(figures, color) != {}:
             return f"{string_cages},{string_figures},{self.players_ip[address][0]}"
         print(self.current_player)
