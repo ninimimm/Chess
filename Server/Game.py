@@ -171,7 +171,15 @@ class Game:
                     string_figures += f"{self.dict_cages[(j, i)].figure.color}_{self.dict_cages[(j, i)].figure.name}{self.dict_cages[(j, i)].figure.index} "
         color = [self.players_ip[key][0] for key in self.players_ip if key != address][0]
         end = "игра"
-        if len(self.move_figures.get_possible_defense_moves(color, self.dict_cages)) == 0:
+        en_figures = self.move_figures.get_enemy_figures(self.dict_cages, color)
+        self.current = (self.last_move, self.dict_cages)
+        flag = True
+        for figure in en_figures:
+            self.current = (figure.coordinate, self.dict_cages)
+            if len(self.move_figures.get_possible_defense_moves(color, self.dict_cages)) != 0:
+                flag = False
+                break
+        if flag:
             if self.move_figures.is_check(self.move_figures.enemy_figures, self.dict_cages):
                 end = "победа"
             else:
