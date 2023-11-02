@@ -40,6 +40,7 @@ def handle_client(client, game, address):
                     print("Пытаюсь отправить данные клиенту")
                     flag = game.dict_cages[(int(message[0]), int(message[1]))].color == "green"
                     response = game.on_click((int(message[0]), int(message[1])), address[0])
+                    print(response)
                     if len(clients) > 1 and game.players_ip[address[0]][1]:
                         client.sendall(response.encode('utf-8'))
                         if flag and "choice" not in response:
