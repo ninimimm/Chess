@@ -172,7 +172,7 @@ class Game:
         color = [self.players_ip[key][0] for key in self.players_ip if key != address][0]
         end = "игра"
         if len(self.get_possible_moves(string_figures.split(), color)) == 0:
-            if self.move_figures.is_check((self.move_figures.enemy_figures, self.dict_cages)):
+            if self.move_figures.is_check(self.move_figures.enemy_figures, self.dict_cages):
                 end = "победа"
             else:
                 end = "ничья"
