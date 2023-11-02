@@ -175,10 +175,11 @@ class Game:
         self.current = (self.last_move, self.dict_cages)
         flag = True
         for figure in en_figures:
-            self.current = (figure.coordinate, self.dict_cages)
+            self.current = (figure.coordinate, self.dict_cages[figure.coordinate])
             if len(self.move_figures.get_possible_defense_moves(color, self.dict_cages)) != 0:
                 flag = False
                 break
+        self.current = None
         if flag:
             if self.move_figures.is_check(self.move_figures.enemy_figures, self.dict_cages):
                 end = "победа"
