@@ -11,8 +11,7 @@ class MoveFigures:
         for move in possible_moves:
             self.game.dict_cages[move].color = "green"
 
-    def is_check(self, args):
-        enemy_to_king, dict_cages, tuple_coordinate = args
+    def is_check(self, enemy_to_king, dict_cages):
         for enemy_figure in enemy_to_king:
             for cord in self.get_enemy_figure_moves(enemy_figure, dict_cages):
                 if cord == self.king.coordinate:
@@ -43,8 +42,7 @@ class MoveFigures:
             piece.coordinate = move
             dict_cages[move].figure = piece
             dict_cages[start_cord].figure = None
-            args = self.enemy_figures, dict_cages, (start_cord, move)
-            if not self.is_check(args):
+            if not self.is_check(self.enemy_figures, dict_cages):
                 possible_defense_moves.add(move)
             piece.coordinate = start_cord
             dict_cages[start_cord].figure = piece

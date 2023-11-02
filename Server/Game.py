@@ -169,7 +169,14 @@ class Game:
                     string_figures += f"None "
                 else:
                     string_figures += f"{self.dict_cages[(j, i)].figure.color}_{self.dict_cages[(j, i)].figure.name}{self.dict_cages[(j, i)].figure.index} "
-        return f"{string_cages},{string_figures},{self.players_ip[address][0]}"
+        color = [self.players_ip[key][0] for key in self.players_ip if key != address][0]
+        end = "игра"
+        if len(self.get_possible_moves(string_figures, color)) == 0:
+            if self.move_figures.is_check((self.move_figures.enemy_figures, self.dict_cages)):
+                end = "победа"
+            else:
+                end = "ничья"
+        return f"{string_cages},{string_figures},{self.players_ip[address][0]}, {end}"
 
     def fill(self): # pragma: no cover
         for i in range(8):

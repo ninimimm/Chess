@@ -42,6 +42,9 @@ def handle_client(client, game, address):
                     response = game.on_click((int(message[0]), int(message[1])), address[0])
                     if len(clients) > 1 and game.players_ip[address[0]][1]:
                         client.sendall(response.encode('utf-8'))
+                        end_massage = response.split(', ')[-1]
+                        if end_massage == "победа":
+                            response = response[:-6] + "поражение"
                         if flag and "choice" not in response:
                             for value in game.players_ip.values():
                                 value[1] = not (value[1])
@@ -49,10 +52,6 @@ def handle_client(client, game, address):
                                 if client != cl:
                                     cl.sendall(response.encode('utf-8'))
                     print("Отправил данные клиенту")
-            else:
-                for cl in clients:
-                    if cl != client:
-                        cl.sendall("Вы получили мат".encode('utf-8'))
         except (ConnectionResetError, OSError) as Ex:
             print(Ex)
             print("Клиент отключился")
