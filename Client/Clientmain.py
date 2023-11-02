@@ -66,11 +66,9 @@ if __name__ == "__main__":
                         figures = [x for x in parse[1].split()]
                         shared_data.game.get_content(cages, figures, parse[2])
                         if is_win:
-                            print("Я победил")
-                        elif is_draw:
-                            print("Ничья")
+                            shared_data.game.canvas.itemconfig(shared_data.game.our_text, text=f"Победа!")
                         elif is_lose:
-                            print("Я проиграл")
+                            shared_data.game.canvas.itemconfig(shared_data.game.our_text, text=f"Поражение!")
 
     thread1 = threading.Thread(target=run_start)
     thread2 = threading.Thread(target=connection)
