@@ -169,6 +169,7 @@ class Game:
                     string_figures += f"None "
                 else:
                     string_figures += f"{self.dict_cages[(j, i)].figure.color}_{self.dict_cages[(j, i)].figure.name}{self.dict_cages[(j, i)].figure.index} "
+        save_string = f"{string_cages},{string_figures},{self.players_ip[address][0]}" 
         color = [self.players_ip[key][0] for key in self.players_ip if key != address][0]
         end = "игра"
         en_figures = self.move_figures.get_enemy_figures(self.dict_cages, color)
@@ -185,7 +186,7 @@ class Game:
                 end = "победа"
             else:
                 end = "ничья"
-        return f"{string_cages},{string_figures},{self.players_ip[address][0]}, {end}"
+        return f"{save_string}, {end}"
 
     def fill(self): # pragma: no cover
         for i in range(8):
