@@ -154,7 +154,6 @@ class Game:
                 self.move_figures.print_dict_copy(self.dict_cages)
                 self.last_move = source_coordinate
                 end = self.is_end_game(address)
-                print("Нажали на зеленую")
             elif cage.color != "green" and cage.figure is not None and self.players_ip[address][1] and cage.figure.color == self.players_ip[address][0]:
                 self.current = (coordinate, cage)
                 self.fill()
@@ -162,8 +161,6 @@ class Game:
         return self.get_response(address, end)
 
     def get_response(self, address, end):
-        print("Вызвали метод")
-        print(self.move_figures.print_dict_copy(self.dict_cages))
         string_cages = ""
         string_figures = ""
         for i in range(8):
@@ -187,7 +184,6 @@ class Game:
         for ip in self.players_ip:
             if address != ip:
                 color = self.players_ip[ip][0]
-                print(color)
         if self.get_possible_moves(figures, color) != {}:
             return ""
         if self.move_figures.is_check(

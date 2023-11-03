@@ -81,7 +81,6 @@ if __name__ == '__main__':
             game.players_ip[address[0]] = ["black", False]
             data = [f"{game.dict_cages[(j, i)].figure.color}_{game.dict_cages[(j, i)].figure.name}{game.dict_cages[(j, i)].figure.index}"
                     if game.dict_cages[(j, i)].figure is not None else "None" for i in range(8) for j in range(8)]
-            print(data)
 
             response = game.get_possible_moves(data, "white")
             send = "possible moves" + ",".join(

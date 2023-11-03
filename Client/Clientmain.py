@@ -47,19 +47,15 @@ if __name__ == "__main__":
                         shared_data.answer_button = None
                     elif "possible moves" not in data:
                         print(data)
-                        is_end = False
                         if "победа" in data:
                             shared_data.game.canvas.itemconfig(shared_data.game.our_text, text=f"Победа!")
                             data = data[:-6]
-                            is_end = True
                         elif "поражение" in data:
                             shared_data.game.canvas.itemconfig(shared_data.game.our_text, text=f"Поражение!")
                             data = data[:-9]
-                            is_end = True
                         elif "пат" in data:
                             shared_data.game.canvas.itemconfig(shared_data.game.our_text, text=f"Ничья!")
                             data = data[:-3]
-                            is_end = True
                         parse = data.split(" ,")
                         if parse[0] == "None":
                             cages = "None"
@@ -67,8 +63,6 @@ if __name__ == "__main__":
                             cages = [x for x in parse[0].split()]
                         figures = [x for x in parse[1].split()]
                         shared_data.game.get_content(cages, figures, parse[2])
-                        # if is_end:
-                        #     client.close()
 
     thread1 = threading.Thread(target=run_start)
     thread2 = threading.Thread(target=connection)
