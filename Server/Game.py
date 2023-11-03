@@ -153,6 +153,7 @@ class Game:
                 self.current_player = (self.current_player + 1) % 2
                 self.move_figures.print_dict_copy(self.dict_cages)
                 self.last_move = source_coordinate
+                print("Нажали на зеленую")
             elif cage.color != "green" and cage.figure is not None and self.players_ip[address][1] and cage.figure.color == self.players_ip[address][0]:
                 self.current = (coordinate, cage)
                 self.fill()
