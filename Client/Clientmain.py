@@ -46,18 +46,19 @@ if __name__ == "__main__":
                         client.sendall(shared_data.answer_button.encode('utf-8'))
                         shared_data.answer_button = None
                     elif "possible moves" not in data:
-                        is_win = False
-                        is_lose = False
-                        is_draw = False
+                        is_end = False
                         if "победа" in data:
-                            is_win = True
+                            shared_data.game.canvas.itemconfig(shared_data.game.our_text, text=f"Победа!")
                             data = data[:-6]
+                            is_end = True
                         elif "поражение" in data:
-                            is_lose = True
+                            shared_data.game.canvas.itemconfig(shared_data.game.our_text, text=f"Поражение!")
                             data = data[:-9]
+                            is_end = True
                         elif "пат" in data:
-                            is_draw = True
+                            shared_data.game.canvas.itemconfig(shared_data.game.our_text, text=f"Ничья!")
                             data = data[:-3]
+                            is_end = True
                         parse = data.split(" ,")
                         if parse[0] == "None":
                             cages = "None"
@@ -65,10 +66,8 @@ if __name__ == "__main__":
                             cages = [x for x in parse[0].split()]
                         figures = [x for x in parse[1].split()]
                         shared_data.game.get_content(cages, figures, parse[2])
-                        if is_win:
-                            shared_data.game.canvas.itemconfig(shared_data.game.our_text, text=f"Победа!")
-                        elif is_lose:
-                            shared_data.game.canvas.itemconfig(shared_data.game.our_text, text=f"Поражение!")
+                        if is_end:
+                            client.close()
 
     thread1 = threading.Thread(target=run_start)
     thread2 = threading.Thread(target=connection)
