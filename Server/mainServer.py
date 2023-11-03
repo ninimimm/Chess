@@ -47,9 +47,8 @@ def handle_client(client, game, address):
                                 value[1] = not (value[1])
                             for cl in clients:
                                 if client != cl:
-                                    # if "победа" in response:
-                                    #     cl.sendall(f"{response[:-6]}поражение".encode('utf-8'))
-                                    # else:
+                                    if "победа" in response:
+                                        response = f"{response[:-6]}поражение"
                                     if game.players_ip[address[0]][0] == "white":
                                         cl.sendall("black".join((response.rsplit("white", 1))).encode('utf-8'))
                                     else:
