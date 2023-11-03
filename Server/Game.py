@@ -173,7 +173,7 @@ class Game:
         figures = string_figures.split()
         for ip in self.players_ip:
             if address != ip:
-                color = self.players_ip[ip]
+                color = self.players_ip[ip][0]
                 print(color)
         print(self.get_possible_moves(figures, color))
         if self.get_possible_moves(figures, color) != {}:
