@@ -126,8 +126,9 @@ class ClientGame:
     def get_content(self, cages, figures, color):
         if self.color is None:
             self.color = color
-        self.canvas.itemconfig(self.our_text, text=f"Вы:\nblack")
-        self.canvas.itemconfig(self.enemy_text, text=f"Противник:\nwhite")
+        if "None" in self.canvas.itemcget(self.our_text, 'text'):
+            self.canvas.itemconfig(self.our_text, text=f"Вы:\nblack")
+            self.canvas.itemconfig(self.enemy_text, text=f"Противник:\nwhite")
         for i in range(8):
             for j in range(8):
                 if self.string_images[i][j] != '' and self.string_images[i][j] not in figures:
