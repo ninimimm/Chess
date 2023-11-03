@@ -92,7 +92,7 @@ class Game:
     def on_click(self, coordinate, address):
         if len(self.players_ip) < 2:
             return
-
+        end = ""
         if self.ready:
             cage = self.dict_cages[coordinate]
             if cage.color == "green" and self.current is not None:
@@ -153,14 +153,15 @@ class Game:
                 self.current_player = (self.current_player + 1) % 2
                 self.move_figures.print_dict_copy(self.dict_cages)
                 self.last_move = source_coordinate
+                end = self.is_end_game(address)
                 print("Нажали на зеленую")
             elif cage.color != "green" and cage.figure is not None and self.players_ip[address][1] and cage.figure.color == self.players_ip[address][0]:
                 self.current = (coordinate, cage)
                 self.fill()
                 cage.figure.moves(cage, self.dict_cages)
-        return self.get_response(address)
+        return self.get_response(address, end)
 
-    def get_response(self, address):
+    def get_response(self, address, end):
         print("Вызвали метод")
         print(self.move_figures.print_dict_copy(self.dict_cages))
         string_cages = ""
@@ -172,20 +173,27 @@ class Game:
                     string_figures += f"None "
                 else:
                     string_figures += f"{self.dict_cages[(j, i)].figure.color}_{self.dict_cages[(j, i)].figure.name}{self.dict_cages[(j, i)].figure.index} "
+        return f"{string_cages},{string_figures},{self.players_ip[address][0]}{end}"
+
+    def is_end_game(self, address):
         color = ""
-        figures = string_figures.split()
+        figures = []
+        for i in range(8):
+            for j in range(8):
+                if self.dict_cages[(j, i)].figure is None:
+                    figures.append("None")
+                else:
+                    figures.append(f"{self.dict_cages[(j, i)].figure.color}_{self.dict_cages[(j, i)].figure.name}{self.dict_cages[(j, i)].figure.index}")
         for ip in self.players_ip:
             if address != ip:
                 color = self.players_ip[ip][0]
                 print(color)
-        print(self.get_possible_moves(figures, color))
         if self.get_possible_moves(figures, color) != {}:
-            return f"{string_cages},{string_figures},{self.players_ip[address][0]}"
-        print(self.move_figures.is_check((self.move_figures.get_enemy_figures(self.dict_cages, color), self.dict_cages, (0, 0))))
-        if self.move_figures.is_check((self.move_figures.get_enemy_figures(self.dict_cages, color), self.dict_cages, (0, 0))):
-            return f"{string_cages},{string_figures},{self.players_ip[address][0]}победа"
-        return f"{string_cages},{string_figures},{self.players_ip[address][0]}пат"
-
+            return ""
+        if self.move_figures.is_check(
+                (self.move_figures.get_enemy_figures(self.dict_cages, color), self.dict_cages, (0, 0))):
+            return "победа"
+        return "пат"
     def fill(self): # pragma: no cover
         for i in range(8):
             for j in range(8):
