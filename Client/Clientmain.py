@@ -2,7 +2,6 @@ import socket
 import select
 import threading
 from ClientGui import ClientGui
-from ClientGame import ClientGame
 class SharedData:
     def __init__(self):
         self.coordinate = None
