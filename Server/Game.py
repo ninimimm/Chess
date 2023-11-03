@@ -160,6 +160,7 @@ class Game:
         return self.get_response(address)
 
     def get_response(self, address):
+        print(self.move_figures.print_dict_copy(self.dict_cages))
         string_cages = ""
         string_figures = ""
         for i in range(8):
