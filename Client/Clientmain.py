@@ -46,6 +46,7 @@ if __name__ == "__main__":
                         client.sendall(shared_data.answer_button.encode('utf-8'))
                         shared_data.answer_button = None
                     elif "possible moves" not in data:
+                        print(data)
                         is_end = False
                         if "победа" in data:
                             shared_data.game.canvas.itemconfig(shared_data.game.our_text, text=f"Победа!")
@@ -66,8 +67,8 @@ if __name__ == "__main__":
                             cages = [x for x in parse[0].split()]
                         figures = [x for x in parse[1].split()]
                         shared_data.game.get_content(cages, figures, parse[2])
-                        if is_end:
-                            client.close()
+                        # if is_end:
+                        #     client.close()
 
     thread1 = threading.Thread(target=run_start)
     thread2 = threading.Thread(target=connection)

@@ -174,10 +174,12 @@ class Game:
         for ip in self.players_ip:
             if address != ip:
                 color = self.players_ip[ip]
+                print(color)
+        print(self.get_possible_moves(figures, color))
         if self.get_possible_moves(figures, color) != {}:
             return f"{string_cages},{string_figures},{self.players_ip[address][0]}"
-        print(self.current_player)
-        if self.move_figures.is_check((self.move_figures.get_enemy_figures(self.dict_cages, ["white", "black"][self.current_player]), self.dict_cages, (0, 0))):
+        print(self.move_figures.is_check((self.move_figures.get_enemy_figures(self.dict_cages, color), self.dict_cages, (0, 0))))
+        if self.move_figures.is_check((self.move_figures.get_enemy_figures(self.dict_cages, color), self.dict_cages, (0, 0))):
             return f"{string_cages},{string_figures},{self.players_ip[address][0]}победа"
         return f"{string_cages},{string_figures},{self.players_ip[address][0]}пат"
 
