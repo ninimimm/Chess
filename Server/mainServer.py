@@ -47,10 +47,10 @@ def handle_client(client, game, address):
                                 value[1] = not (value[1])
                             for cl in clients:
                                 if client != cl:
-                                    if "победа" in response:
-                                        cl.sendall(f"{response[:-6]}поражение".encode('utf-8'))
-                                    else:
-                                        cl.sendall(response.encode('utf-8'))
+                                    # if "победа" in response:
+                                    #     cl.sendall(f"{response[:-6]}поражение".encode('utf-8'))
+                                    # else:
+                                    cl.sendall(response.encode('utf-8'))
                     print("Отправил данные клиенту")
         except (ConnectionResetError, OSError) as Ex:
             print(Ex)
