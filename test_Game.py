@@ -69,7 +69,7 @@ class test_Pawn(unittest.TestCase): # pragma: no cover
         self.game.dict_cages[horse.coordinate] = Cage("white", horse.coordinate, horse)
         address = "123.123.123.123"
         self.game.players_ip[address] = ("white", True)
-        string = self.game.get_response(address)
+        string = self.game.get_response(address, "")
         equal = [x.figure.name if x.figure is not None else "None" for x in self.game.dict_cages.values()]
         equal[horse.coordinate[1]*8 + horse.coordinate[0]] = "horse"
         self.assertEqual((string.split(',')[0].split(),

@@ -33,10 +33,8 @@ class test_MovesFigures(unittest.TestCase): # pragma: no cover
         self.move_figures.dict_figure_moves = {}
         enemy_figures = self.move_figures.get_enemy_figures(dict_cages, "white")
         print(enemy_figures)
-        tuple = ((0, 1), (0, 3))
-        args = enemy_figures[0], dict_cages, tuple
         expected_moves = {(0, 5), (0, 4)}
-        self.assertSetEqual(set(self.move_figures.get_enemy_figure_moves(args)), expected_moves)
+        self.assertSetEqual(set(self.move_figures.get_enemy_figure_moves(enemy_figures[0], dict_cages)), expected_moves)
 
     def test_is_check_true(self):
         pawn_white = Pawn("white", self.move_figures, self.game, (0, 1), 0)

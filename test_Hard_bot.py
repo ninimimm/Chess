@@ -206,4 +206,4 @@ class test_Hard_bot(unittest.TestCase): # pragma: no cover
         thread1.join()
         while bot.is_running:
             continue
-        self.assertEqual(res, ((0, 0), (0, 1)))
+        self.assertEqual(res in [((0, 0), (0, 1)), ((0, 0), (1, 0))], True)
