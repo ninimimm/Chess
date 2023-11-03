@@ -40,14 +40,16 @@ class Pawn:
                 target_cage = dict_cages[(x + dx, y + direction)]
                 if target_cage.figure is not None and target_cage.figure.color != color:
                     possible_moves.add((x + dx, y + direction))
-
-        if x == 3 or x == 4:
+        if y == 3 or y == 4:
             right_coordinate, left_coordinate = (x + 1, y), (x - 1, y)
-            right_cage, left_cage = dict_cages[right_coordinate], dict_cages[left_coordinate]
-            if right_cage.figure is not None and right_cage.figure.name == "pawn" and right_cage.figure.color != color\
-                    and self.game.last_move == (x + 1, y + 2 * direction):
-                possible_moves.add((x + 1, y + 1 * direction))
-            if left_cage.figure is not None and left_cage.figure.name == "pawn" and left_cage.figure.color != color\
-                    and self.game.last_move == (x - 1, y + 2 * direction):
-                possible_moves.add((x - 1, y + 1 * direction))
+            if right_coordinate in dict_cages:
+                right_cage = dict_cages[right_coordinate]
+                if right_cage.figure is not None and right_cage.figure.name == "pawn" and right_cage.figure.color != color\
+                        and self.game.last_move == (x + 1, y + 2 * direction):
+                    possible_moves.add((x + 1, y + 1 * direction))
+            if left_coordinate in dict_cages:
+                left_cage = dict_cages[left_coordinate]
+                if left_cage.figure is not None and left_cage.figure.name == "pawn" and left_cage.figure.color != color\
+                        and self.game.last_move == (x - 1, y + 2 * direction):
+                    possible_moves.add((x - 1, y + 1 * direction))
         return possible_moves
